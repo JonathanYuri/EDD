@@ -35,6 +35,24 @@ void imprimir(No *raiz)
     }
 }
 
+// diz todos os elementos que estão na borda da arvore vvvv
+void profundidade(No *raiz, int contador)
+{
+    if (raiz != NULL)
+    {
+        if (raiz->left == NULL && raiz->right == NULL)
+        {
+            printf("(%i", raiz->valor);
+            printf("(%i))", contador);
+        }
+        //printf("%i", raiz->valor);
+        //printf("ESQUERDA\n");
+        profundidade(raiz->left, contador+1);
+        //printf("DIREITA\n");
+        profundidade(raiz->right, contador+1);
+    }
+}
+
 int pesquisa(No *raiz, int num)
 {
     if (raiz != NULL)
@@ -99,18 +117,29 @@ int main()
     raiz = inserir(raiz, 7);
     raiz = inserir(raiz, 9);
     raiz = inserir(raiz, 4);
+    raiz = inserir(raiz, 3);
     raiz = inserir(raiz, 5);
-    int a = pesquisa(raiz, 4);
-    if (a == 0)
-    {
-        printf(">> Elemento nao encontrado\n");
-    }
-    else
-    {
-        printf(">> Elemento encontrado\n");
-    }
+    //int a = pesquisa(raiz, 4);
+    //if (a == 0)
+    //{
+    //    printf(">> Elemento nao encontrado\n");
+    //}
+    //else
+    //{
+    //    printf(">> Elemento encontrado\n");
+    //}
     
-    imprimir(raiz);
+    //imprimir(raiz);
+    profundidade(raiz, 0);
+    printf("\n");
+    profundidade(raiz->left, 1);
+    printf("\n");
+    profundidade(raiz->right, 1);
+    
+    //int left = altura(raiz->left, 0);
+    //int right = altura(raiz->right, 0);
+    
+    //printf("\nAltura left: %i right: %i\n", left, right);
     liberar(raiz);
 
     return 0;
