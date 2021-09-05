@@ -203,9 +203,10 @@ int main()
     }
     
     
-    //printf("\n\n");
+    printf("\n");
+    printf("Sua arvore:\n");
     imprimir(raiz);
-    //printf("\n\n");
+    printf("\n");
     
     while(elementoSaiu != -1)
     {
@@ -243,7 +244,8 @@ int main()
     //raiz = raiz->esq;        o 6 está indo pro lado esquerdo do 9 realmente o calculo que ta dando errado
     //printf("%i", raiz->valor);
     
-    printf("\n\n");
+    printf("\n");
+    printf("Sua arvore:\n");
     imprimir(raiz);
     //printf("\n\n");
     
