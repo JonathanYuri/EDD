@@ -7,6 +7,8 @@
 // Jonathan Yuri
 // Welson Deivid
 
+// Linguagem : C
+
 typedef struct no{
     int valor;
     struct no *esq;
@@ -187,7 +189,7 @@ int main()
     No *raiz;
 
     inicializar(raiz);
-    int num, elementoSaiu = 0;
+    int num, elementoSaiu = 0, existe;
     int profEsq = 0, profDir = 0, quant_leituras;
 
     printf("Digite a quantidade de nos que deseja inserir:\n");
@@ -199,7 +201,16 @@ int main()
     {
         printf("Digite um numero\n");
         num = verificarLetra();
-        raiz = inserir(raiz, num);
+        existe = pesquisa(raiz, num);
+        if (existe == 0)
+        {
+            raiz = inserir(raiz, num);
+        }
+        else
+        {
+            printf("\nElemento ja existe, por favor digite outro\n");
+            c--;
+        }
     }
     
     
@@ -256,56 +267,3 @@ int main()
 
     return 0;
 }
-
-//
-
-    //raiz = inserir(raiz, 7); // ^^ fazer esses inserir de um jeito que eu peça o num como está no for acima
-    //raiz = inserir(raiz, 9); // mudar o modo de inserir deixando caotico (tirar se for maior vai pra um lado)
-    //raiz = inserir(raiz, 4); // fazer como nos outros trabalhos chamar pra preencher camada por camada
-    //raiz = inserir(raiz, 3);
-    //raiz = inserir(raiz, 5);
-    //raiz = inserir(raiz, 6);
-
-    //int a = pesquisa(raiz, 4);
-    //if (a == 0)
-    //{
-    //    printf(">> Elemento nao encontrado\n");
-    //}
-    //else
-    //{
-    //    printf(">> Elemento encontrado\n");
-    //}
-    /*
-    profundidade(raiz, 0, &profEsq);
-    printf("\n");
-    
-    profundidade(raiz->esq, 1, &profEsq);
-    printf("\n");
-    
-    profundidade(raiz->dir, 1, &profDir);
-    printf("\n%i %i\n", profEsq, profDir);
-    
-    printf("\n\n");
-    imprimir(raiz);
-    printf("\n\n");
-
-    int elementoSaiu = balancear(raiz, profEsq, profDir);
-    printf("[%i]", elementoSaiu);
-    
-    if (profEsq > profDir)
-    {
-        raiz->dir = inserir(raiz->dir, elementoSaiu);
-    }
-    else if (profDir > profEsq)
-    {
-        raiz->esq = inserir(raiz->esq, elementoSaiu);
-    }
-    
-    profundidade(raiz->esq, 1, &profEsq);
-    printf("==%i==", profEsq);
-    printf("\n");
-    
-    profundidade(raiz->dir, 1, &profDir);
-    printf("==%i==", profDir);
-    printf("\n%i %i\n", profEsq, profDir);
-*/
