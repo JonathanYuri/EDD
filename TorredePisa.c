@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// GRUPO
+
+//JONATHAN YURI
+//WELSON DEIVID
+
+//LINGUAGEM : C
+
 typedef struct no
 {
     int valor;
