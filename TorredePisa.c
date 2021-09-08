@@ -198,7 +198,7 @@ int checar_numero ()
     n = scanf ("%d", &num);
     getchar();
     
-    if (n > 0 && num > 0)
+    if (n > 0)
     {
         return num;
     }
