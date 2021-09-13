@@ -1,20 +1,19 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-//semaforo verde = 2
-//semaforo amarelo = 3
-//semaforo vermelho = 4
+//Struct(semaforo verde = 24
+//semaforo amarelo = 31
+//semaforo vermelho = 42)
 //Posições igual a 7 e 1 não pode andar
 //Posição do Carro: Linha X e entre Coluna Y e Y+1 (carro12: X=1, Y entre 2 e 3)
 //X = 0 e Y = 0 então se torna 5 e o 100 fica entre X=4, Y entre 4 e 5
 
-void Posição_carro (int matrix[][m])
-{
-    char string = "carro12";
-}
 
 int main()
 {
     int matrix[36][37];
+    int f = 0, g = 0;
     
     //Matrix
     for (int i = 0; i < 36; i++)
@@ -69,7 +68,17 @@ int main()
     matrix[35][36] = 0;
     
     //Colocar o carro na Posição
-    Posição_carro (matrix);
+    
+    for (int x = 1; x < 9; x++)
+    {
+        for (int y = 1; y < 9; y++)
+        {
+            matrix[f+3][g+5] = 1;
+            g += 4;
+        }
+        g = 0;
+        f += 4;
+    }
     
     //Print
     for (int i = 0; i < 36; i++)
