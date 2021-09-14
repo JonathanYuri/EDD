@@ -3,15 +3,10 @@
 //cima = 1, baixo = 2, esq = 3, dir = 4
 typedef struct{
     char r[2];
-    
 }locura;
 
-int main()
+void Quadra (locura quadra[][5], char rua[])
 {
-    locura quadra[4][5];
-    char seqMov1[4] = {'c', 'e', 'b', 'd'};
-    char rua[2] = {'c', 'e'};
-    
     // Matriz
     for (int i = 0; i < 4; i++)
     {
@@ -58,10 +53,24 @@ int main()
     quadra[0][0].r[0] = 'd';
     quadra[0][0].r[1] = 'd';
     
-    // Carro 11
-    quadra[3][1].r[0] = '1';
-    quadra[3][1].r[1] = '1';
+}
+
+int main()
+{
+    int y, z;
+    locura quadra[4][5];
+    char seqMov1[4] = {'c', 'e', 'b', 'd'};
+    char rua[2] = {'c', 'e'};
+    char R_atual[2];
+    char carro11[2] = {'1', '1'};
     
+    Quadra (quadra, rua);
+    
+    // Carro 11
+    R_atual[0] = quadra[3][1].r[0];
+    R_atual[1] = quadra[3][1].r[1];
+    quadra[3][1].r[0] = carro11[0];
+    quadra[3][1].r[1] = carro11[1];
     // Posicao do carro 11:
     for (int i = 0; i < 4; i++)
     {
@@ -69,30 +78,40 @@ int main()
         {
             if (quadra[i][j].r[0] == '1' && quadra[i][j].r[1] == '1')
             {
-                printf("O carro 11 esta na linha %i e na coluna %i\n", i, j);
+                y = i;
+                z = j;
                 break;
             }
         }
     }
     
-    for (int i = 0; i < 4; i++)
+    for (int m = 0; m < 2; m++)
     {
-        for (int j = 0; j < 5; j++)
+        for (int i = 0; i < 4; i++)
         {
-            printf("%c", quadra[i][j].r[0]);
-            printf("%c ", quadra[i][j].r[1]);
+            for (int j = 0; j < 5; j++)
+            {
+                printf("%c", quadra[i][j].r[0]);
+                printf("%c ", quadra[i][j].r[1]);
+            }
+            printf("\n");
+            
+            if (carro11[1] == '1')
+            {
+                //Se o seqMov1[0] falhar, olhamos o próximo até o seqMov1[4], "return" o move true 
+                if (seqMov1[0] == R_atual[0] || seqMov1[0] == R_atual[1])
+                {
+                    // cima
+                    if (quadra[y-1][z].r[0] != 'x')
+                    {
+                        
+                    }
+                }
+            }
         }
         printf("\n");
     }
-    
-    
-    
-    
-    /*
-    ce
-    bd
-    cd
-    */
-
+    //Guardar o valor da posição atual
+    //Antes de andar, verificar pra onde ele PODE ir com base em sua lista de mov. e sentido da rua
     return 0;
 }
