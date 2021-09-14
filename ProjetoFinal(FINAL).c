@@ -58,29 +58,47 @@ void Quadra (locura quadra[][5], char rua[])
 
 int main()
 {
-    int y, z, andou;
+    int y, z, andou, a, b, k = 0;
     int quant_linhas = 4;
     int quant_colunas = 5;
     
     locura quadra[4][5];
-    char seqMov1[4] = {'c', 'e', 'b', 'd'};
+    //char seqMov1[4] = {'c', 'e', 'b', 'd'};
+    char seqMov[7][4] = {{'c', 'e', 'b', 'd'}, {'c', 'd', 'b', 'e'}, {'b', 'e', 'c', 'd'}, {'b', 'd', 'c', 'e'}, {'e', 'b', 'd', 'c'}, {'d', 'b', 'e', 'c'}, {'e', 'c', 'd', 'b'}};
     char rua[2] = {'c', 'e'};
-    char R_atual[2];
-    char carro11[2] = {'1', '1'};
+    char R_atual[100][2];
+    int carro[100][2];
+    
+    for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            carro[k][0] = i+'0';
+            carro[k][1] = j+'0';
+            k++;
+        }
+    }
     
     Quadra (quadra, rua);
     
     // Carro 11
-    R_atual[0] = quadra[3][1].r[0];
-    R_atual[1] = quadra[3][1].r[1];
-    quadra[3][1].r[0] = carro11[0];
-    quadra[3][1].r[1] = carro11[1];
+    R_atual[0][0] = quadra[3][1].r[0];
+    R_atual[0][1] = quadra[3][1].r[1];
+    quadra[3][1].r[0] = carro[11][0];
+    quadra[3][1].r[1] = carro[11][1];
+     // Carro 12
+    R_atual[1][0] = quadra[3][2].r[0];
+    R_atual[1][1] = quadra[3][2].r[1];
+    quadra[3][2].r[0] = carro[12][0];
+    quadra[3][2].r[1] = carro[12][1];
+    
+    
     // Posicao do carro 11:
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 5; j++)
         {
-            if (quadra[i][j].r[0] == '1' && quadra[i][j].r[1] == '1')
+            if (quadra[i][j].r[0] == carro[11][0] && quadra[i][j].r[1] == carro[11][1])
             {
                 y = i;
                 z = j;
@@ -88,8 +106,21 @@ int main()
             }
         }
     }
+    //posicao do carro 12:
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if (quadra[i][j].r[0] == carro[12][0] && quadra[i][j].r[1] == carro[12][1])
+            {
+                a = i;
+                b = j;
+                break;
+            }
+        }
+    }
     
-    for (int m = 0; m < 15; m++)
+    for (int m = 0; m < 13; m++)
     {
         for (int i = 0; i < 4; i++)
         {
@@ -102,13 +133,13 @@ int main()
         }
         printf("\n");
             
-        if (carro11[1] == '1')
+        if (carro[11][1] == '1') //final 1 mesmo padrão
         {
             //Se o seqMov1[0] falhar, olhamos o próximo até o seqMov1[4], "return" o move true
             andou = 0;
             //printf("%c %c %c %c\n", seqMov1[0], seqMov1[1], seqMov1[2], seqMov1[3]);
             //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
-            if ((seqMov1[0] == R_atual[0] || seqMov1[0] == R_atual[1]) && andou == 0)
+            if ((seqMov[0][0] == R_atual[0][0] || seqMov[0][0] == R_atual[0][1]) && andou == 0)
             {
                 // cima
                 //printf("VALOR %i\n", y - 1);
@@ -119,14 +150,14 @@ int main()
                         // guardar o carro
                             
                         // vou andar, a que eu estava vai pegar o valor
-                        quadra[y][z].r[0] = R_atual[0];
-                        quadra[y][z].r[1] = R_atual[1];
+                        quadra[y][z].r[0] = R_atual[0][0];
+                        quadra[y][z].r[1] = R_atual[0][1];
                         // vou guardar o valor da q vai estar o carro
-                        R_atual[0] = quadra[y-1][z].r[0];
-                        R_atual[1] = quadra[y-1][z].r[1];
+                        R_atual[0][0] = quadra[y-1][z].r[0];
+                        R_atual[0][1] = quadra[y-1][z].r[1];
                         // carro vai andar
-                        quadra[y-1][z].r[0] = carro11[0];
-                        quadra[y-1][z].r[1] = carro11[1];
+                        quadra[y-1][z].r[0] = carro[11][0];
+                        quadra[y-1][z].r[1] = carro[11][1];
                         
                         y = y - 1;
                         andou = 1;
@@ -134,7 +165,7 @@ int main()
                 }
             }
             //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
-            if ((seqMov1[1] == R_atual[0] || seqMov1[1] == R_atual[1]) && andou == 0)
+            if ((seqMov[0][1] == R_atual[0][0] || seqMov[0][1] == R_atual[0][1]) && andou == 0)
             {
                 // esq
                 //printf("VALOR %i\n", z - 1);
@@ -145,14 +176,14 @@ int main()
                         // guardar o carro
                             
                         // vou andar, a que eu estava vai pegar o valor
-                        quadra[y][z].r[0] = R_atual[0];
-                        quadra[y][z].r[1] = R_atual[1];
+                        quadra[y][z].r[0] = R_atual[0][0];
+                        quadra[y][z].r[1] = R_atual[0][1];
                         // vou guardar o valor da q vai estar o carro
-                        R_atual[0] = quadra[y][z-1].r[0];
-                        R_atual[1] = quadra[y][z-1].r[1];
+                        R_atual[0][0] = quadra[y][z-1].r[0];
+                        R_atual[0][1] = quadra[y][z-1].r[1];
                         // carro vai andar
-                        quadra[y][z-1].r[0] = carro11[0];
-                        quadra[y][z-1].r[1] = carro11[1];
+                        quadra[y][z-1].r[0] = carro[11][0];
+                        quadra[y][z-1].r[1] = carro[11][1];
                         
                         z = z - 1;
                         andou = 1;
@@ -160,7 +191,7 @@ int main()
                 }
             }
             //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
-            if ((seqMov1[2] == R_atual[0] || seqMov1[2] == R_atual[1]) && andou == 0)
+            if ((seqMov[0][2] == R_atual[0][0] || seqMov[0][2] == R_atual[0][1]) && andou == 0)
             {
                 // baixo
                 //printf("VALOR %i\n", y + 1);
@@ -171,14 +202,14 @@ int main()
                         // guardar o carro
                             
                         // vou andar, a que eu estava vai pegar o valor
-                        quadra[y][z].r[0] = R_atual[0];
-                        quadra[y][z].r[1] = R_atual[1];
+                        quadra[y][z].r[0] = R_atual[0][0];
+                        quadra[y][z].r[1] = R_atual[0][1];
                         // vou guardar o valor da q vai estar o carro
-                        R_atual[0] = quadra[y+1][z].r[0];
-                        R_atual[1] = quadra[y+1][z].r[1];
+                        R_atual[0][0] = quadra[y+1][z].r[0];
+                        R_atual[0][1] = quadra[y+1][z].r[1];
                         // carro vai andar
-                        quadra[y+1][z].r[0] = carro11[0];
-                        quadra[y+1][z].r[1] = carro11[1];
+                        quadra[y+1][z].r[0] = carro[11][0];
+                        quadra[y+1][z].r[1] = carro[11][1];
                         
                         y = y + 1;
                         andou = 1;
@@ -186,7 +217,7 @@ int main()
                 }
             }
             //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
-            if ((seqMov1[3] == R_atual[0] || seqMov1[3] == R_atual[1]) && andou == 0)
+            if ((seqMov[0][3] == R_atual[0][0] || seqMov[0][3] == R_atual[0][1]) && andou == 0)
             {
                 // dir
                 //printf("VALOR %i\n", z + 1);
@@ -197,14 +228,14 @@ int main()
                         // guardar o carro
                             
                         // vou andar, a que eu estava vai pegar o valor
-                        quadra[y][z].r[0] = R_atual[0];
-                        quadra[y][z].r[1] = R_atual[1];
+                        quadra[y][z].r[0] = R_atual[0][0];
+                        quadra[y][z].r[1] = R_atual[0][1];
                         // vou guardar o valor da q vai estar o carro
-                        R_atual[0] = quadra[y][z+1].r[0];
-                        R_atual[1] = quadra[y][z+1].r[1];
+                        R_atual[0][0] = quadra[y][z+1].r[0];
+                        R_atual[0][1] = quadra[y][z+1].r[1];
                         // carro vai andar
-                        quadra[y][z+1].r[0] = carro11[0];
-                        quadra[y][z+1].r[1] = carro11[1];
+                        quadra[y][z+1].r[0] = carro[11][0];
+                        quadra[y][z+1].r[1] = carro[11][1];
                         
                         z = z + 1;
                         andou = 1;
