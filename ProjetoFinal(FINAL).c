@@ -62,11 +62,6 @@ void Quadra (locura quadra[][5], char rua[])
     quadra[3][4].r[0] = 'b';
 }
 
-int verificar_carro()
-{
-    
-}
-
 int main()
 {
     int andou, andou2, k = 0, y, z, a, b;
@@ -74,7 +69,6 @@ int main()
     int quant_colunas = 5;
     
     locura quadra[4][5];
-    //char seqMov1[4] = {'c', 'e', 'b', 'd'};
     char seqMov[7][4] = {{'c', 'e', 'b', 'd'}, {'c', 'd', 'b', 'e'}, {'b', 'e', 'c', 'd'}, {'b', 'd', 'c', 'e'}, {'e', 'b', 'd', 'c'}, {'d', 'b', 'e', 'c'}, {'e', 'c', 'd', 'b'}};
     char rua[2] = {'c', 'e'};
     char R_atual[100][2];
@@ -148,12 +142,10 @@ int main()
         {
             //Se o seqMov1[0] falhar, olhamos o próximo até o seqMov1[4], "return" o move true
             andou = 0;
-            //printf("%c %c %c %c\n", seqMov1[0], seqMov1[1], seqMov1[2], seqMov1[3]);
-            //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
+            
             if ((seqMov[0][0] == R_atual[0][0] || seqMov[0][0] == R_atual[0][1]) && andou == 0)
             {
                 // cima
-                //printf("VALOR %i\n", y - 1);
                 if ((y - 1) >= 0)  // se ele tentar chegar -1 paro
                 {
                     if (quadra[y-1][z].r[0] != 'x' && isalpha(quadra[y-1][z].r[0])) // uma letra diferente de x
@@ -175,11 +167,9 @@ int main()
                     }
                 }
             }
-            //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
             if ((seqMov[0][1] == R_atual[0][0] || seqMov[0][1] == R_atual[0][1]) && andou == 0)
             {
                 // esq
-                //printf("VALOR %i\n", z - 1);
                 if ((z - 1) >= 0)
                 {
                     if (quadra[y][z-1].r[0] != 'x' && isalpha(quadra[y][z-1].r[0]))
@@ -201,11 +191,9 @@ int main()
                     }
                 }
             }
-            //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
             if ((seqMov[0][2] == R_atual[0][0] || seqMov[0][2] == R_atual[0][1]) && andou == 0)
             {
                 // baixo
-                //printf("VALOR %i\n", y + 1);
                 if ((y + 1) < quant_linhas)
                 {
                     if (quadra[y+1][z].r[0] != 'x' && isalpha(quadra[y+1][z].r[0]))
@@ -227,11 +215,9 @@ int main()
                     }
                 }
             }
-            //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
             if ((seqMov[0][3] == R_atual[0][0] || seqMov[0][3] == R_atual[0][1]) && andou == 0)
             {
                 // dir
-                //printf("VALOR %i\n", z + 1);
                 if ((z + 1) < quant_colunas)
                 {
                     if (quadra[y][z+1].r[0] != 'x' && isalpha(quadra[y][z+1].r[0]))
@@ -260,7 +246,6 @@ int main()
             if ((seqMov[1][0] == R_atual[1][0] || seqMov[1][0] == R_atual[1][1]) && andou2 == 0)
             {
                 // cima
-                //printf("VALOR %i\n", y - 1);
                 if ((a - 1) >= 0)  // se ele tentar chegar -1 paro
                 {
                     // tenho que verificar se ela pode mover de acordo com o sentido da rua
@@ -283,11 +268,9 @@ int main()
                     }
                 }
             }
-            //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
             if ((seqMov[1][1] == R_atual[1][0] || seqMov[1][1] == R_atual[1][1]) && andou2 == 0)
             {
                 // dir
-                //printf("VALOR %i\n", z - 1);
                 if ((b + 1) >= 0)
                 {
                     if (quadra[a][b+1].r[0] != 'x' && isalpha(quadra[a][b+1].r[0]))
@@ -309,11 +292,9 @@ int main()
                     }
                 }
             }
-            //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
             if ((seqMov[1][2] == R_atual[1][0] || seqMov[1][2] == R_atual[1][1]) && andou2 == 0)
             {
                 // baixo
-                //printf("VALOR %i\n", y + 1);
                 if ((a + 1) < quant_linhas)
                 {
                     if (quadra[a+1][b].r[0] != 'x' && isalpha(quadra[a+1][b].r[0]))
@@ -335,11 +316,9 @@ int main()
                     }
                 }
             }
-            //printf("%c %c %i\n", R_atual[0], R_atual[1], andou);
             if ((seqMov[1][3] == R_atual[1][0] || seqMov[1][3] == R_atual[1][1]) && andou2 == 0)
             {
                 // esq
-                //printf("VALOR %i\n", z + 1);
                 if ((b - 1) < quant_colunas)
                 {
                     if (quadra[a][b-1].r[0] != 'x' && isalpha(quadra[a][b-1].r[0]))
