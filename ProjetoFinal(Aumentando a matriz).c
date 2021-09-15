@@ -165,6 +165,47 @@ void Quadra (locura matriz[][37], char rua[][2])
     matriz[0][20].r[0] = 'b';
     matriz[0][16].r[0] = 'b';
     
+    //Bugs (Cruzamento)
+    //Linha 3
+    matriz[3][4].r[0] = 'c';
+    matriz[3][8].r[0] = 'c';
+    matriz[3][12].r[0] = 'c';
+    //Linha 6
+    matriz[6][16].r[0] = 'b';
+    matriz[6][20].r[0] = 'b';
+    matriz[6][24].r[0] = 'b';
+    matriz[6][28].r[0] = 'b';
+    matriz[6][32].r[0] = 'b';
+    //Linha 9
+    matriz[9][16].r[0] = 'b';
+    matriz[9][20].r[0] = 'b';
+    matriz[9][24].r[0] = 'b';
+    matriz[9][28].r[0] = 'b';
+    matriz[9][32].r[0] = 'b';
+    //Linha 12
+    matriz[12][4].r[0] = 'c';
+    matriz[12][8].r[0] = 'c';
+    matriz[12][12].r[0] = 'c';
+    //Linha 15
+    matriz[15][4].r[0] = 'c';
+    matriz[15][8].r[0] = 'c';
+    matriz[15][12].r[0] = 'c';
+    //Linha 18
+    matriz[18][16].r[0] = 'b';
+    matriz[18][20].r[0] = 'b';
+    matriz[18][24].r[0] = 'b';
+    matriz[18][28].r[0] = 'b';
+    matriz[18][32].r[0] = 'b';
+    //Linha 21
+    matriz[21][4].r[0] = 'c';
+    matriz[21][8].r[0] = 'c';
+    matriz[21][12].r[0] = 'c';
+    //Linha 24
+    matriz[24][16].r[0] = 'b';
+    matriz[24][20].r[0] = 'b';
+    matriz[24][24].r[0] = 'b';
+    matriz[24][28].r[0] = 'b';
+    matriz[24][32].r[0] = 'b';
     
     // Print
     for (int i = 0; i < 28; i++)
@@ -270,7 +311,6 @@ int main()
                 {
                     if (quadra[x-1][y].r[0] != 'x' && isalpha(quadra[x-1][y].r[0])) // uma letra diferente de x
                     {
-                        
                         // vou andar, a que eu estava vai pegar o valor
                         quadra[x][y].r[0] = R_atual[0][0];
                         quadra[x][y].r[1] = R_atual[0][1];
