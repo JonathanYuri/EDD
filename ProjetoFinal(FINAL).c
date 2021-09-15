@@ -63,6 +63,32 @@ void Quadra (locura quadra[][5], char rua[])
     quadra[3][4].r[0] = 'b';
 }
 
+int Cima (locura quadra[][5], int carro[][2], char R_atual[][2], int numeroC, int numeroR, int coordenadas[][2])
+{
+    int x = coordenadas[numeroR][0];
+    int y = coordenadas[numeroR][1];
+    
+    if ((x - 1) >= 0)  // se ele tentar chegar -1 paro
+    {
+        if (quadra[x-1][y].r[0] != 'x' && isalpha(quadra[x-1][y].r[0])) // uma letra diferente de x
+        {
+            // vou andar, a que eu estava vai pegar o valor
+            quadra[x][y].r[0] = R_atual[0][0];
+            quadra[x][y].r[1] = R_atual[0][1];
+            // vou guardar o valor da q vai estar o carro
+            R_atual[0][0] = quadra[x-1][y].r[0];
+            R_atual[0][1] = quadra[x-1][y].r[1];
+            // carro vai andar
+            quadra[x-1][y].r[0] = carro[11][0];
+            quadra[x-1][y].r[1] = carro[11][1];
+            
+            coordenadas[0][0] = x - 1;
+            rodou[0] = 1;
+        }
+    }
+    
+}
+
 int main()
 {
     int rodou[100], coordenadas[100][2], k = 0, x, y;
@@ -148,26 +174,7 @@ int main()
             
             if ((seqMov[0][0] == R_atual[0][0] || seqMov[0][0] == R_atual[0][1]) && rodou[0] == 0)
             {
-                // cima
-                if ((x - 1) >= 0)  // se ele tentar chegar -1 paro
-                {
-                    if (quadra[x-1][y].r[0] != 'x' && isalpha(quadra[x-1][y].r[0])) // uma letra diferente de x
-                    {
-                        
-                        // vou andar, a que eu estava vai pegar o valor
-                        quadra[x][y].r[0] = R_atual[0][0];
-                        quadra[x][y].r[1] = R_atual[0][1];
-                        // vou guardar o valor da q vai estar o carro
-                        R_atual[0][0] = quadra[x-1][y].r[0];
-                        R_atual[0][1] = quadra[x-1][y].r[1];
-                        // carro vai andar
-                        quadra[x-1][y].r[0] = carro[11][0];
-                        quadra[x-1][y].r[1] = carro[11][1];
-                        
-                        coordenadas[0][0] = x - 1;
-                        rodou[0] = 1;
-                    }
-                }
+                rodou[0] = Cima (quadra, carro, R_atual, 11, 0, coordenadas);
             }
             if ((seqMov[0][1] == R_atual[0][0] || seqMov[0][1] == R_atual[0][1]) && rodou[0] == 0)
             {
