@@ -12,7 +12,7 @@ typedef struct{
 // para verificar se ja tem um carro ali, é mais facil verificar se não existe uma rua naquele lugar
 // pq sim
 
-void Quadra (locura matriz[][37], char rua[])
+void Quadra (locura matriz[][37], char rua[][2])
 {
     // Matriz
     for (int i = 0; i < 28; i++)
@@ -40,6 +40,80 @@ void Quadra (locura matriz[][37], char rua[])
         }
     }
     
+    // Ruas Linhas
+    //rua[4][2] = {{'c', 'e'}, {'b', 'd'}, {'c', 'd'}, {'b', 'e'}};
+    for (int j = 0; j < 37; j++)
+    {
+        // Rua 1: b, e
+        matriz[3][j].r[0] = rua[3][0];
+        matriz[3][j].r[1] = rua[3][1];
+        
+        // Rua 2: c, e
+        matriz[6][j].r[0] = rua[0][0];
+        matriz[6][j].r[1] = rua[0][1];
+        
+        // Rua 3: c, d
+        matriz[9][j].r[0] = rua[2][0];
+        matriz[9][j].r[1] = rua[2][1];
+        
+        // Rua 4: b, d
+        matriz[12][j].r[0] = rua[1][0];
+        matriz[12][j].r[1] = rua[1][1];
+        
+        // Rua 5: b, d
+        matriz[15][j].r[0] = rua[1][0];
+        matriz[15][j].r[1] = rua[1][1];
+        
+        // Rua 6: c, e
+        matriz[18][j].r[0] = rua[0][0];
+        matriz[18][j].r[1] = rua[0][1];
+        
+        // Rua 7: b, e
+        matriz[21][j].r[0] = rua[3][0];
+        matriz[21][j].r[1] = rua[3][1];
+        
+        // Rua 8: c, e
+        matriz[24][j].r[0] = rua[0][0];
+        matriz[24][j].r[1] = rua[0][1];
+    }
+    
+    // Ruas Colunas
+    //rua[4][2] = {{'c', 'e'}, {'b', 'd'}, {'c', 'd'}, {'b', 'e'}};
+    for (int i = 0; i < 28; i++)
+    {
+        // Coluna 1: c, e
+        matriz[i][4].r[0] = rua[0][0];
+        matriz[i][4].r[1] = rua[0][1];
+        
+        // Coluna 2: c, e
+        matriz[i][8].r[0] = rua[0][0];
+        matriz[i][8].r[1] = rua[0][1];
+        
+        // Coluna 3: c, e
+        matriz[i][12].r[0] = rua[0][0];
+        matriz[i][12].r[1] = rua[0][1];
+        
+        // Coluna 4: b, e
+        matriz[i][16].r[0] = rua[3][0];
+        matriz[i][16].r[1] = rua[3][1];
+        
+        // Coluna 5: b, e
+        matriz[i][20].r[0] = rua[3][0];
+        matriz[i][20].r[1] = rua[3][1];
+        
+        // Coluna 6: b, d
+        matriz[i][24].r[0] = rua[1][0];
+        matriz[i][24].r[1] = rua[1][1];
+        
+        // Coluna 7: b, d
+        matriz[i][28].r[0] = rua[1][0];
+        matriz[i][28].r[1] = rua[1][1];
+        
+        // Coluna 8: b, d
+        matriz[i][32].r[0] = rua[1][0];
+        matriz[i][32].r[1] = rua[1][1];
+    }
+    
     // Rua linha 0 e 27
     for (int j = 0; j < 37; j++)
     {
@@ -49,7 +123,7 @@ void Quadra (locura matriz[][37], char rua[])
         matriz[27][j].r[1] = 'e';
     }
     
-    // Rua coluna
+    // Rua coluna 0 e 36
     for (int i = 0; i < 28; i++)
     {
         matriz[i][0].r[0] = 'c';
@@ -57,20 +131,21 @@ void Quadra (locura matriz[][37], char rua[])
         matriz[i][36].r[0] = 'b';
         matriz[i][36].r[1] = 'b';
     }
+    
+    matriz[0][0].r[0] = 'd';
+    matriz[0][0].r[1] = 'd';
+    
+    matriz[27][36].r[0] = 'e';
+    matriz[27][36].r[1] = 'e';
     /*
-    
-    // Rua
-    for (int j = 0; j < 5; j++)
-    {
-        quadra[3][j].r[0] = rua[0];
-        quadra[3][j].r[1] = rua[1];
-    }
-    
     quadra[0][0].r[0] = 'd';
     quadra[0][0].r[1] = 'd';
     
     quadra[3][4].r[0] = 'b';
     */
+    
+    // Bugs
+    
     
     // Print
     for (int i = 0; i < 28; i++)
@@ -91,7 +166,8 @@ int main()
     int quant_colunas = 5;
     
     locura quadra[28][37];
-    char rua[2] = {'c', 'e'};
+    char rua[4][2] = {{'c', 'e'}, {'b', 'd'}, {'c', 'd'}, {'b', 'e'}};
+    
     /*
     char seqMov[7][4] = {{'c', 'e', 'b', 'd'}, {'c', 'd', 'b', 'e'}, {'b', 'e', 'c', 'd'}, {'b', 'd', 'c', 'e'}, {'e', 'b', 'd', 'c'}, {'d', 'b', 'e', 'c'}, {'e', 'c', 'd', 'b'}};
     char R_atual[100][2];
@@ -369,61 +445,3 @@ int main()
     //Antes de andar, verificar pra onde ele PODE ir com base em sua lista de mov. e sentido da rua
     return 0;
 }
-
-/*
-  int matriz[28][37];
-    
-    for (int i = 0; i < 28; i++)
-    {
-        for (int j = 0; j < 37; j++)
-        {
-            matriz[i][j] = 0;
-        }
-    }
-    // Semaforo
-    for (int i = 0; i < 28; i+=3)
-    {
-        for (int j = 0; j < 37; j+=4)
-        {
-            matriz[i][j] = 3;
-        }
-    }
-    // tirar semaforos das quinas
-    matriz[0][0] = 0;
-    matriz[0][36] = 0;
-    matriz[27][0] = 0;
-    matriz[27][36] = 0;
-    
-    // Quadra
-    for (int i = 1; i < 28; i+=3)
-    {
-        for (int j = 1; j < 37; j+=4)
-        {
-            for (int a = i; a < i+2; a++)
-            {
-                for (int b = j; b < j+3; b++)
-                {
-                    matriz[a][b] = 1;
-                }
-            }
-            /*
-            matriz[i][j] = 1;
-            matriz[i][j+1] = 1;
-            matriz[i][j+2] = 1;
-            matriz[i+1][j] = 1;
-            matriz[i+1][j+1] = 1;
-            matriz[i+1][j+2] = 1;
-            */
-        }
-    }
-    
-    // Print
-    for (int i = 0; i < 28; i++)
-    {
-        for (int j = 0; j < 37; j++)
-        {
-            printf("%i ", matriz[i][j]);
-        }
-        printf("\n");
-    }
-*/
