@@ -9,8 +9,8 @@ typedef struct{
     char r[2];
 }locura;
 
-// para verificar se ja tem um carro ali, é mais facil verificar se não existe uma rua naquele lugar
-// pq sim
+// eu vou andando conforme o sentido da rua, só quando matriz[i][j].r[0] != matriz[i][j].r[1]
+// eu vou usar minha decisao
 
 void Quadra (locura matriz[][37], char rua[][2])
 {
@@ -46,35 +46,35 @@ void Quadra (locura matriz[][37], char rua[][2])
     {
         // Coluna 1: c, e
         matriz[i][4].r[0] = rua[0][0];
-        matriz[i][4].r[1] = rua[0][1];
+        matriz[i][4].r[1] = rua[0][0];
         
         // Coluna 2: c, e
         matriz[i][8].r[0] = rua[0][0];
-        matriz[i][8].r[1] = rua[0][1];
+        matriz[i][8].r[1] = rua[0][0];
         
         // Coluna 3: c, e
         matriz[i][12].r[0] = rua[0][0];
-        matriz[i][12].r[1] = rua[0][1];
+        matriz[i][12].r[1] = rua[0][0];
         
         // Coluna 4: b, e
         matriz[i][16].r[0] = rua[3][0];
-        matriz[i][16].r[1] = rua[3][1];
+        matriz[i][16].r[1] = rua[3][0];
         
         // Coluna 5: b, e
         matriz[i][20].r[0] = rua[3][0];
-        matriz[i][20].r[1] = rua[3][1];
+        matriz[i][20].r[1] = rua[3][0];
         
         // Coluna 6: b, d
         matriz[i][24].r[0] = rua[1][0];
-        matriz[i][24].r[1] = rua[1][1];
+        matriz[i][24].r[1] = rua[1][0];
         
         // Coluna 7: b, d
         matriz[i][28].r[0] = rua[1][0];
-        matriz[i][28].r[1] = rua[1][1];
+        matriz[i][28].r[1] = rua[1][0];
         
         // Coluna 8: b, d
         matriz[i][32].r[0] = rua[1][0];
-        matriz[i][32].r[1] = rua[1][1];
+        matriz[i][32].r[1] = rua[1][0];
     }
     
     // Ruas Linhas
@@ -82,35 +82,35 @@ void Quadra (locura matriz[][37], char rua[][2])
     for (int j = 0; j < 37; j++)
     {
         // Rua 1: b, e
-        matriz[3][j].r[0] = rua[3][0];
+        matriz[3][j].r[0] = rua[3][1];
         matriz[3][j].r[1] = rua[3][1];
         
         // Rua 2: c, e
-        matriz[6][j].r[0] = rua[0][0];
+        matriz[6][j].r[0] = rua[0][1];
         matriz[6][j].r[1] = rua[0][1];
         
         // Rua 3: c, d
-        matriz[9][j].r[0] = rua[2][0];
+        matriz[9][j].r[0] = rua[2][1];
         matriz[9][j].r[1] = rua[2][1];
         
         // Rua 4: b, d
-        matriz[12][j].r[0] = rua[1][0];
+        matriz[12][j].r[0] = rua[1][1];
         matriz[12][j].r[1] = rua[1][1];
         
         // Rua 5: b, d
-        matriz[15][j].r[0] = rua[1][0];
+        matriz[15][j].r[0] = rua[1][1];
         matriz[15][j].r[1] = rua[1][1];
         
         // Rua 6: c, e
-        matriz[18][j].r[0] = rua[0][0];
+        matriz[18][j].r[0] = rua[0][1];
         matriz[18][j].r[1] = rua[0][1];
         
         // Rua 7: b, e
-        matriz[21][j].r[0] = rua[3][0];
+        matriz[21][j].r[0] = rua[3][1];
         matriz[21][j].r[1] = rua[3][1];
         
         // Rua 8: c, e
-        matriz[24][j].r[0] = rua[0][0];
+        matriz[24][j].r[0] = rua[0][1];
         matriz[24][j].r[1] = rua[0][1];
     }
     
@@ -138,74 +138,15 @@ void Quadra (locura matriz[][37], char rua[][2])
     
     matriz[27][36].r[0] = 'e';
     matriz[27][36].r[1] = 'e';
-    /*
-    quadra[0][0].r[0] = 'd';
-    quadra[0][0].r[1] = 'd';
     
-    quadra[3][4].r[0] = 'b';
-    */
-    
-    // Bugs (sentido horario)
-
-    matriz[9][0].r[1] = 'd';
-    matriz[12][0].r[1] = 'd';
-    matriz[15][0].r[1] = 'd';
-    matriz[27][4].r[0] = 'c';
-    matriz[27][8].r[0] = 'c';
-    matriz[27][12].r[0] = 'c';
-    matriz[24][36].r[1] = 'e';
-    matriz[21][36].r[1] = 'e';
-    matriz[18][36].r[1] = 'e';
-    matriz[3][36].r[1] = 'e';
-    matriz[6][36].r[1] = 'e';
-    
-    matriz[0][32].r[0] = 'b';
-    matriz[0][28].r[0] = 'b';
-    matriz[0][24].r[0] = 'b';
-    matriz[0][20].r[0] = 'b';
-    matriz[0][16].r[0] = 'b';
-    
-    //Bugs (Cruzamento)
-    //Linha 3
-    matriz[3][4].r[0] = 'c';
-    matriz[3][8].r[0] = 'c';
-    matriz[3][12].r[0] = 'c';
-    //Linha 6
-    matriz[6][16].r[0] = 'b';
-    matriz[6][20].r[0] = 'b';
-    matriz[6][24].r[0] = 'b';
-    matriz[6][28].r[0] = 'b';
-    matriz[6][32].r[0] = 'b';
-    //Linha 9
-    matriz[9][16].r[0] = 'b';
-    matriz[9][20].r[0] = 'b';
-    matriz[9][24].r[0] = 'b';
-    matriz[9][28].r[0] = 'b';
-    matriz[9][32].r[0] = 'b';
-    //Linha 12
-    matriz[12][4].r[0] = 'c';
-    matriz[12][8].r[0] = 'c';
-    matriz[12][12].r[0] = 'c';
-    //Linha 15
-    matriz[15][4].r[0] = 'c';
-    matriz[15][8].r[0] = 'c';
-    matriz[15][12].r[0] = 'c';
-    //Linha 18
-    matriz[18][16].r[0] = 'b';
-    matriz[18][20].r[0] = 'b';
-    matriz[18][24].r[0] = 'b';
-    matriz[18][28].r[0] = 'b';
-    matriz[18][32].r[0] = 'b';
-    //Linha 21
-    matriz[21][4].r[0] = 'c';
-    matriz[21][8].r[0] = 'c';
-    matriz[21][12].r[0] = 'c';
-    //Linha 24
-    matriz[24][16].r[0] = 'b';
-    matriz[24][20].r[0] = 'b';
-    matriz[24][24].r[0] = 'b';
-    matriz[24][28].r[0] = 'b';
-    matriz[24][32].r[0] = 'b';
+    // Cruzamentos
+    for (int i = 3; i < 25; i+=3)
+    {
+        for (int j = 4; j < 33; j+=4)
+        {
+            matriz[i][j].r[0] = matriz[i-1][j].r[0];
+        }
+    }
     
     // Print
     for (int i = 0; i < 28; i++)
