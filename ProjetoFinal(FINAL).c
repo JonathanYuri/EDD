@@ -139,7 +139,7 @@ int main()
         }
         printf("\n");
         // carro[x][1] == '1'
-        if (carro[11][1] == '1') //final 1 mesmo padrão
+        if (carro[11][1] == '1' || carro[11][1] == '9') //final 1 mesmo padrão
         {
             //Se o seqMov1[0] falhar, olhamos o próximo até o seqMov1[4], "return" o move true
             x = coordenadas[0][0];
@@ -239,7 +239,7 @@ int main()
                 }
             }
         }
-        if (carro[12][1] == '2')
+        if (carro[12][1] == '2' || carro[12][1] == '0')
         {
             x = coordenadas[1][0];
             y = coordenadas[1][1];
