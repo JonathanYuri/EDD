@@ -299,6 +299,136 @@ int main()
                     rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
                 }
             }
+            if (carro[m][1] == '3')
+            {
+                x = coordenadas[m][0];
+                y = coordenadas[m][1];
+                rodou[m] = 0;
+                if ((seqMov[2][0] == R_atual[m][0] || seqMov[2][0] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[2][1] == R_atual[m][0] || seqMov[2][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[2][2] == R_atual[m][0] || seqMov[2][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[2][3] == R_atual[m][0] || seqMov[2][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+            }
+            if (carro[m][1] == '4')
+            {
+                x = coordenadas[m][0];
+                y = coordenadas[m][1];
+                rodou[m] = 0;
+                if ((seqMov[3][0] == R_atual[m][0] || seqMov[3][0] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[3][1] == R_atual[m][0] || seqMov[3][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+                if ((seqMov[3][2] == R_atual[m][0] || seqMov[3][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[3][3] == R_atual[m][0] || seqMov[3][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                }
+            }
+            if (carro[m][1] == '5')
+            {
+                x = coordenadas[m][0];
+                y = coordenadas[m][1];
+                rodou[m] = 0;
+                if ((seqMov[4][0] == R_atual[m][0] || seqMov[4][0] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[4][1] == R_atual[m][0] || seqMov[4][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[4][2] == R_atual[m][0] || seqMov[4][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+                if ((seqMov[4][3] == R_atual[m][0] || seqMov[4][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+            }
+            if (carro[m][1] == '6' || carro[m][1] == '8')
+            {
+                x = coordenadas[m][0];
+                y = coordenadas[m][1];
+                rodou[m] = 0;
+                if ((seqMov[5][0] == R_atual[m][0] || seqMov[5][0] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+                if ((seqMov[5][1] == R_atual[m][0] || seqMov[5][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[5][2] == R_atual[m][0] || seqMov[5][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[5][3] == R_atual[m][0] || seqMov[5][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+            }
+            if (carro[m][1] == '7')
+            {
+                x = coordenadas[m][0];
+                y = coordenadas[m][1];
+                rodou[m] = 0;
+                if ((seqMov[6][0] == R_atual[m][0] || seqMov[6][0] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[6][1] == R_atual[m][0] || seqMov[6][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[6][2] == R_atual[m][0] || seqMov[6][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+                if ((seqMov[6][3] == R_atual[m][0] || seqMov[6][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+            }
         }
         /*
         if (carro[11][1] == '1' || carro[11][1] == '9') //final 1 mesmo padrão
