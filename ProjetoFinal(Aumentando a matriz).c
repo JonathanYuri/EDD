@@ -40,43 +40,6 @@ void Quadra (locura matriz[][37], char rua[][2])
         }
     }
     
-    // Ruas Linhas
-    //rua[4][2] = {{'c', 'e'}, {'b', 'd'}, {'c', 'd'}, {'b', 'e'}};
-    for (int j = 0; j < 37; j++)
-    {
-        // Rua 1: b, e
-        matriz[3][j].r[0] = rua[3][0];
-        matriz[3][j].r[1] = rua[3][1];
-        
-        // Rua 2: c, e
-        matriz[6][j].r[0] = rua[0][0];
-        matriz[6][j].r[1] = rua[0][1];
-        
-        // Rua 3: c, d
-        matriz[9][j].r[0] = rua[2][0];
-        matriz[9][j].r[1] = rua[2][1];
-        
-        // Rua 4: b, d
-        matriz[12][j].r[0] = rua[1][0];
-        matriz[12][j].r[1] = rua[1][1];
-        
-        // Rua 5: b, d
-        matriz[15][j].r[0] = rua[1][0];
-        matriz[15][j].r[1] = rua[1][1];
-        
-        // Rua 6: c, e
-        matriz[18][j].r[0] = rua[0][0];
-        matriz[18][j].r[1] = rua[0][1];
-        
-        // Rua 7: b, e
-        matriz[21][j].r[0] = rua[3][0];
-        matriz[21][j].r[1] = rua[3][1];
-        
-        // Rua 8: c, e
-        matriz[24][j].r[0] = rua[0][0];
-        matriz[24][j].r[1] = rua[0][1];
-    }
-    
     // Ruas Colunas
     //rua[4][2] = {{'c', 'e'}, {'b', 'd'}, {'c', 'd'}, {'b', 'e'}};
     for (int i = 0; i < 28; i++)
@@ -114,6 +77,43 @@ void Quadra (locura matriz[][37], char rua[][2])
         matriz[i][32].r[1] = rua[1][1];
     }
     
+    // Ruas Linhas
+    //rua[4][2] = {{'c', 'e'}, {'b', 'd'}, {'c', 'd'}, {'b', 'e'}};
+    for (int j = 0; j < 37; j++)
+    {
+        // Rua 1: b, e
+        matriz[3][j].r[0] = rua[3][0];
+        matriz[3][j].r[1] = rua[3][1];
+        
+        // Rua 2: c, e
+        matriz[6][j].r[0] = rua[0][0];
+        matriz[6][j].r[1] = rua[0][1];
+        
+        // Rua 3: c, d
+        matriz[9][j].r[0] = rua[2][0];
+        matriz[9][j].r[1] = rua[2][1];
+        
+        // Rua 4: b, d
+        matriz[12][j].r[0] = rua[1][0];
+        matriz[12][j].r[1] = rua[1][1];
+        
+        // Rua 5: b, d
+        matriz[15][j].r[0] = rua[1][0];
+        matriz[15][j].r[1] = rua[1][1];
+        
+        // Rua 6: c, e
+        matriz[18][j].r[0] = rua[0][0];
+        matriz[18][j].r[1] = rua[0][1];
+        
+        // Rua 7: b, e
+        matriz[21][j].r[0] = rua[3][0];
+        matriz[21][j].r[1] = rua[3][1];
+        
+        // Rua 8: c, e
+        matriz[24][j].r[0] = rua[0][0];
+        matriz[24][j].r[1] = rua[0][1];
+    }
+    
     // Rua linha 0 e 27
     for (int j = 0; j < 37; j++)
     {
@@ -132,6 +132,7 @@ void Quadra (locura matriz[][37], char rua[][2])
         matriz[i][36].r[1] = 'b';
     }
     
+    // Quinas
     matriz[0][0].r[0] = 'd';
     matriz[0][0].r[1] = 'd';
     
@@ -144,7 +145,25 @@ void Quadra (locura matriz[][37], char rua[][2])
     quadra[3][4].r[0] = 'b';
     */
     
-    // Bugs
+    // Bugs (sentido horario)
+
+    matriz[9][0].r[1] = 'd';
+    matriz[12][0].r[1] = 'd';
+    matriz[15][0].r[1] = 'd';
+    matriz[27][4].r[0] = 'c';
+    matriz[27][8].r[0] = 'c';
+    matriz[27][12].r[0] = 'c';
+    matriz[24][36].r[1] = 'e';
+    matriz[21][36].r[1] = 'e';
+    matriz[18][36].r[1] = 'e';
+    matriz[3][36].r[1] = 'e';
+    matriz[6][36].r[1] = 'e';
+    
+    matriz[0][32].r[0] = 'b';
+    matriz[0][28].r[0] = 'b';
+    matriz[0][24].r[0] = 'b';
+    matriz[0][20].r[0] = 'b';
+    matriz[0][16].r[0] = 'b';
     
     
     // Print
