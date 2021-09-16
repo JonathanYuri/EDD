@@ -5,6 +5,9 @@
 // o 11 nao e o comeco (mudar isso)
 
 //cima = 1, baixo = 2, esq = 3, dir = 4
+
+//Semaforo[96][8] = [0 = estado(V, A, R)][1 = Tempo(A definir)][2 = sentido da rua(Vertical)] [3 = sentido da rua(Horizontal)]
+//Semaforo[96][8] = [4 = estado(V, A, R)][5 = Tempo(A definir)][6 = sentido da rua(Horizontal)][8 = sentido da rua(Vertical)]
 typedef struct{
     char r[2];
 }locura;
@@ -53,7 +56,7 @@ void Quadra (locura quadra[][5], char rua[])
     // Rua
     for (int j = 0; j < 5; j++)
     {
-        quadra[3][j].r[0] = rua[0];
+        quadra[3][j].r[0] = rua[1];
         quadra[3][j].r[1] = rua[1];
     }
     
@@ -61,6 +64,7 @@ void Quadra (locura quadra[][5], char rua[])
     quadra[0][0].r[1] = 'd';
     
     quadra[3][4].r[0] = 'b';
+    quadra[3][0].r[0] = 'c';
 }
 
 // quando for rodar para todos os carros o numero da coordenada, r atual e numero do carro é o mesmo
@@ -181,6 +185,11 @@ int main()
     char rua[2] = {'c', 'e'};
     char R_atual[100][2];
     int carro[100][2];
+    //Semaforo[96][8] = [0 = estado(V, A, R)][1 = Tempo(A definir)][2 = sentido da rua(Vertical)]
+    //Semaforo[96][8] = [3 = estado(V, A, R)][4 = Tempo(A definir)][5 = sentido da rua(Horizontal)]
+    // TRed = TVerde + TAmarelo;
+    // Lembrar de guardar a posição i,j na matriz dos semáforos para coordenadar o fluxo
+    char semaforo[2][6] = {{'v', '2', 'c', 'r', '3', 'e'}, {'v', '2', 'b', 'r', '3', 'e'}};
     
     for (int i = 0; i < 10; i++)
     {
@@ -193,6 +202,22 @@ int main()
     }
     
     Quadra (quadra, rua);
+    
+    quadra[3][0].r[0] = semaforo[0][0];
+    quadra[3][0].r[1] = semaforo[0][1];
+    
+    quadra[3][4].r[0] = semaforo[1][0];
+    quadra[3][4].r[1] = semaforo[1][1];
+    
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            printf("%c", quadra[i][j].r[0]);
+            printf("%c ", quadra[i][j].r[1]);
+        }
+        printf("\n");
+    }
     
     // Carro 11
     R_atual[11][0] = quadra[3][1].r[0];
@@ -207,7 +232,7 @@ int main()
     
     // escrever nas coordenadas antes de andar as coordenadas de todos
     // Posicao do carro 11:
-    for (int i = 0; i < 4; i++)
+    /*for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 5; j++)
         {
@@ -430,59 +455,7 @@ int main()
                 }
             }
         }
-        /*
-        if (carro[11][1] == '1' || carro[11][1] == '9') //final 1 mesmo padrão
-        {
-            //Se o seqMov1[0] falhar, olhamos o próximo até o seqMov1[4], "return" o move true
-            x = coordenadas[0][0];
-            y = coordenadas[0][1];
-            rodou[0] = 0;
-            
-            if ((seqMov[0][0] == R_atual[0][0] || seqMov[0][0] == R_atual[0][1]) && rodou[0] == 0)
-            {
-                rodou[0] = Cima (quadra, carro, R_atual, 11, 0, coordenadas);
-            }
-            if ((seqMov[0][1] == R_atual[0][0] || seqMov[0][1] == R_atual[0][1]) && rodou[0] == 0)
-            {
-                rodou[0] = Esq (quadra, carro, R_atual, 11, 0, coordenadas);
-            }
-            if ((seqMov[0][2] == R_atual[0][0] || seqMov[0][2] == R_atual[0][1]) && rodou[0] == 0)
-            {
-                rodou[0] = Baixo (quadra, carro, R_atual, 11, 0, coordenadas, quant_linhas);
-            }
-            if ((seqMov[0][3] == R_atual[0][0] || seqMov[0][3] == R_atual[0][1]) && rodou[0] == 0)
-            {
-                rodou[0] = Dir (quadra, carro, R_atual, 11, 0, coordenadas, quant_colunas);
-            }
-        }
-        if (carro[12][1] == '2' || carro[12][1] == '0')
-        {
-            x = coordenadas[1][0];
-            y = coordenadas[1][1];
-            rodou[1] = 0;
-            if ((seqMov[1][0] == R_atual[1][0] || seqMov[1][0] == R_atual[1][1]) && rodou[1] == 0)
-            {
-                // cima
-                rodou[1] = Cima (quadra, carro, R_atual, 12, 1, coordenadas);
-            }
-            if ((seqMov[1][1] == R_atual[1][0] || seqMov[1][1] == R_atual[1][1]) && rodou[1] == 0)
-            {
-                // Dir
-                rodou[1] = Dir (quadra, carro, R_atual, 12, 1, coordenadas, quant_colunas);
-            }
-            if ((seqMov[1][2] == R_atual[1][0] || seqMov[1][2] == R_atual[1][1]) && rodou[1] == 0)
-            {
-                // baixo
-                rodou[1] = Baixo (quadra, carro, R_atual, 12, 1, coordenadas, quant_linhas);
-            }
-            if ((seqMov[1][3] == R_atual[1][0] || seqMov[1][3] == R_atual[1][1]) && rodou[1] == 0)
-            {
-                // esq
-                rodou[1] = Esq (quadra, carro, R_atual, 12, 1, coordenadas);
-            }
-        }
-        */
-    }
+    }*/
         
     printf("\n");
     //Guardar o valor da posição atual
