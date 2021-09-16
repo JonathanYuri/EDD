@@ -13,8 +13,9 @@ typedef struct{
 // eu vou usar minha decisao
 
 // os que tem letras diferentes sao um semaforo
+// O Tempo do vermelho é o tempo do verde + tempo do amarelo
 
-void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atual[][2])
+void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atual[][2], char semaforo[][6])
 {
     // Matriz
     for (int i = 0; i < 28; i++)
@@ -134,13 +135,6 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
         matriz[i][36].r[1] = 'b';
     }
     
-    // Quinas
-    matriz[0][0].r[0] = 'd';
-    matriz[0][0].r[1] = 'd';
-    
-    matriz[27][36].r[0] = 'e';
-    matriz[27][36].r[1] = 'e';
-    
     // Cruzamentos (MEIOS)
     for (int i = 3; i < 25; i+=3)
     {
@@ -254,9 +248,48 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
     coordenadas[9][0] = 16;
     coordenadas[9][1] = 36;
     
+    // ERROS
+    matriz[0][0].r[0] = 'd';
+    matriz[0][0].r[1] = 'd';
+    matriz[0][36].r[1] = 'b';
+    matriz[27][36].r[0] = 'e';
+    matriz[27][36].r[1] = 'e';
+    
+    //Semaforos
+    k = 1;
+    for (int i = 0; i < 28; i++)
+    {
+        for (int j = 0; j < 37; j++)
+        {
+            if ((matriz[i][j].r[0] != matriz[i][j].r[1]) && isalpha(matriz[i][j].r[0]))
+            {
+                // salvar cords do semaforo aq tbm
+                semaforo[k][0] = 'v';
+                semaforo[k][1] = '2';
+                semaforo[k][2] = matriz[i][j].r[0];
+                semaforo[k][3] = 'r';
+                semaforo[k][4] = '3';
+                semaforo[k][5] = matriz[i][j].r[1];
+                
+                matriz[i][j].r[0] = semaforo[k][0];
+                matriz[i][j].r[1] = semaforo[k][1];
+                k++;
+            }
+        }
+    }
+    
+    /*
+    for (int i = 1; i < 98; i++)
+    {
+        for (int j = 0; j < 6; j++)
+        {
+            printf("%c ", semaforo[i][j]);
+        }
+        printf("\n");
+    }*/
+    
     
     // Print
-    /*
     for (int i = 0; i < 28; i++)
     {
         for (int j = 0; j < 37; j++)
@@ -266,7 +299,6 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
         }
         printf("\n");
     }
-    */
     
     /*for (int i = 1; i < 101; i++)
     {
@@ -410,6 +442,9 @@ int main()
     carro[100][0] = '0';
     carro[100][1] = '0';
     
+    char semaforo[97][6];
+    int coord_semaforo[]
+    
     //Carro Começando do i = 1 para n usarmos o carro[0][0]
     /*
     for (int i = 1; i < 101; i++)
@@ -421,9 +456,9 @@ int main()
         printf ("\n");
     }*/
     
-    Quadra (quadra, rua, coordenadas, R_atual);
+    Quadra (quadra, rua, coordenadas, R_atual, semaforo);
     
-    
+    /*
     for (int m = 0; m < 100; m++)
     {
         for (int i = 0; i < 28; i++)
@@ -436,6 +471,7 @@ int main()
             printf("\n");
         }
         printf("\n");
+        
         // carro[x][1] == '1'
         for (int m = 1; m < 101; m++)
         {
@@ -613,10 +649,8 @@ int main()
                 }
             }
         }
-        
     }
-    
-        
+    */
     printf("\n");
     //Guardar o valor da posição atual
     //Antes de andar, verificar pra onde ele PODE ir com base em sua lista de mov. e sentido da rua
