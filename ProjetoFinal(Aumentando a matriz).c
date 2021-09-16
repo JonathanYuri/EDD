@@ -12,7 +12,7 @@ typedef struct{
 // eu vou andando conforme o sentido da rua, só quando matriz[i][j].r[0] != matriz[i][j].r[1]
 // eu vou usar minha decisao
 
-void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2], char Rua_atual[][2])
+void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atual[][2])
 {
     // Matriz
     for (int i = 0; i < 28; i++)
@@ -41,77 +41,77 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2], char Rua_
     }
     
     // Ruas Colunas
-    //rua[4][2] = {{'c', 'e'}, {'b', 'd'}, {'c', 'd'}, {'b', 'e'}};
+    //rua[4] = {'c', 'd', 'e', 'b'};
     for (int i = 0; i < 28; i++)
     {
-        // Coluna 1: c, e
-        matriz[i][4].r[0] = rua[0][0];
-        matriz[i][4].r[1] = rua[0][0];
+        // Coluna 1: c
+        matriz[i][4].r[0] = rua[0];
+        matriz[i][4].r[1] = rua[0];
         
-        // Coluna 2: c, e
-        matriz[i][8].r[0] = rua[0][0];
-        matriz[i][8].r[1] = rua[0][0];
+        // Coluna 2: c
+        matriz[i][8].r[0] = rua[0];
+        matriz[i][8].r[1] = rua[0];
         
-        // Coluna 3: c, e
-        matriz[i][12].r[0] = rua[0][0];
-        matriz[i][12].r[1] = rua[0][0];
+        // Coluna 3: c
+        matriz[i][12].r[0] = rua[0];
+        matriz[i][12].r[1] = rua[0];
         
-        // Coluna 4: b, e
-        matriz[i][16].r[0] = rua[3][0];
-        matriz[i][16].r[1] = rua[3][0];
+        // Coluna 4: b
+        matriz[i][16].r[0] = rua[3];
+        matriz[i][16].r[1] = rua[3];
         
-        // Coluna 5: b, e
-        matriz[i][20].r[0] = rua[3][0];
-        matriz[i][20].r[1] = rua[3][0];
+        // Coluna 5: b
+        matriz[i][20].r[0] = rua[3];
+        matriz[i][20].r[1] = rua[3];
         
-        // Coluna 6: b, d
-        matriz[i][24].r[0] = rua[1][0];
-        matriz[i][24].r[1] = rua[1][0];
+        // Coluna 6: b
+        matriz[i][24].r[0] = rua[3];
+        matriz[i][24].r[1] = rua[3];
         
-        // Coluna 7: b, d
-        matriz[i][28].r[0] = rua[1][0];
-        matriz[i][28].r[1] = rua[1][0];
+        // Coluna 7: b
+        matriz[i][28].r[0] = rua[3];
+        matriz[i][28].r[1] = rua[3];
         
-        // Coluna 8: b, d
-        matriz[i][32].r[0] = rua[1][0];
-        matriz[i][32].r[1] = rua[1][0];
+        // Coluna 8: b
+        matriz[i][32].r[0] = rua[3];
+        matriz[i][32].r[1] = rua[3];
     }
     
     // Ruas Linhas
-    //rua[4][2] = {{'c', 'e'}, {'b', 'd'}, {'c', 'd'}, {'b', 'e'}};
+    //rua[4] = {'c', 'd', 'e', 'b'};
     for (int j = 0; j < 37; j++)
     {
-        // Rua 1: b, e
-        matriz[3][j].r[0] = rua[3][1];
-        matriz[3][j].r[1] = rua[3][1];
+        // Rua 1: e
+        matriz[3][j].r[0] = rua[2];
+        matriz[3][j].r[1] = rua[2];
         
-        // Rua 2: c, e
-        matriz[6][j].r[0] = rua[0][1];
-        matriz[6][j].r[1] = rua[0][1];
+        // Rua 2: e
+        matriz[6][j].r[0] = rua[2];
+        matriz[6][j].r[1] = rua[2];
         
-        // Rua 3: c, d
-        matriz[9][j].r[0] = rua[2][1];
-        matriz[9][j].r[1] = rua[2][1];
+        // Rua 3: d
+        matriz[9][j].r[0] = rua[1];
+        matriz[9][j].r[1] = rua[1];
         
-        // Rua 4: b, d
-        matriz[12][j].r[0] = rua[1][1];
-        matriz[12][j].r[1] = rua[1][1];
+        // Rua 4: d
+        matriz[12][j].r[0] = rua[1];
+        matriz[12][j].r[1] = rua[1];
         
-        // Rua 5: b, d
-        matriz[15][j].r[0] = rua[1][1];
-        matriz[15][j].r[1] = rua[1][1];
+        // Rua 5: d
+        matriz[15][j].r[0] = rua[1];
+        matriz[15][j].r[1] = rua[1];
         
-        // Rua 6: c, e
-        matriz[18][j].r[0] = rua[0][1];
-        matriz[18][j].r[1] = rua[0][1];
+        // Rua 6: e
+        matriz[18][j].r[0] = rua[2];
+        matriz[18][j].r[1] = rua[2];
         
-        // Rua 7: b, e
-        matriz[21][j].r[0] = rua[3][1];
-        matriz[21][j].r[1] = rua[3][1];
+        // Rua 7: e
+        matriz[21][j].r[0] = rua[2];
+        matriz[21][j].r[1] = rua[2];
         
-        // Rua 8: c, e
-        matriz[24][j].r[0] = rua[0][1];
-        matriz[24][j].r[1] = rua[0][1];
+        // Rua 8: e
+        matriz[24][j].r[0] = rua[2];
+        matriz[24][j].r[1] = rua[2];
     }
     
     // Rua linha 0 e 27
@@ -240,15 +240,24 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2], char Rua_
     
     
     // Print
+    /*
     for (int i = 0; i < 28; i++)
     {
         for (int j = 0; j < 37; j++)
         {
-            printf("%c", matriz[i][j].r[0]);
-            printf("%c ", matriz[i][j].r[1]);
+            if (isdigit (matriz[i][j].r[0]))
+            {
+                printf("%c", matriz[i][j].r[0]);
+                printf("%c ", matriz[i][j].r[1]);
+            }
+            else
+            {
+                printf(" ");
+            }
         }
         printf("\n");
     }
+    */
     
     /*for (int i = 1; i < 101; i++)
     {
@@ -260,14 +269,120 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2], char Rua_
     }*/
 }
 
+int Cima (locura quadra[][37], char carro[][2], char R_atual[][2], int numeroR, int coordenadas[][2])
+{
+    int x = coordenadas[numeroR][0];
+    int y = coordenadas[numeroR][1];
+    
+    if ((x - 1) >= 0)  // se ele tentar chegar -1 paro
+    {
+        if (quadra[x-1][y].r[0] != 'x' && isalpha(quadra[x-1][y].r[0])) // uma letra diferente de x
+        {
+            // vou andar, a que eu estava vai pegar o valor
+            quadra[x][y].r[0] = R_atual[numeroR][0];
+            quadra[x][y].r[1] = R_atual[numeroR][1];
+            // vou guardar o valor da q vai estar o carro
+            R_atual[numeroR][0] = quadra[x-1][y].r[0];
+            R_atual[numeroR][1] = quadra[x-1][y].r[1];
+            // carro vai andar
+            quadra[x-1][y].r[0] = carro[numeroR][0];
+            quadra[x-1][y].r[1] = carro[numeroR][1];
+            
+            coordenadas[numeroR][0] = x - 1;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int Esq (locura quadra[][37], char carro[][2], char R_atual[][2], int numeroR, int coordenadas[][2])
+{
+    int x = coordenadas[numeroR][0];
+    int y = coordenadas[numeroR][1];
+    
+    if ((y - 1) >= 0)
+    {
+        if (quadra[x][y-1].r[0] != 'x' && isalpha(quadra[x][y-1].r[0]))
+        {
+            
+            // vou andar, a que eu estava vai pegar o valor
+            quadra[x][y].r[0] = R_atual[numeroR][0];
+            quadra[x][y].r[1] = R_atual[numeroR][1];
+            // vou guardar o valor da q vai estar o carro
+            R_atual[numeroR][0] = quadra[x][y-1].r[0];
+            R_atual[numeroR][1] = quadra[x][y-1].r[1];
+            // carro vai andar
+            quadra[x][y-1].r[0] = carro[numeroR][0];
+            quadra[x][y-1].r[1] = carro[numeroR][1];
+            
+            coordenadas[numeroR][1] = y - 1;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int Baixo (locura quadra[][37], char carro[][2], char R_atual[][2], int numeroR, int coordenadas[][2], int limite)
+{
+    int x = coordenadas[numeroR][0];
+    int y = coordenadas[numeroR][1];
+    
+    if ((x + 1) < limite)
+    {
+        if (quadra[x+1][y].r[0] != 'x' && isalpha(quadra[x+1][y].r[0]))
+        {
+            // vou andar, a que eu estava vai pegar o valor
+            quadra[x][y].r[0] = R_atual[numeroR][0];
+            quadra[x][y].r[1] = R_atual[numeroR][1];
+            // vou guardar o valor da q vai estar o carro
+            R_atual[numeroR][0] = quadra[x+1][y].r[0];
+            R_atual[numeroR][1] = quadra[x+1][y].r[1];
+            // carro vai andar
+            quadra[x+1][y].r[0] = carro[numeroR][0];
+            quadra[x+1][y].r[1] = carro[numeroR][1];
+            
+            coordenadas[numeroR][0] = x + 1;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int Dir (locura quadra[][37], char carro[][2], char R_atual[][2], int numeroR, int coordenadas[][2], int limite)
+{
+    int x = coordenadas[numeroR][0];
+    int y = coordenadas[numeroR][1];
+    
+    if ((y + 1) < limite)
+    {
+        if (quadra[x][y+1].r[0] != 'x' && isalpha(quadra[x][y+1].r[0]))
+        {
+            
+            // vou andar, a que eu estava vai pegar o valor
+            quadra[x][y].r[0] = R_atual[numeroR][0];
+            quadra[x][y].r[1] = R_atual[numeroR][1];
+            // vou guardar o valor da q vai estar o carro
+            R_atual[numeroR][0] = quadra[x][y+1].r[0];
+            R_atual[numeroR][1] = quadra[x][y+1].r[1];
+            // carro vai andar
+            quadra[x][y+1].r[0] = carro[numeroR][0];
+            quadra[x][y+1].r[1] = carro[numeroR][1];
+            
+            coordenadas[numeroR][1] = y + 1;
+            return 1;
+        }
+    }
+    return 0;
+}
+
 int main()
 {
     int rodou[100], coordenadas[101][2], k = 0, x, y;
-    int quant_linhas = 4;
-    int quant_colunas = 5;
+    int quant_linhas = 28;
+    int quant_colunas = 37;
     
     locura quadra[28][37];
-    char rua[4][2] = {{'c', 'e'}, {'b', 'd'}, {'c', 'd'}, {'b', 'e'}};
+    char rua[4] = {'c', 'd', 'e', 'b'};
     
     
     char seqMov[7][4] = {{'c', 'e', 'b', 'd'}, {'c', 'd', 'b', 'e'}, {'b', 'e', 'c', 'd'}, {'b', 'd', 'c', 'e'}, {'e', 'b', 'd', 'c'}, {'d', 'b', 'e', 'c'}, {'e', 'c', 'd', 'b'}};
@@ -285,7 +400,8 @@ int main()
     }
     
     //Carro Começando do i = 1 para n usarmos o carro[0][0]
-    /*for (int i = 1; i < 101; i++)
+    /*
+    for (int i = 1; i < 101; i++)
     {
         for (int j = 0; j < 2; j++)
         {
@@ -296,12 +412,12 @@ int main()
     
     Quadra (quadra, rua, coordenadas, R_atual);
     
-    /*
+    
     for (int m = 0; m < 13; m++)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 28; i++)
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 37; j++)
             {
                 printf("%c", quadra[i][j].r[0]);
                 printf("%c ", quadra[i][j].r[1]);
@@ -310,207 +426,180 @@ int main()
         }
         printf("\n");
         // carro[x][1] == '1'
-        if (carro[11][1] == '1' || carro[11][1] == '9') //final 1 mesmo padrão
+        for (int m = 1; m < 13; m++)
         {
-            //Se o seqMov1[0] falhar, olhamos o próximo até o seqMov1[4], "return" o move true
-            x = coordenadas[0][0];
-            y = coordenadas[0][1];
-            rodou[0] = 0;
-            
-            if ((seqMov[0][0] == R_atual[0][0] || seqMov[0][0] == R_atual[0][1]) && rodou[0] == 0)
+            // vao ter o mesmo padrao os carros que terminam com 1 e 9
+            //printf("%c%c\n", carro[m][0], carro[m][1]);
+            if (carro[m][1] == '1' || carro[m][1] == '9')
             {
-                // cima
-                if ((x - 1) >= 0)  // se ele tentar chegar -1 paro
+                //printf("%c%c\n", carro[m][0], carro[m][1]);
+                rodou[m] = 0;
+                
+                if ((seqMov[0][0] == R_atual[m][0] || seqMov[0][0] == R_atual[m][1]) && rodou[m] == 0)
                 {
-                    if (quadra[x-1][y].r[0] != 'x' && isalpha(quadra[x-1][y].r[0])) // uma letra diferente de x
-                    {
-                        // vou andar, a que eu estava vai pegar o valor
-                        quadra[x][y].r[0] = R_atual[0][0];
-                        quadra[x][y].r[1] = R_atual[0][1];
-                        // vou guardar o valor da q vai estar o carro
-                        R_atual[0][0] = quadra[x-1][y].r[0];
-                        R_atual[0][1] = quadra[x-1][y].r[1];
-                        // carro vai andar
-                        quadra[x-1][y].r[0] = carro[11][0];
-                        quadra[x-1][y].r[1] = carro[11][1];
-                        
-                        coordenadas[0][0] = x - 1;
-                        rodou[0] = 1;
-                    }
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[0][1] == R_atual[m][0] || seqMov[0][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[0][2] == R_atual[m][0] || seqMov[0][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[0][3] == R_atual[m][0] || seqMov[0][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
                 }
             }
-            if ((seqMov[0][1] == R_atual[0][0] || seqMov[0][1] == R_atual[0][1]) && rodou[0] == 0)
+            if (carro[m][1] == '2' || carro[m][1] == '0')
             {
-                // esq
-                if ((y - 1) >= 0)
+                rodou[m] = 0;
+                if ((seqMov[1][0] == R_atual[m][0] || seqMov[1][0] == R_atual[m][1]) && rodou[m] == 0)
                 {
-                    if (quadra[x][y-1].r[0] != 'x' && isalpha(quadra[x][y-1].r[0]))
-                    {
-                        
-                        // vou andar, a que eu estava vai pegar o valor
-                        quadra[x][y].r[0] = R_atual[0][0];
-                        quadra[x][y].r[1] = R_atual[0][1];
-                        // vou guardar o valor da q vai estar o carro
-                        R_atual[0][0] = quadra[x][y-1].r[0];
-                        R_atual[0][1] = quadra[x][y-1].r[1];
-                        // carro vai andar
-                        quadra[x][y-1].r[0] = carro[11][0];
-                        quadra[x][y-1].r[1] = carro[11][1];
-                        
-                        coordenadas[0][1] = y - 1;
-                        rodou[0] = 1;
-                    }
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[1][1] == R_atual[m][0] || seqMov[1][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+                if ((seqMov[1][2] == R_atual[m][0] || seqMov[1][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[1][3] == R_atual[m][0] || seqMov[1][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
                 }
             }
-            if ((seqMov[0][2] == R_atual[0][0] || seqMov[0][2] == R_atual[0][1]) && rodou[0] == 0)
+            if (carro[m][1] == '3')
             {
-                // baixo
-                if ((x + 1) < quant_linhas)
+                rodou[m] = 0;
+                if ((seqMov[2][0] == R_atual[m][0] || seqMov[2][0] == R_atual[m][1]) && rodou[m] == 0)
                 {
-                    if (quadra[x+1][y].r[0] != 'x' && isalpha(quadra[x+1][y].r[0]))
-                    {
-                        
-                        // vou andar, a que eu estava vai pegar o valor
-                        quadra[x][y].r[0] = R_atual[0][0];
-                        quadra[x][y].r[1] = R_atual[0][1];
-                        // vou guardar o valor da q vai estar o carro
-                        R_atual[0][0] = quadra[x+1][y].r[0];
-                        R_atual[0][1] = quadra[x+1][y].r[1];
-                        // carro vai andar
-                        quadra[x+1][y].r[0] = carro[11][0];
-                        quadra[x+1][y].r[1] = carro[11][1];
-                        
-                        coordenadas[0][0] = x + 1;
-                        rodou[0] = 1;
-                    }
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[2][1] == R_atual[m][0] || seqMov[2][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[2][2] == R_atual[m][0] || seqMov[2][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[2][3] == R_atual[m][0] || seqMov[2][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
                 }
             }
-            if ((seqMov[0][3] == R_atual[0][0] || seqMov[0][3] == R_atual[0][1]) && rodou[0] == 0)
+            if (carro[m][1] == '4')
             {
-                // dir
-                if ((y + 1) < quant_colunas)
+                rodou[m] = 0;
+                if ((seqMov[3][0] == R_atual[m][0] || seqMov[3][0] == R_atual[m][1]) && rodou[m] == 0)
                 {
-                    if (quadra[x][y+1].r[0] != 'x' && isalpha(quadra[x][y+1].r[0]))
-                    {
-                        
-                        // vou andar, a que eu estava vai pegar o valor
-                        quadra[x][y].r[0] = R_atual[0][0];
-                        quadra[x][y].r[1] = R_atual[0][1];
-                        // vou guardar o valor da q vai estar o carro
-                        R_atual[0][0] = quadra[x][y+1].r[0];
-                        R_atual[0][1] = quadra[x][y+1].r[1];
-                        // carro vai andar
-                        quadra[x][y+1].r[0] = carro[11][0];
-                        quadra[x][y+1].r[1] = carro[11][1];
-                        
-                        coordenadas[0][1] = y + 1;
-                        rodou[0] = 1;
-                    }
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[3][1] == R_atual[m][0] || seqMov[3][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+                if ((seqMov[3][2] == R_atual[m][0] || seqMov[3][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[3][3] == R_atual[m][0] || seqMov[3][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
                 }
             }
-        }
-        if (carro[12][1] == '2' || carro[12][1] == '0')
-        {
-            x = coordenadas[1][0];
-            y = coordenadas[1][1];
-            rodou[1] = 0;
-            if ((seqMov[1][0] == R_atual[1][0] || seqMov[1][0] == R_atual[1][1]) && rodou[1] == 0)
+            if (carro[m][1] == '5')
             {
-                // cima
-                if ((x - 1) >= 0)  // se ele tentar chegar -1 paro
+                rodou[m] = 0;
+                if ((seqMov[4][0] == R_atual[m][0] || seqMov[4][0] == R_atual[m][1]) && rodou[m] == 0)
                 {
-                    // tenho que verificar se ela pode mover de acordo com o sentido da rua
-                    if (quadra[x-1][y].r[0] != 'x' && isalpha(quadra[x-1][y].r[0]))
-                    {
-                        
-                        // vou andar, a que eu estava vai pegar o valor
-                        quadra[x][y].r[0] = R_atual[1][0];
-                        quadra[x][y].r[1] = R_atual[1][1];
-                        // vou guardar o valor da q vai estar o carro
-                        R_atual[1][0] = quadra[x-1][y].r[0];
-                        R_atual[1][1] = quadra[x-1][y].r[1];
-                        // carro vai andar
-                        quadra[x-1][y].r[0] = carro[12][0];
-                        quadra[x-1][y].r[1] = carro[12][1];
-                        
-                        coordenadas[1][0] = x - 1;
-                        rodou[1] = 1;
-                    }
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[4][1] == R_atual[m][0] || seqMov[4][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[4][2] == R_atual[m][0] || seqMov[4][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+                if ((seqMov[4][3] == R_atual[m][0] || seqMov[4][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
                 }
             }
-            if ((seqMov[1][1] == R_atual[1][0] || seqMov[1][1] == R_atual[1][1]) && rodou[1] == 0)
+            if (carro[m][1] == '6' || carro[m][1] == '8')
             {
-                // dir
-                if ((y + 1) >= 0)
+                rodou[m] = 0;
+                if ((seqMov[5][0] == R_atual[m][0] || seqMov[5][0] == R_atual[m][1]) && rodou[m] == 0)
                 {
-                    if (quadra[x][y+1].r[0] != 'x' && isalpha(quadra[x][y+1].r[0]))
-                    {
-                        
-                        // vou andar, a que eu estava vai pegar o valor
-                        quadra[x][y].r[0] = R_atual[1][0];
-                        quadra[x][y].r[1] = R_atual[1][1];
-                        // vou guardar o valor da q vai estar o carro
-                        R_atual[1][0] = quadra[x][y+1].r[0];
-                        R_atual[1][1] = quadra[x][y+1].r[1];
-                        // carro vai andar
-                        quadra[x][y+1].r[0] = carro[12][0];
-                        quadra[x][y+1].r[1] = carro[12][1];
-                        
-                        coordenadas[1][1] = y + 1;
-                        rodou[1] = 1;
-                    }
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+                if ((seqMov[5][1] == R_atual[m][0] || seqMov[5][1] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                }
+                if ((seqMov[5][2] == R_atual[m][0] || seqMov[5][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[5][3] == R_atual[m][0] || seqMov[5][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
                 }
             }
-            if ((seqMov[1][2] == R_atual[1][0] || seqMov[1][2] == R_atual[1][1]) && rodou[1] == 0)
+            if (carro[m][1] == '7')
             {
-                // baixo
-                if ((x + 1) < quant_linhas)
+                rodou[m] = 0;
+                if ((seqMov[6][0] == R_atual[m][0] || seqMov[6][0] == R_atual[m][1]) && rodou[m] == 0)
                 {
-                    if (quadra[x+1][y].r[0] != 'x' && isalpha(quadra[x+1][y].r[0]))
-                    {
-                        
-                        // vou andar, a que eu estava vai pegar o valor
-                        quadra[x][y].r[0] = R_atual[1][0];
-                        quadra[x][y].r[1] = R_atual[1][1];
-                        // vou guardar o valor da q vai estar o carro
-                        R_atual[1][0] = quadra[x+1][y].r[0];
-                        R_atual[1][1] = quadra[x+1][y].r[1];
-                        // carro vai andar
-                        quadra[x+1][y].r[0] = carro[12][0];
-                        quadra[x+1][y].r[1] = carro[12][1];
-                        
-                        coordenadas[1][0] = x + 1;
-                        rodou[1] = 1;
-                    }
+                    // esq
+                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
                 }
-            }
-            if ((seqMov[1][3] == R_atual[1][0] || seqMov[1][3] == R_atual[1][1]) && rodou[1] == 0)
-            {
-                // esq
-                if ((y - 1) < quant_colunas)
+                if ((seqMov[6][1] == R_atual[m][0] || seqMov[6][1] == R_atual[m][1]) && rodou[m] == 0)
                 {
-                    if (quadra[x][y-1].r[0] != 'x' && isalpha(quadra[x][y-1].r[0]))
-                    {
-                        
-                        // vou andar, a que eu estava vai pegar o valor
-                        quadra[x][y].r[0] = R_atual[1][0];
-                        quadra[x][y].r[1] = R_atual[1][1];
-                        // vou guardar o valor da q vai estar o carro
-                        R_atual[1][0] = quadra[x][y-1].r[0];
-                        R_atual[1][1] = quadra[x][y-1].r[1];
-                        // carro vai andar
-                        quadra[x][y-1].r[0] = carro[12][0];
-                        quadra[x][y-1].r[1] = carro[12][1];
-                        
-                        coordenadas[1][1] = y - 1;
-                        rodou[1] = 1;
-                    }
+                    // cima
+                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                }
+                if ((seqMov[6][2] == R_atual[m][0] || seqMov[6][2] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // Dir
+                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                }
+                if ((seqMov[6][3] == R_atual[m][0] || seqMov[6][3] == R_atual[m][1]) && rodou[m] == 0)
+                {
+                    // baixo
+                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
                 }
             }
         }
         
     }
-    */
+    
         
     printf("\n");
     //Guardar o valor da posição atual
