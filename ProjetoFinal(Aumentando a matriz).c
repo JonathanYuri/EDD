@@ -377,7 +377,7 @@ int Dir (locura quadra[][37], char carro[][2], char R_atual[][2], int numeroR, i
 
 int main()
 {
-    int rodou[100], coordenadas[101][2], k = 0, x, y;
+    int rodou[101], coordenadas[101][2], k = 0, x, y;
     int quant_linhas = 28;
     int quant_colunas = 37;
     
@@ -398,6 +398,8 @@ int main()
             k++;
         }
     }
+    carro[100][0] = '0';
+    carro[100][1] = '0';
     
     //Carro Começando do i = 1 para n usarmos o carro[0][0]
     /*
@@ -413,7 +415,7 @@ int main()
     Quadra (quadra, rua, coordenadas, R_atual);
     
     
-    for (int m = 0; m < 13; m++)
+    for (int m = 0; m < 100; m++)
     {
         for (int i = 0; i < 28; i++)
         {
@@ -426,10 +428,14 @@ int main()
         }
         printf("\n");
         // carro[x][1] == '1'
-        for (int m = 1; m < 13; m++)
+        for (int m = 1; m < 101; m++)
         {
             // vao ter o mesmo padrao os carros que terminam com 1 e 9
-            //printf("%c%c\n", carro[m][0], carro[m][1]);
+            
+            // a gente so vai observar o seqmov se estiver num sinal se nao a gente so vai andar com ele no sentido da pista
+            // se matriz[i][j].r[0] != matriz[i][j].r[1] ele decide pra onde vai (entra no if VV)
+            // se nao continuamos no sentido da pista
+            
             if (carro[m][1] == '1' || carro[m][1] == '9')
             {
                 //printf("%c%c\n", carro[m][0], carro[m][1]);
@@ -455,6 +461,7 @@ int main()
             if (carro[m][1] == '2' || carro[m][1] == '0')
             {
                 rodou[m] = 0;
+                
                 if ((seqMov[1][0] == R_atual[m][0] || seqMov[1][0] == R_atual[m][1]) && rodou[m] == 0)
                 {
                     // cima
