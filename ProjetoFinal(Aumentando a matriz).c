@@ -12,6 +12,8 @@ typedef struct{
 // eu vou andando conforme o sentido da rua, só quando matriz[i][j].r[0] != matriz[i][j].r[1]
 // eu vou usar minha decisao
 
+// os que tem letras diferentes sao um semaforo
+
 void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atual[][2])
 {
     // Matriz
@@ -139,7 +141,7 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
     matriz[27][36].r[0] = 'e';
     matriz[27][36].r[1] = 'e';
     
-    // Cruzamentos
+    // Cruzamentos (MEIOS)
     for (int i = 3; i < 25; i+=3)
     {
         for (int j = 4; j < 33; j+=4)
@@ -147,6 +149,19 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
             matriz[i][j].r[0] = matriz[i-1][j].r[0];
         }
     }
+    // Cruzamentos (BORDAS)
+    for (int i = 0; i < 25; i+=3)
+    {
+        matriz[i][0].r[1] = matriz[i][1].r[1];
+        matriz[i][36].r[1] = matriz[i][35].r[1];
+    }
+    
+    for (int j = 0; j < 36; j+=4)
+    {
+        matriz[0][j].r[1] = matriz[1][j].r[1];
+        matriz[27][j].r[1] = matriz[26][j].r[1];
+    }
+    
     //Coordenadas dos carros 11 - 98
     int f = 0, g = 0, k = 11;
     for (int x = 1; x < 10; x++)
@@ -160,9 +175,11 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
             //Guarda o valor da rua
             Rua_atual[k][0] = matriz[f+3][g+5].r[0];
             Rua_atual[k][1] = matriz[f+3][g+5].r[1];
+            
             //Coloca o carro na posição
             matriz[f+3][g+5].r[0] = x +'0';
             matriz[f+3][g+5].r[1] = y +'0';
+            
             //Salva as coordenadas do carro
             coordenadas[k][0] = f + 3;
             coordenadas[k][1] = g + 5;
@@ -186,7 +203,6 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
         coordenadas[g][0] = 15;
         coordenadas[g][1] = y;
         
-        //printf ("%d %d\n", )
         g++;
     }
     //Coordenadas de 10 - 90 (+10)
@@ -245,15 +261,8 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
     {
         for (int j = 0; j < 37; j++)
         {
-            if (isdigit (matriz[i][j].r[0]))
-            {
-                printf("%c", matriz[i][j].r[0]);
-                printf("%c ", matriz[i][j].r[1]);
-            }
-            else
-            {
-                printf(" ");
-            }
+            printf("%c", matriz[i][j].r[0]);
+            printf("%c ", matriz[i][j].r[1]);
         }
         printf("\n");
     }
