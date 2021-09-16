@@ -147,9 +147,9 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
             matriz[i][j].r[0] = matriz[i-1][j].r[0];
         }
     }
-    //Coordenadas dos carros 11 - 88
+    //Coordenadas dos carros 11 - 98
     int f = 0, g = 0, k = 11;
-    for (int x = 1; x < 9; x++)
+    for (int x = 1; x < 10; x++)
     {
         for (int y = 1; y < 9; y++)
         {
@@ -161,8 +161,8 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
             matriz[f+3][g+5].r[0] = x +'0';
             matriz[f+3][g+5].r[1] = y +'0';
             
-            coordenadas[k-1][0] = f + 3;
-            coordenadas[k-1][1] = g + 5;
+            coordenadas[k][0] = f + 3;
+            coordenadas[k][1] = g + 5;
             g += 4;
             k++;
         }
@@ -176,8 +176,8 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
         matriz[15][y].r[0] = '0';
         matriz[15][y].r[1] = g +'0';
         
-        coordenadas[g-1][0] = 15;
-        coordenadas[g-1][1] = y;
+        coordenadas[g][0] = 15;
+        coordenadas[g][1] = y;
         
         //printf ("%d %d\n", )
         g++;
@@ -189,8 +189,8 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
         matriz[x][23].r[0] = f +'0';
         matriz[x][23].r[1] = '0';
         
-        coordenadas[(f*10)-1][0] = x;
-        coordenadas[(f*10)-1][1] = 23;
+        coordenadas[(f*10)][0] = x;
+        coordenadas[(f*10)][1] = 23;
         f++;
     }
     f = 1;
@@ -200,16 +200,16 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
         matriz[x][36].r[0] = f +'0';
         matriz[x][36].r[1] = '9';
         
-        coordenadas[(f*10)+8][0] = x;
-        coordenadas[(f*10)+8][1] = 36;
+        coordenadas[(f*10)+9][0] = x;
+        coordenadas[(f*10)+9][1] = 36;
         f++;
     }
     
     //Coordenadas do Carro 100 e 09
     matriz[15][19].r[0] = '0';
     matriz[15][19].r[1] = '0';
-    coordenadas[99][0] = 15;
-    coordenadas[99][1] = 19;
+    coordenadas[100][0] = 15;
+    coordenadas[100][1] = 19;
     
     matriz[16][36].r[0] = '0';
     matriz[16][36].r[1] = '9';
@@ -218,7 +218,7 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
     
     
     // Print
-    /*for (int i = 0; i < 28; i++)
+    for (int i = 0; i < 28; i++)
     {
         for (int j = 0; j < 37; j++)
         {
@@ -226,21 +226,21 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
             printf("%c ", matriz[i][j].r[1]);
         }
         printf("\n");
-    }*/
+    }
     
-    for (int i = 0; i < 100; i++)
+    /*for (int i = 1; i < 101; i++)
     {
         for (int j = 0; j < 2; j++)
         {
             printf ("%d ", coordenadas[i][j]);
         }
         printf ("\n");
-    }
+    }*/
 }
 
 int main()
 {
-    int rodou[100], coordenadas[100][2], k = 0, x, y;
+    int rodou[100], coordenadas[101][2], k = 0, x, y;
     int quant_linhas = 4;
     int quant_colunas = 5;
     
@@ -249,10 +249,11 @@ int main()
     
     
     char seqMov[7][4] = {{'c', 'e', 'b', 'd'}, {'c', 'd', 'b', 'e'}, {'b', 'e', 'c', 'd'}, {'b', 'd', 'c', 'e'}, {'e', 'b', 'd', 'c'}, {'d', 'b', 'e', 'c'}, {'e', 'c', 'd', 'b'}};
-    char R_atual[100][2];
-    char carro[100][2];
+    char R_atual[101][2];
+    char carro[101][2];
     
-    /*for (int i = 0; i < 10; i++)
+    //Carro Começando do i = 1
+    /*for (int i = 1; i < 10; i++)
     {
         for (int j = 1; j < 10; j++)
         {
@@ -260,9 +261,8 @@ int main()
             carro[k][1] = j+'0';
             k++;
         }
-    }
-    printf ("%c ", carro[0][0]);
-    printf ("%c ", carro[0][1]);*/
+    }*/
+    
     Quadra (quadra, rua, coordenadas);
     /*
     // Carro 11
