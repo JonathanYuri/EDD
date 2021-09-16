@@ -174,12 +174,45 @@ int Dir (locura quadra[][5], int carro[][2], char R_atual[][2], int numeroR, int
     return 0;
 }
 
+int prox_semaforo(locura quadra[][5], int coord_semaforos[][2], char semaforo_atual[][2], char semaforo[][6], int x, int y, int m)
+{
+    char proximo[2];
+    proximo[0] = quadra[x][y].r[0];
+    proximo[1] = quadra[x][y].r[1];
+    
+    if (proximo[0] != proximo[1])
+    {
+        // QUAL SEMAFORO É?
+        //semaforo[2][8] = {{'v', '2', 'c', 'r', '3', 'e'}, {'v', '2', 'b', 'r', '3', 'e'}};
+        //coord_semaforos[2][2] = {{3, 0}, {3, 4}};
+        for (int i = 0; i < 2; i++)
+        {
+            if (coord_semaforos[i][0] == x || coord_semaforos[i][1] == y)
+            {
+                x = i;
+                //printf("É o semaforo da pos i:%i j:%i\n", x, y);
+            }
+        }
+        if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r')
+        {
+            semaforo_atual[m][0] = semaforo[x][2];
+            semaforo_atual[m][1] = semaforo[x][5];
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 int main()
 {
     int rodou[100], coordenadas[100][2], k = 0, x, y;
     int quant_linhas = 4;
     int quant_colunas = 5;
-    char proximo[2];
+    
     
     locura quadra[4][5];
     char seqMov[7][4] = {{'c', 'e', 'b', 'd'}, {'c', 'd', 'b', 'e'}, {'b', 'e', 'c', 'd'}, {'b', 'd', 'c', 'e'}, {'e', 'b', 'd', 'c'}, {'d', 'b', 'e', 'c'}, {'e', 'c', 'd', 'b'}};
@@ -454,30 +487,9 @@ int main()
                 {
                     x = coordenadas[m][0] - 1;   // x e y sao as coordenadas do semaforo se ele existir
                     y = coordenadas[m][1];
-                    proximo[0] = quadra[x][y].r[0];
-                    proximo[1] = quadra[x][y].r[1];
                     
-                    if (proximo[0] != proximo[1])
-                    {
-                        // QUAL SEMAFORO É?
-                        //semaforo[2][8] = {{'v', '2', 'c', 'r', '3', 'e'}, {'v', '2', 'b', 'r', '3', 'e'}};
-                        //coord_semaforos[2][2] = {{3, 0}, {3, 4}};
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (coord_semaforos[i][0] == x || coord_semaforos[i][1] == y)
-                            {
-                                x = i;
-                                printf("É o semaforo da pos i:%i j:%i\n", x, y);
-                            }
-                        }
-                        if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r')
-                        {
-                            semaforo_atual[m][0] = semaforo[x][2];
-                            semaforo_atual[m][1] = semaforo[x][5];
-                            rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
-                        }
-                    }
-                    else
+                    x = prox_semaforo(quadra, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                    if (x == 1)
                     {
                         rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
                     }
@@ -486,27 +498,9 @@ int main()
                 {
                     x = coordenadas[m][0];
                     y = coordenadas[m][1] - 1;
-                    proximo[0] = quadra[x][y].r[0];
-                    proximo[1] = quadra[x][y].r[1];
                     
-                    if (proximo[0] != proximo[1])
-                    {
-                        printf("PROXIMO SEMAFORO\n");
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (coord_semaforos[i][0] == x || coord_semaforos[i][1] == y)
-                            {
-                                x = i;
-                            }
-                        }
-                        if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r')
-                        {
-                            semaforo_atual[m][0] = semaforo[x][2];
-                            semaforo_atual[m][1] = semaforo[x][5];
-                            rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
-                        }
-                    }
-                    else
+                    x = prox_semaforo(quadra, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                    if (x == 1)
                     {
                         rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
                     }
@@ -515,27 +509,9 @@ int main()
                 {
                     x = coordenadas[m][0] + 1;
                     y = coordenadas[m][1];
-                    proximo[0] = quadra[x][y].r[0];
-                    proximo[1] = quadra[x][y].r[1];
                     
-                    if (proximo[0] != proximo[1])
-                    {
-                        printf("PROXIMO SEMAFORO\n");
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (coord_semaforos[i][0] == x || coord_semaforos[i][1] == y)
-                            {
-                                x = i;
-                            }
-                        }
-                        if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r')
-                        {
-                            semaforo_atual[m][0] = semaforo[x][2];
-                            semaforo_atual[m][1] = semaforo[x][5];
-                            rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
-                        }
-                    }
-                    else
+                    x = prox_semaforo(quadra, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                    if (x == 1)
                     {
                         rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
                     }
@@ -544,28 +520,9 @@ int main()
                 {
                     x = coordenadas[m][0];
                     y = coordenadas[m][1] + 1;
-                    proximo[0] = quadra[x][y].r[0];
-                    proximo[1] = quadra[x][y].r[1];
                     
-                    if (proximo[0] != proximo[1])
-                    {
-                        printf("PROXIMO SEMAFORO\n");
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (coord_semaforos[i][0] == x || coord_semaforos[i][1] == y)
-                            {
-                                printf("É o semaforo da pos i:%i j:%i\n", x, y);
-                                x = i;
-                            }
-                        }
-                        if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r')
-                        {
-                            semaforo_atual[m][0] = semaforo[x][2];
-                            semaforo_atual[m][1] = semaforo[x][5];
-                            rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
-                        }
-                    }
-                    else
+                    x = prox_semaforo(quadra, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                    if (x == 1)
                     {
                         rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
                     }
