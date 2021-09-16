@@ -12,7 +12,7 @@ typedef struct{
 // eu vou andando conforme o sentido da rua, só quando matriz[i][j].r[0] != matriz[i][j].r[1]
 // eu vou usar minha decisao
 
-void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
+void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2], char Rua_atual[][2])
 {
     // Matriz
     for (int i = 0; i < 28; i++)
@@ -157,12 +157,16 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
             {
                 k += 2;
             }
-            
+            //Guarda o valor da rua
+            Rua_atual[k][0] = matriz[f+3][g+5].r[0];
+            Rua_atual[k][1] = matriz[f+3][g+5].r[1];
+            //Coloca o carro na posição
             matriz[f+3][g+5].r[0] = x +'0';
             matriz[f+3][g+5].r[1] = y +'0';
-            
+            //Salva as coordenadas do carro
             coordenadas[k][0] = f + 3;
             coordenadas[k][1] = g + 5;
+            
             g += 4;
             k++;
         }
@@ -173,6 +177,9 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
     g = 1;
     for (int y = 6; y < 35; y+=4)
     {
+        Rua_atual[g][0] = matriz[15][y].r[0];
+        Rua_atual[g][1] = matriz[15][y].r[1];
+        
         matriz[15][y].r[0] = '0';
         matriz[15][y].r[1] = g +'0';
         
@@ -186,17 +193,23 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
     f = 1;
     for (int x = 3; x < 28; x+=3)
     {
+        Rua_atual[f*10][0] = matriz[x][23].r[0];
+        Rua_atual[f*10][1] = matriz[x][23].r[1];
+        
         matriz[x][23].r[0] = f +'0';
         matriz[x][23].r[1] = '0';
         
-        coordenadas[(f*10)][0] = x;
-        coordenadas[(f*10)][1] = 23;
+        coordenadas[f*10][0] = x;
+        coordenadas[f*10][1] = 23;
         f++;
     }
     f = 1;
     //Coordenadas de 19 - 99 (+10)
     for (int x = 2; x < 28; x+=3)
     {
+        Rua_atual[(f*10)+9][0] = matriz[x][36].r[0];
+        Rua_atual[(f*10)+9][1] = matriz[x][36].r[1];
+        
         matriz[x][36].r[0] = f +'0';
         matriz[x][36].r[1] = '9';
         
@@ -205,14 +218,23 @@ void Quadra (locura matriz[][37], char rua[][2], int coordenadas[][2])
         f++;
     }
     
-    //Coordenadas do Carro 100 e 09
+    //Coordenadas do Carro 100
+    Rua_atual[100][0] = matriz[15][19].r[0];
+    Rua_atual[100][1] = matriz[15][19].r[1];
+    
     matriz[15][19].r[0] = '0';
     matriz[15][19].r[1] = '0';
+    
     coordenadas[100][0] = 15;
     coordenadas[100][1] = 19;
     
+    //Coordenadas do Carro 09
+    Rua_atual[9][0] = matriz[16][36].r[0];
+    Rua_atual[9][1] = matriz[16][36].r[1];
+    
     matriz[16][36].r[0] = '0';
     matriz[16][36].r[1] = '9';
+    
     coordenadas[9][0] = 16;
     coordenadas[9][1] = 36;
     
@@ -252,58 +274,29 @@ int main()
     char R_atual[101][2];
     char carro[101][2];
     
-    //Carro Começando do i = 1
-    /*for (int i = 1; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
-        for (int j = 1; j < 10; j++)
+        for (int j = 0; j < 10; j++)
         {
             carro[k][0] = i+'0';
             carro[k][1] = j+'0';
             k++;
         }
+    }
+    
+    //Carro Começando do i = 1 para n usarmos o carro[0][0]
+    /*for (int i = 1; i < 101; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            printf ("%c", carro[i][j]);
+        }
+        printf ("\n");
     }*/
     
-    Quadra (quadra, rua, coordenadas);
+    Quadra (quadra, rua, coordenadas, R_atual);
+    
     /*
-    // Carro 11
-    R_atual[0][0] = quadra[3][1].r[0];
-    R_atual[0][1] = quadra[3][1].r[1];
-    quadra[3][1].r[0] = carro[11][0];
-    quadra[3][1].r[1] = carro[11][1];
-     // Carro 12
-    R_atual[1][0] = quadra[3][2].r[0];
-    R_atual[1][1] = quadra[3][2].r[1];
-    quadra[3][2].r[0] = carro[12][0];
-    quadra[3][2].r[1] = carro[12][1];
-    
-    
-    // Posicao do carro 11:
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            if (quadra[i][j].r[0] == carro[11][0] && quadra[i][j].r[1] == carro[11][1])
-            {
-                coordenadas[0][0] = i;
-                coordenadas[0][1] = j;
-                break;
-            }
-        }
-    }
-    //posicao do carro 12:
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            if (quadra[i][j].r[0] == carro[12][0] && quadra[i][j].r[1] == carro[12][1])
-            {
-                coordenadas[1][0] = i;
-                coordenadas[1][1] = j;
-                break;
-            }
-        }
-    }
-    
     for (int m = 0; m < 13; m++)
     {
         for (int i = 0; i < 4; i++)
