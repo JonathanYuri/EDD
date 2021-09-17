@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 // transformar o y, z, a e b numa IClandia e o rodou num array
 // o 11 nao e o comeco (mudar isso)
@@ -625,7 +627,7 @@ int main()
     ICLandia (IClandia, rua, coordenadas, R_atual, semaforo, coord_semaforos);
     int mudanca; 
     
-    for (int m = 0; m < 50; m++)
+    for (int m = 0; m < 1000; m++)
     {
         for (int i = 0; i < 2; i++) // Printando limite Superior da IClandia
         {
@@ -715,6 +717,9 @@ int main()
             printf ("\n");
         }
         printf ("\n");
+        
+        sleep(1);
+        system("clear");
         
         for (int j = 0; j < 96; j++)
         {
