@@ -280,46 +280,38 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
         }
     }
     
-    /*
-    for (int i = 0; i < 96; i++)
+    //Print Semaforo
+    /*for (int i = 0; i < 96; i++)
     {
         for (int j = 0; j < 6; j++)
         {
             printf("%c ", semaforo[i][j]);
         }
         printf("\n");
-    }
+    }*/
     
-    for (int i = 0; i < 96; i++)
+    //Print Coord_semaforo
+    /*for (int i = 0; i < 96; i++)
     {
         for (int j = 0; j < 2; j++)
         {
             printf("%d ", coord_semaforos[i][j]);
         }
         printf("\n");
-    }
-    */
+    }*/
     
     
-    /*// Print
-    for (int i = 0; i < 28; i++)
+    
+    // Print
+    /*for (int i = 0; i < 28; i++)
     {
         for (int j = 0; j < 37; j++)
         {
-            if (isdigit (IClandia[i][j].r[0]) || IClandia[i][j].r[0] == 'x')
-            {
-                printf("%c", IClandia[i][j].r[0]);
-                printf("%c ", IClandia[i][j].r[1]);
-            }
-            else
-            {
-                printf(" ");
-                printf("  ");
-            }
-            
+            printf("%c", IClandia[i][j].r[0]);
+            printf("%c ", IClandia[i][j].r[1]);
         }
         printf("\n");
-    }
+    }*/
     
     /*for (int i = 1; i < 101; i++)
     {
@@ -439,28 +431,29 @@ int Dir (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR,
 
 int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo_atual[][2], char semaforo[][6], int x, int y, int m)
 {
+    //printf ("Entrou: x:%d y:%d\n", x, y);
     char proximo[2];
     proximo[0] = IClandia[x][y].r[0];
     proximo[1] = IClandia[x][y].r[1];
     
-    if (proximo[0] != proximo[1])
+    if (proximo[0] != proximo[1] && isalpha(proximo[0]))
     {
         // QUAL SEMAFORO É?
         //semaforo[2][8] = {{'v', '2', 'c', 'r', '3', 'e'}, {'v', '2', 'b', 'r', '3', 'e'}};
         //coord_semaforos[2][2] = {{3, 0}, {3, 4}};
         for (int i = 0; i < 96; i++)
         {
-            if (coord_semaforos[i][0] == x || coord_semaforos[i][1] == y)
+            if (coord_semaforos[i][0] == x && coord_semaforos[i][1] == y)
             {
-                x = i;
                 //printf("É o semaforo da pos i:%i j:%i\n", x, y);
+                x = i;
             }
         }
-        
         if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r')
         {
             semaforo_atual[m][0] = semaforo[x][2];
             semaforo_atual[m][1] = semaforo[x][5];
+            //printf ("estado:%c tempo:%c sentido:%c estado:%c tempo%c sentido%c n°:%d\n", semaforo[x][0], semaforo[x][1], semaforo[x][2], semaforo[x][3], semaforo[x][4], semaforo[x][5], x);
             return 1;
         }
         else
@@ -514,7 +507,7 @@ int main()
     
     ICLandia (IClandia, rua, coordenadas, R_atual, semaforo, coord_semaforos);
     
-    for (int m = 0; m < 5; m++)
+    for (int m = 0; m < 3; m++)
     {
         for (int i = 0; i < 2; i++)
         {
@@ -639,21 +632,26 @@ int main()
                     if ((seqMov[1][0] == semaforo_atual[m][0] || seqMov[1][0] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // cima
+                        //printf ("%c %c subiu\n", carro[m][0], carro[m][1]);
                         rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
                     }
                     if ((seqMov[1][1] == semaforo_atual[m][0] || seqMov[1][1] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // Dir
+                        //printf ("%c %c dir\n", carro[m][0], carro[m][1]);
                         rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
                     }
                     if ((seqMov[1][2] == semaforo_atual[m][0] || seqMov[1][2] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // baixo
+                        //printf ("%c %c desceu\n", carro[m][0], carro[m][1]);
+                        //printf ("%c %c\n", semaforo_atual[m][0], semaforo_atual[m][1]);
                         rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
                     }
                     if ((seqMov[1][3] == semaforo_atual[m][0] || seqMov[1][3] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // esq
+                        //printf ("%c %c esq\n", carro[m][0], carro[m][1]);
                         rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
                     }
                 }
@@ -791,46 +789,66 @@ int main()
                     x = coordenadas[m][0] - 1;   // x e y sao as coordenadas do semaforo se ele existir
                     y = coordenadas[m][1];
                     
-                    // vai verificar se naquela posicao que ele quer ir tem um semaforo, se tiver ele escreve na IClandia
-                    // so vai escrever na IClandia e andar se ele for verde, se não, não anda
-                    x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
-                    if (x == 1)
+                    //printf ("x:%d y:%d\n", x, y);
+                    if (x >= 0)
                     {
-                        rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        // vai verificar se naquela posicao que ele quer ir tem um semaforo, se tiver ele escreve na IClandia
+                        // so vai escrever na IClandia e andar se ele for verde, se não, não anda
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                        if (x == 1)
+                        {
+                            rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        }
                     }
+                       
                 }
                 else if (R_atual[m][0] == 'e')
                 {
                     x = coordenadas[m][0];
                     y = coordenadas[m][1] - 1;
                     
-                    x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
-                    if (x == 1)
+                    //printf ("x:%d y:%d\n", x, y);
+                    if (y >= 0)
                     {
-                        rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                        if (x == 1)
+                        {
+                            rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        } 
                     }
+                        
                 }
                 else if (R_atual[m][0] == 'b')
                 {
                     x = coordenadas[m][0] + 1;
                     y = coordenadas[m][1];
                     
-                    x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
-                    if (x == 1)
+                    //printf ("x:%d y:%d\n", x, y);
+                    if (x <= 27)
                     {
-                        rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                        if (x == 1)
+                        {
+                            rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        } 
                     }
+                        
                 }
                 else if (R_atual[m][0] == 'd')
                 {
                     x = coordenadas[m][0];
                     y = coordenadas[m][1] + 1;
                     
-                    x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
-                    if (x == 1)
+                    //printf ("x:%d y:%d\n", x, y);
+                    if (y <= 36)
                     {
-                        rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                        if (x == 1)
+                        {
+                            rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        }
                     }
+                    
                 }
             }
         }
