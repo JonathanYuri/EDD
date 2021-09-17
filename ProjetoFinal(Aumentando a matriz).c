@@ -436,20 +436,20 @@ int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo
     proximo[0] = IClandia[x][y].r[0];
     proximo[1] = IClandia[x][y].r[1];
     
-    if (proximo[0] != proximo[1] && isalpha(proximo[0]))
+    if (proximo[0] != proximo[1] && isalpha(proximo[0])) // Verifica se é um semáforo
     {
         // QUAL SEMAFORO É?
         //semaforo[2][8] = {{'v', '2', 'c', 'r', '3', 'e'}, {'v', '2', 'b', 'r', '3', 'e'}};
         //coord_semaforos[2][2] = {{3, 0}, {3, 4}};
         for (int i = 0; i < 96; i++)
         {
-            if (coord_semaforos[i][0] == x && coord_semaforos[i][1] == y)
+            if (coord_semaforos[i][0] == x && coord_semaforos[i][1] == y) //Guarda as coordenadas de um semaforo
             {
                 //printf("É o semaforo da pos i:%i j:%i\n", x, y);
                 x = i;
             }
         }
-        if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r')
+        if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r') // Verifica se ta verde
         {
             semaforo_atual[m][0] = semaforo[x][2];
             semaforo_atual[m][1] = semaforo[x][5];
@@ -790,7 +790,7 @@ int main()
                     y = coordenadas[m][1];
                     
                     //printf ("x:%d y:%d\n", x, y);
-                    if (x >= 0)
+                    if (x >= 0) // Se estiver na beira, não sairá do mapa
                     {
                         // vai verificar se naquela posicao que ele quer ir tem um semaforo, se tiver ele escreve na IClandia
                         // so vai escrever na IClandia e andar se ele for verde, se não, não anda
