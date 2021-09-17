@@ -534,18 +534,12 @@ int main()
             else if (semaforo[j][0] == 'a' && semaforo[j][1] == '0')
             {
                 semaforo[j][0] = 'r';
-                semaforo[j][1] = '2';
+                semaforo[j][1] = '3';
             }
             else if (semaforo[j][0] == 'r' && semaforo[j][1] == '0')
             {
                 semaforo[j][0] = 'v';
                 semaforo[j][1] = '2';
-            }
-            // quadra nas coords do semaforo vai pegar o valor que eu atribui
-            if (isalpha (quadra[coord_semaforos[j][0]][coord_semaforos[j][1]].r[0])) // se tem um carro la eu nao sobrescrevo
-            {
-                quadra[coord_semaforos[j][0]][coord_semaforos[j][1]].r[0] = semaforo[j][0];
-                quadra[coord_semaforos[j][0]][coord_semaforos[j][1]].r[1] = semaforo[j][1];
             }
         }
         
@@ -734,11 +728,14 @@ int main()
             }
             else
             {
+                // ele esta numa rua normal e vai seguir o sentido da pista
                 if (R_atual[m][0] == 'c')
                 {
                     x = coordenadas[m][0] - 1;   // x e y sao as coordenadas do semaforo se ele existir
                     y = coordenadas[m][1];
                     
+                    // vai verificar se naquela posicao que ele quer ir tem um semaforo, se tiver ele escreve na matriz
+                    // so vai escrever na matriz e andar se ele for verde, se não, não anda
                     x = prox_semaforo(quadra, coord_semaforos, semaforo_atual, semaforo, x, y, m);
                     if (x == 1)
                     {
@@ -778,6 +775,17 @@ int main()
                         rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
                     }
                 }
+            }
+        }
+        
+        // isso é visual pois, o carro olha o semaforo para ver o tempo, não na quadra
+        for (int i = 0; i < 96; i++)
+        {
+            if (isalpha (quadra[coord_semaforos[i][0]][coord_semaforos[i][1]].r[0])) // se tem um carro la eu nao sobrescrevo
+            {
+                // quadra nas coords do semaforo vai pegar o valor que eu atribui
+                quadra[coord_semaforos[i][0]][coord_semaforos[i][1]].r[0] = semaforo[i][0];
+                quadra[coord_semaforos[i][0]][coord_semaforos[i][1]].r[1] = semaforo[i][1];
             }
         }
     }
