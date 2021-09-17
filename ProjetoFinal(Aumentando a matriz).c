@@ -540,8 +540,9 @@ int contar_carros (char verif, int x, int y, locura IClandia[][37])
     return cont_carros;
 }
 
-void Fluxo (int coord_semaforos[][2], char semaforo[][6], locura IClandia[][37], int diferenca[])
+int Fluxo (int coord_semaforos[][2], char semaforo[][6], locura IClandia[][37], int diferenca[])
 {
+    // 57
     int x = coord_semaforos[57][0];
     int y = coord_semaforos[57][1];
     char verX = semaforo[57][2];
@@ -558,6 +559,10 @@ void Fluxo (int coord_semaforos[][2], char semaforo[][6], locura IClandia[][37],
     int quantV = contar_carros (verX, x, y, IClandia);
     int quantH = contar_carros (verY, x, y, IClandia);
     
+    if (quantH == 0 || quantV == 0)
+    {
+        return 0;
+    }
     if (quantV > quantH) // Escrever no vetor, baixar o tempo vermelho do Vertical
     {
         diferenca[0] = 1;
@@ -566,8 +571,8 @@ void Fluxo (int coord_semaforos[][2], char semaforo[][6], locura IClandia[][37],
     }
     else if (quantH > quantV) // Escrever no vetor, baixar o tempo vermelho do Horizontal
     {
-        diferenca[1] = 1;
         diferenca[0] = 0;
+        diferenca[1] = 1;
         return quantH - quantV;
     }
     else //mantém o tempo
@@ -621,9 +626,9 @@ int main()
     }*/
     
     ICLandia (IClandia, rua, coordenadas, R_atual, semaforo, coord_semaforos);
-    int mudança = Fluxo (coord_semaforos, semaforo, IClandia, diferenca);
+    int mudanca; 
     
-    /*for (int m = 0; m < 5; m++)
+    for (int m = 0; m < 5; m++)
     {
         for (int i = 0; i < 2; i++) // Printando limite Superior da IClandia
         {
@@ -744,6 +749,43 @@ int main()
                     semaforo[j][i+1] = '2';
                 }
             }
+        }
+        
+        mudanca = Fluxo (coord_semaforos, semaforo, IClandia, diferenca);
+        if (mudanca != 0)
+        {
+            // se a diferenca[0] == 1, tenho que mudar o sinal do vertical para verde
+            // se a diferenca[1] == 1, tenho que mudar o sinal do horizontal para verde
+            
+            // v 2 r 3 -- mudar 1,  v 1 r 2
+            if (diferenca[0] == 1)
+            {
+                if (semaforo[57][3] == 'v') // horizontal verde  vertical vermelho
+                {
+                    semaforo[57][3] = 'a';
+                    semaforo[57][4] = '1';
+                    
+                    semaforo[57][0] = 'r';
+                    semaforo[57][1] = '1';
+                }
+            }
+            else
+            {
+                // sinal do horizontal para verde
+                if (semaforo[57][0] == 'v')   // v2 r3   v1 r2  a1 r1  r3 v2
+                {
+                    semaforo[57][0] = 'a';
+                    semaforo[57][1] = '1';
+                    
+                    semaforo[57][3] = 'r';
+                    semaforo[57][4] = '1';
+                }
+            }
+            printf("ENTROU\n");
+        }
+        else
+        {
+            printf("NAO MUDO NADA\n");
         }
         
         // carro[x][1] == '1'
@@ -1016,7 +1058,7 @@ int main()
                 IClandia[coord_semaforos[i][0]][coord_semaforos[i][1]].r[1] = semaforo[i][1];
             }
         }
-    }*/
+    }
     
     printf("\n");
     //Guardar o valor da posição atual
