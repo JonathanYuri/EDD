@@ -15,7 +15,7 @@ typedef struct{
 // os que tem letras diferentes sao um semaforo
 // O Tempo do vermelho é o tempo do verde + tempo do amarelo
 
-void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atual[][2], char semaforo[][6])
+void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atual[][2], char semaforo[][6], int coord_semaforos[][2])
 {
     // Matriz
     for (int i = 0; i < 28; i++)
@@ -256,20 +256,22 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
     matriz[27][36].r[1] = 'e';
     
     //Semaforos
-    k = 1;
+    k = 0;
     for (int i = 0; i < 28; i++)
     {
         for (int j = 0; j < 37; j++)
         {
             if ((matriz[i][j].r[0] != matriz[i][j].r[1]) && isalpha(matriz[i][j].r[0]))
             {
-                // salvar cords do semaforo aq tbm
                 semaforo[k][0] = 'v';
                 semaforo[k][1] = '2';
                 semaforo[k][2] = matriz[i][j].r[0];
                 semaforo[k][3] = 'r';
                 semaforo[k][4] = '3';
                 semaforo[k][5] = matriz[i][j].r[1];
+                
+                coord_semaforos[k][0] = i;
+                coord_semaforos[k][1] = j;
                 
                 matriz[i][j].r[0] = semaforo[k][0];
                 matriz[i][j].r[1] = semaforo[k][1];
@@ -279,16 +281,26 @@ void Quadra (locura matriz[][37], char rua[], int coordenadas[][2], char Rua_atu
     }
     
     /*
-    for (int i = 1; i < 98; i++)
+    for (int i = 0; i < 96; i++)
     {
         for (int j = 0; j < 6; j++)
         {
             printf("%c ", semaforo[i][j]);
         }
         printf("\n");
-    }*/
+    }
     
+    for (int i = 0; i < 96; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            printf("%d ", coord_semaforos[i][j]);
+        }
+        printf("\n");
+    }
+    */
     
+    /*
     // Print
     for (int i = 0; i < 28; i++)
     {
@@ -416,6 +428,40 @@ int Dir (locura quadra[][37], char carro[][2], char R_atual[][2], int numeroR, i
     return 0;
 }
 
+int prox_semaforo(locura quadra[][37], int coord_semaforos[][2], char semaforo_atual[][2], char semaforo[][6], int x, int y, int m)
+{
+    char proximo[2];
+    proximo[0] = quadra[x][y].r[0];
+    proximo[1] = quadra[x][y].r[1];
+    
+    if (proximo[0] != proximo[1])
+    {
+        // QUAL SEMAFORO É?
+        //semaforo[2][8] = {{'v', '2', 'c', 'r', '3', 'e'}, {'v', '2', 'b', 'r', '3', 'e'}};
+        //coord_semaforos[2][2] = {{3, 0}, {3, 4}};
+        for (int i = 0; i < 96; i++)
+        {
+            if (coord_semaforos[i][0] == x || coord_semaforos[i][1] == y)
+            {
+                x = i;
+                //printf("É o semaforo da pos i:%i j:%i\n", x, y);
+            }
+        }
+        
+        if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r')
+        {
+            semaforo_atual[m][0] = semaforo[x][2];
+            semaforo_atual[m][1] = semaforo[x][5];
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 int main()
 {
     int rodou[101], coordenadas[101][2], k = 0, x, y;
@@ -442,8 +488,9 @@ int main()
     carro[100][0] = '0';
     carro[100][1] = '0';
     
-    char semaforo[97][6];
-    int coord_semaforo[]
+    char semaforo[96][6];
+    int coord_semaforos[96][2];
+    char semaforo_atual[101][2];
     
     //Carro Começando do i = 1 para n usarmos o carro[0][0]
     /*
@@ -456,10 +503,9 @@ int main()
         printf ("\n");
     }*/
     
-    Quadra (quadra, rua, coordenadas, R_atual, semaforo);
+    Quadra (quadra, rua, coordenadas, R_atual, semaforo, coord_semaforos);
     
-    /*
-    for (int m = 0; m < 100; m++)
+    for (int m = 0; m < 10; m++)
     {
         for (int i = 0; i < 28; i++)
         {
@@ -472,6 +518,37 @@ int main()
         }
         printf("\n");
         
+        for (int j = 0; j < 96; j++)
+        {
+            //semaforo[2][6] = {{'v', '2', 'c', 'r', '3', 'e'}, {'v', '2', 'b', 'r', '3', 'e'}};
+            
+            //printf("SEMAFORO ANTES DO CALCULO: %c %c\n", semaforo[j][0], semaforo[j][1]);
+            semaforo[j][1] = semaforo[j][1] - 1;
+            //printf("SEMAFORO DEPOIS DO CALCULO: %c %c\n", semaforo[j][0], semaforo[j][1]);
+            //coord_semaforos[2][2] = {{3, 0}, {3, 4}};
+            if (semaforo[j][0] == 'v' && semaforo[j][1] == '0')
+            {
+                semaforo[j][0] = 'a';
+                semaforo[j][1] = '1';
+            }
+            else if (semaforo[j][0] == 'a' && semaforo[j][1] == '0')
+            {
+                semaforo[j][0] = 'r';
+                semaforo[j][1] = '2';
+            }
+            else if (semaforo[j][0] == 'r' && semaforo[j][1] == '0')
+            {
+                semaforo[j][0] = 'v';
+                semaforo[j][1] = '2';
+            }
+            // quadra nas coords do semaforo vai pegar o valor que eu atribui
+            if (isalpha (quadra[coord_semaforos[j][0]][coord_semaforos[j][1]].r[0])) // se tem um carro la eu nao sobrescrevo
+            {
+                quadra[coord_semaforos[j][0]][coord_semaforos[j][1]].r[0] = semaforo[j][0];
+                quadra[coord_semaforos[j][0]][coord_semaforos[j][1]].r[1] = semaforo[j][1];
+            }
+        }
+        
         // carro[x][1] == '1'
         for (int m = 1; m < 101; m++)
         {
@@ -481,176 +558,230 @@ int main()
             // se matriz[i][j].r[0] != matriz[i][j].r[1] ele decide pra onde vai (entra no if VV)
             // se nao continuamos no sentido da pista
             
-            if (carro[m][1] == '1' || carro[m][1] == '9')
+            if (R_atual[m][0] != R_atual[m][1])
             {
-                //printf("%c%c\n", carro[m][0], carro[m][1]);
-                rodou[m] = 0;
-                
-                if ((seqMov[0][0] == R_atual[m][0] || seqMov[0][0] == R_atual[m][1]) && rodou[m] == 0)
+                if (carro[m][1] == '1' || carro[m][1] == '9')
                 {
-                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    rodou[m] = 0;
+                    
+                    if ((seqMov[0][0] == semaforo_atual[m][0] || seqMov[0][0] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[0][1] == semaforo_atual[m][0] || seqMov[0][1] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[0][2] == semaforo_atual[m][0] || seqMov[0][2] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    }
+                    if ((seqMov[0][3] == semaforo_atual[m][0] || seqMov[0][3] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    }
                 }
-                if ((seqMov[0][1] == R_atual[m][0] || seqMov[0][1] == R_atual[m][1]) && rodou[m] == 0)
+                else if (carro[m][1] == '2' || carro[m][1] == '0')
                 {
-                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                    rodou[m] = 0;
+                    
+                    if ((seqMov[1][0] == semaforo_atual[m][0] || seqMov[1][0] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // cima
+                        rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[1][1] == semaforo_atual[m][0] || seqMov[1][1] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // Dir
+                        rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    }
+                    if ((seqMov[1][2] == semaforo_atual[m][0] || seqMov[1][2] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // baixo
+                        rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    }
+                    if ((seqMov[1][3] == semaforo_atual[m][0] || seqMov[1][3] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // esq
+                        rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                    }
                 }
-                if ((seqMov[0][2] == R_atual[m][0] || seqMov[0][2] == R_atual[m][1]) && rodou[m] == 0)
+                else if (carro[m][1] == '3')
                 {
-                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    rodou[m] = 0;
+                    
+                    if ((seqMov[2][0] == semaforo_atual[m][0] || seqMov[2][0] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // baixo
+                        rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    }
+                    if ((seqMov[2][1] == semaforo_atual[m][0] || seqMov[2][1] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // esq
+                        rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[2][2] == semaforo_atual[m][0] || seqMov[2][2] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // cima
+                        rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[2][3] == semaforo_atual[m][0] || seqMov[2][3] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // Dir
+                        rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    }
                 }
-                if ((seqMov[0][3] == R_atual[m][0] || seqMov[0][3] == R_atual[m][1]) && rodou[m] == 0)
+                else if (carro[m][1] == '4')
                 {
-                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    rodou[m] = 0;
+                    
+                    if ((seqMov[3][0] == semaforo_atual[m][0] || seqMov[3][0] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // baixo
+                        rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    }
+                    if ((seqMov[3][1] == semaforo_atual[m][0] || seqMov[3][1] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // Dir
+                        rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    }
+                    if ((seqMov[3][2] == semaforo_atual[m][0] || seqMov[3][2] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // cima
+                        rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[3][3] == semaforo_atual[m][0] || seqMov[3][3] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // esq
+                        rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                    }
+                }
+                else if (carro[m][1] == '5')
+                {
+                    rodou[m] = 0;
+                    
+                    if ((seqMov[4][0] == semaforo_atual[m][0] || seqMov[4][0] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // esq
+                        rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[4][1] == semaforo_atual[m][0] || seqMov[4][1] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // baixo
+                        rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    }
+                    if ((seqMov[4][2] == semaforo_atual[m][0] || seqMov[4][2] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // Dir
+                        rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    }
+                    if ((seqMov[4][3] == semaforo_atual[m][0] || seqMov[4][3] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // cima
+                        rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    }
+                }
+                else if (carro[m][1] == '6' || carro[m][1] == '8')
+                {
+                    rodou[m] = 0;
+                    
+                    if ((seqMov[5][0] == semaforo_atual[m][0] || seqMov[5][0] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // Dir
+                        rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    }
+                    if ((seqMov[5][1] == semaforo_atual[m][0] || seqMov[5][1] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // baixo
+                        rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    }
+                    if ((seqMov[5][2] == semaforo_atual[m][0] || seqMov[5][2] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // esq
+                        rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[5][3] == semaforo_atual[m][0] || seqMov[5][3] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // cima
+                        rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    }
+                }
+                else if (carro[m][1] == '7')
+                {
+                    rodou[m] = 0;
+                    
+                    if ((seqMov[6][0] == semaforo_atual[m][0] || seqMov[6][0] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // esq
+                        rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[6][1] == semaforo_atual[m][0] || seqMov[6][1] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // cima
+                        rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    }
+                    if ((seqMov[6][2] == semaforo_atual[m][0] || seqMov[6][2] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // Dir
+                        rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    }
+                    if ((seqMov[6][3] == semaforo_atual[m][0] || seqMov[6][3] == semaforo_atual[m][1]) && rodou[m] == 0)
+                    {
+                        // baixo
+                        rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    }
                 }
             }
-            if (carro[m][1] == '2' || carro[m][1] == '0')
+            else
             {
-                rodou[m] = 0;
-                
-                if ((seqMov[1][0] == R_atual[m][0] || seqMov[1][0] == R_atual[m][1]) && rodou[m] == 0)
+                if (R_atual[m][0] == 'c')
                 {
-                    // cima
-                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    x = coordenadas[m][0] - 1;   // x e y sao as coordenadas do semaforo se ele existir
+                    y = coordenadas[m][1];
+                    
+                    x = prox_semaforo(quadra, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                    if (x == 1)
+                    {
+                        rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
+                    }
                 }
-                if ((seqMov[1][1] == R_atual[m][0] || seqMov[1][1] == R_atual[m][1]) && rodou[m] == 0)
+                else if (R_atual[m][0] == 'e')
                 {
-                    // Dir
-                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    x = coordenadas[m][0];
+                    y = coordenadas[m][1] - 1;
+                    
+                    x = prox_semaforo(quadra, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                    if (x == 1)
+                    {
+                        rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
+                    }
                 }
-                if ((seqMov[1][2] == R_atual[m][0] || seqMov[1][2] == R_atual[m][1]) && rodou[m] == 0)
+                else if (R_atual[m][0] == 'b')
                 {
-                    // baixo
-                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    x = coordenadas[m][0] + 1;
+                    y = coordenadas[m][1];
+                    
+                    x = prox_semaforo(quadra, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                    if (x == 1)
+                    {
+                        rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    }
                 }
-                if ((seqMov[1][3] == R_atual[m][0] || seqMov[1][3] == R_atual[m][1]) && rodou[m] == 0)
+                else if (R_atual[m][0] == 'd')
                 {
-                    // esq
-                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
-                }
-            }
-            if (carro[m][1] == '3')
-            {
-                rodou[m] = 0;
-                if ((seqMov[2][0] == R_atual[m][0] || seqMov[2][0] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // baixo
-                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
-                }
-                if ((seqMov[2][1] == R_atual[m][0] || seqMov[2][1] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // esq
-                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
-                }
-                if ((seqMov[2][2] == R_atual[m][0] || seqMov[2][2] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // cima
-                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
-                }
-                if ((seqMov[2][3] == R_atual[m][0] || seqMov[2][3] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // Dir
-                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
-                }
-            }
-            if (carro[m][1] == '4')
-            {
-                rodou[m] = 0;
-                if ((seqMov[3][0] == R_atual[m][0] || seqMov[3][0] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // baixo
-                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
-                }
-                if ((seqMov[3][1] == R_atual[m][0] || seqMov[3][1] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // Dir
-                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
-                }
-                if ((seqMov[3][2] == R_atual[m][0] || seqMov[3][2] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // cima
-                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
-                }
-                if ((seqMov[3][3] == R_atual[m][0] || seqMov[3][3] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // esq
-                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
-                }
-            }
-            if (carro[m][1] == '5')
-            {
-                rodou[m] = 0;
-                if ((seqMov[4][0] == R_atual[m][0] || seqMov[4][0] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // esq
-                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
-                }
-                if ((seqMov[4][1] == R_atual[m][0] || seqMov[4][1] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // baixo
-                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
-                }
-                if ((seqMov[4][2] == R_atual[m][0] || seqMov[4][2] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // Dir
-                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
-                }
-                if ((seqMov[4][3] == R_atual[m][0] || seqMov[4][3] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // cima
-                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
-                }
-            }
-            if (carro[m][1] == '6' || carro[m][1] == '8')
-            {
-                rodou[m] = 0;
-                if ((seqMov[5][0] == R_atual[m][0] || seqMov[5][0] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // Dir
-                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
-                }
-                if ((seqMov[5][1] == R_atual[m][0] || seqMov[5][1] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // baixo
-                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
-                }
-                if ((seqMov[5][2] == R_atual[m][0] || seqMov[5][2] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // esq
-                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
-                }
-                if ((seqMov[5][3] == R_atual[m][0] || seqMov[5][3] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // cima
-                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
-                }
-            }
-            if (carro[m][1] == '7')
-            {
-                rodou[m] = 0;
-                if ((seqMov[6][0] == R_atual[m][0] || seqMov[6][0] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // esq
-                    rodou[m] = Esq (quadra, carro, R_atual, m, coordenadas);
-                }
-                if ((seqMov[6][1] == R_atual[m][0] || seqMov[6][1] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // cima
-                    rodou[m] = Cima (quadra, carro, R_atual, m, coordenadas);
-                }
-                if ((seqMov[6][2] == R_atual[m][0] || seqMov[6][2] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // Dir
-                    rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
-                }
-                if ((seqMov[6][3] == R_atual[m][0] || seqMov[6][3] == R_atual[m][1]) && rodou[m] == 0)
-                {
-                    // baixo
-                    rodou[m] = Baixo (quadra, carro, R_atual, m, coordenadas, quant_linhas);
+                    x = coordenadas[m][0];
+                    y = coordenadas[m][1] + 1;
+                    
+                    x = prox_semaforo(quadra, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                    if (x == 1)
+                    {
+                        rodou[m] = Dir (quadra, carro, R_atual, m, coordenadas, quant_colunas);
+                    }
                 }
             }
         }
     }
-    */
+    
     printf("\n");
     //Guardar o valor da posição atual
     //Antes de andar, verificar pra onde ele PODE ir com base em sua lista de mov. e sentido da rua
