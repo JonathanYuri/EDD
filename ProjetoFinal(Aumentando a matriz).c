@@ -303,7 +303,7 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
     
     
     // Print
-    /*for (int i = 0; i < 28; i++)
+    for (int i = 0; i < 28; i++)
     {
         for (int j = 0; j < 37; j++)
         {
@@ -311,7 +311,7 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
             printf("%c ", IClandia[i][j].r[1]);
         }
         printf("\n");
-    }*/
+    }
     
     /*for (int i = 1; i < 101; i++)
     {
@@ -475,6 +475,109 @@ int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo
     return 1;
 }
 
+int contar_carros (char verif, int x, int y, locura IClandia[][37])
+{
+    int cont_carros = 0;
+    //printf ("%c", verif);
+    
+    if (verif == 'c')
+    {
+        for (int i = x-1; i >= x-3; i--)
+        {
+            if (i < 0)
+            {
+                break;
+            }
+            if (isdigit(IClandia[i][y].r[0]))
+            {
+                cont_carros++;
+            }
+        }
+    }
+    else if (verif == 'b')
+    {
+        for (int i = x+1; i <= x+3; i++)
+        {
+            if (i > 27)
+            {
+                break;
+            }
+            if (isdigit(IClandia[i][y].r[0]))
+            {
+                cont_carros++;
+            }
+        }
+    }
+    else if (verif == 'd')
+    {
+        for (int i = y+1; i <= y+4; i++)
+        {
+            if (i > 36)
+            {
+                break;
+            }
+            if (isdigit(IClandia[x][i].r[0]))
+            {
+                cont_carros++;
+            }
+        }
+    }
+    else if (verif == 'e')
+    {
+        for (int i = y-1; i >= y-4; i--)
+        {
+            if (i < 0)
+            {
+                break;
+            }
+            if (isdigit(IClandia[x][i].r[0]))
+            {
+                cont_carros++;
+            }
+        }
+    }
+    
+    return cont_carros;
+}
+
+void Fluxo (int coord_semaforos[][2], char semaforo[][6], locura IClandia[][37], int diferenca[])
+{
+    int x = coord_semaforos[57][0];
+    int y = coord_semaforos[57][1];
+    char verX = semaforo[57][2];
+    char verY = semaforo[57][5];
+    //printf ("%c %c", verX, verY);
+    
+    if (verX == 'c')    verX = 'b';
+    else    verX = 'c';
+    
+    if (verY == 'd')    verY = 'e';
+    else    verY = 'd';
+    //printf ("%c %c", verX, verY);
+    
+    int quantV = contar_carros (verX, x, y, IClandia);
+    int quantH = contar_carros (verY, x, y, IClandia);
+    
+    if (quantV > quantH) // Escrever no vetor, baixar o tempo vermelho do Vertical
+    {
+        diferenca[0] = 1;
+        diferenca[1] = 0;
+        return quantV - quantH;
+    }
+    else if (quantH > quantV) // Escrever no vetor, baixar o tempo vermelho do Horizontal
+    {
+        diferenca[1] = 1;
+        diferenca[0] = 0;
+        return quantH - quantV;
+    }
+    else //mantém o tempo
+    {
+        return 0;
+    }
+    
+    //printf ("vetical = %d horizontal = %d\n", quantV, quantH);
+}
+
 int main()
 {
     int rodou[101], coordenadas[101][2], k = 0, x, y, coord_x, coord_y;
@@ -504,6 +607,7 @@ int main()
     char semaforo[96][6];
     int coord_semaforos[96][2];
     char semaforo_atual[101][2];
+    int diferenca[2];
     
     //Carro Começando do i = 1 para n usarmos o carro[0][0]
     /*
@@ -517,8 +621,9 @@ int main()
     }*/
     
     ICLandia (IClandia, rua, coordenadas, R_atual, semaforo, coord_semaforos);
+    int mudança = Fluxo (coord_semaforos, semaforo, IClandia, diferenca);
     
-    for (int m = 0; m < 5; m++)
+    /*for (int m = 0; m < 5; m++)
     {
         for (int i = 0; i < 2; i++) // Printando limite Superior da IClandia
         {
@@ -911,7 +1016,7 @@ int main()
                 IClandia[coord_semaforos[i][0]][coord_semaforos[i][1]].r[1] = semaforo[i][1];
             }
         }
-    }
+    }*/
     
     printf("\n");
     //Guardar o valor da posição atual
