@@ -520,7 +520,7 @@ int main()
     
     for (int m = 0; m < 5; m++)
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 2; i++) // Printando limite Superior da IClandia
         {
             for (int j = 0; j < 118; j++)
             {
@@ -529,48 +529,48 @@ int main()
             printf ("\n");
         }
         
-        for (int i = 0; i < 28; i++)
+        for (int i = 0; i < 28; i++) // Printando a Matrix
         {
             for (int j = 0; j < 37; j++)
             {
                 if (j == 0)
                 {
-                    printf ("XXX ");
+                    printf ("XXX "); //Printando o limite Esquerdo da IClandia
                 }
                 
-                if (j == 36)
+                if (j == 36) // Printando o limite Direito da IClandia
                 {
-                    if (isdigit (IClandia[i][j].r[1]) || IClandia[i][j].r[0] == 'x')
+                    if (isdigit (IClandia[i][j].r[1]) || IClandia[i][j].r[0] == 'x') // Printando apenas carros e quadras
                     {
-                        if (isalpha (IClandia[i][j].r[0]) && IClandia[i][j].r[0] != 'x') // é um semaforo
+                        if (isalpha (IClandia[i][j].r[0]) && IClandia[i][j].r[0] != 'x') // Printando estados do semaforos
                         {
-                            for (int h = 0; h < 97; h++)
+                            for (int h = 0; h < 97; h++) // procurando o semaforo correspondente
                             {
                                 int coord_x = i;
                                 if (coord_semaforos[h][0] == i && coord_semaforos[h][1] == 36)
                                 {
-                                    printf("%c%c ", semaforo[h][0], semaforo[h][3]);
+                                    printf("%c%c ", semaforo[h][0], semaforo[h][3]); // Printando Semaforos
                                 }
                             }
                         }
-                        else
+                        else // Se nõ for semaforo (Quadras e Carros)
                         {
-                            printf("%c", IClandia[i][j].r[0]);
-                            printf("%c ", IClandia[i][j].r[1]);
+                            printf("%c", IClandia[i][j].r[0]); 
+                            printf("%c ", IClandia[i][j].r[1]); 
                         }
-                        printf("XXX");
+                        printf("XXX"); //Printando limite direito dos semaforos
                     }
-                    else
+                    else //Printando limite direito do resto
                     {
-                        printf(" ");
+                        printf(" "); 
                         printf("  XXX");
                     }
                 }
-                else
+                else // Printando o meio (carros, quadras e semaforos)
                 {
                     if (isdigit (IClandia[i][j].r[1]) || IClandia[i][j].r[0] == 'x')
                     {
-                        if (isalpha (IClandia[i][j].r[0]) && IClandia[i][j].r[0] != 'x') // é um semaforo
+                        if (isalpha (IClandia[i][j].r[0]) && IClandia[i][j].r[0] != 'x')
                         {
                             for (int h = 0; h < 97; h++)
                             {
@@ -599,7 +599,7 @@ int main()
             printf("\n");
         }
         
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 2; i++) // Printando limite Inferior da IClandia
         {
             for (int j = 0; j < 118; j++)
             {
@@ -915,6 +915,6 @@ int main()
     
     printf("\n");
     //Guardar o valor da posição atual
-    //Antes de andar, verificar pra onde ele PODE ir com base em sua lista de mov. e sentido da rua
+    //Antes de andar, verificar pra onde ele PODE ir com base em sua lista de mov. e sentido da rua 
     return 0;
 }
