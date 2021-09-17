@@ -429,12 +429,23 @@ int Dir (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR,
     return 0;
 }
 
-int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo_atual[][2], char semaforo[][6], int x, int y, int m)
+int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo_atual[][2], char semaforo[][6], int x, int y, int m, char condicao)
 {
     //printf ("Entrou: x:%d y:%d\n", x, y);
     char proximo[2];
     proximo[0] = IClandia[x][y].r[0];
     proximo[1] = IClandia[x][y].r[1];
+    
+    int cond;
+    
+    if (condicao == 'c' || condicao == 'b')
+    {
+        cond = 0;
+    }
+    else
+    {
+        cond = 3;
+    }
     
     if (proximo[0] != proximo[1] && isalpha(proximo[0])) // Verifica se é um semáforo
     {
@@ -449,7 +460,7 @@ int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo
                 x = i;
             }
         }
-        if (semaforo[x][0] != 'a' && semaforo[x][0] != 'r') // Verifica se ta verde
+        if (semaforo[x][cond] != 'a' && semaforo[x][cond] != 'r') // Verifica se ta verde
         {
             semaforo_atual[m][0] = semaforo[x][2];
             semaforo_atual[m][1] = semaforo[x][5];
@@ -466,7 +477,7 @@ int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo
 
 int main()
 {
-    int rodou[101], coordenadas[101][2], k = 0, x, y;
+    int rodou[101], coordenadas[101][2], k = 0, x, y, coord_x, coord_y;
     int quant_linhas = 28;
     int quant_colunas = 37;
     
@@ -507,7 +518,7 @@ int main()
     
     ICLandia (IClandia, rua, coordenadas, R_atual, semaforo, coord_semaforos);
     
-    for (int m = 0; m < 3; m++)
+    for (int m = 0; m < 5; m++)
     {
         for (int i = 0; i < 2; i++)
         {
@@ -531,8 +542,23 @@ int main()
                 {
                     if (isdigit (IClandia[i][j].r[1]) || IClandia[i][j].r[0] == 'x')
                     {
-                        printf("%c", IClandia[i][j].r[0]);
-                        printf("%c XXX", IClandia[i][j].r[1]);
+                        if (isalpha (IClandia[i][j].r[0]) && IClandia[i][j].r[0] != 'x') // é um semaforo
+                        {
+                            for (int h = 0; h < 97; h++)
+                            {
+                                int coord_x = i;
+                                if (coord_semaforos[h][0] == i && coord_semaforos[h][1] == 36)
+                                {
+                                    printf("%c%c ", semaforo[h][0], semaforo[h][3]);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            printf("%c", IClandia[i][j].r[0]);
+                            printf("%c ", IClandia[i][j].r[1]);
+                        }
+                        printf("XXX");
                     }
                     else
                     {
@@ -544,8 +570,23 @@ int main()
                 {
                     if (isdigit (IClandia[i][j].r[1]) || IClandia[i][j].r[0] == 'x')
                     {
-                        printf("%c", IClandia[i][j].r[0]);
-                        printf("%c ", IClandia[i][j].r[1]);
+                        if (isalpha (IClandia[i][j].r[0]) && IClandia[i][j].r[0] != 'x') // é um semaforo
+                        {
+                            for (int h = 0; h < 97; h++)
+                            {
+                                coord_x = i;
+                                coord_y = j;
+                                if (coord_semaforos[h][0] == i && coord_semaforos[h][1] == j)
+                                {
+                                    printf("%c%c ", semaforo[h][0], semaforo[h][3]);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            printf("%c", IClandia[i][j].r[0]);
+                            printf("%c ", IClandia[i][j].r[1]);
+                        }
                     }
                     else
                     {
@@ -574,22 +615,29 @@ int main()
             
             //printf("SEMAFORO ANTES DO CALCULO: %c %c\n", semaforo[j][0], semaforo[j][1]);
             semaforo[j][1] = semaforo[j][1] - 1;
+            semaforo[j][4] = semaforo[j][4] - 1;
             //printf("SEMAFORO DEPOIS DO CALCULO: %c %c\n", semaforo[j][0], semaforo[j][1]);
-            //coord_semaforos[2][2] = {{3, 0}, {3, 4}};
-            if (semaforo[j][0] == 'v' && semaforo[j][1] == '0')
+            
+            //printf("SEMAFORO ANTES DO CALCULO: %c %c\n", semaforo[j][3], semaforo[j][4]);
+            //printf("SEMAFORO DEPOIS DO CALCULO: %c %c\n", semaforo[j][3], semaforo[j][4]);
+            //coord_semaforos[2][2] = {{3, 0}, {3, 4}}
+            for (int i = 0; i < 6; i+=3)
             {
-                semaforo[j][0] = 'a';
-                semaforo[j][1] = '1';
-            }
-            else if (semaforo[j][0] == 'a' && semaforo[j][1] == '0')
-            {
-                semaforo[j][0] = 'r';
-                semaforo[j][1] = '3';
-            }
-            else if (semaforo[j][0] == 'r' && semaforo[j][1] == '0')
-            {
-                semaforo[j][0] = 'v';
-                semaforo[j][1] = '2';
+                if (semaforo[j][i] == 'v' && semaforo[j][i+1] == '0')
+                {
+                    semaforo[j][i] = 'a';
+                    semaforo[j][i+1] = '1';
+                }
+                else if (semaforo[j][i] == 'a' && semaforo[j][i+1] == '0')
+                {
+                    semaforo[j][i] = 'r';
+                    semaforo[j][i+1] = '3';
+                }
+                else if (semaforo[j][i] == 'r' && semaforo[j][i+1] == '0')
+                {
+                    semaforo[j][i] = 'v';
+                    semaforo[j][i+1] = '2';
+                }
             }
         }
         
@@ -794,7 +842,7 @@ int main()
                     {
                         // vai verificar se naquela posicao que ele quer ir tem um semaforo, se tiver ele escreve na IClandia
                         // so vai escrever na IClandia e andar se ele for verde, se não, não anda
-                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, R_atual[m][0]);
                         if (x == 1)
                         {
                             rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
@@ -810,7 +858,7 @@ int main()
                     //printf ("x:%d y:%d\n", x, y);
                     if (y >= 0)
                     {
-                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, R_atual[m][0]);
                         if (x == 1)
                         {
                             rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
@@ -826,7 +874,7 @@ int main()
                     //printf ("x:%d y:%d\n", x, y);
                     if (x <= 27)
                     {
-                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, R_atual[m][0]);
                         if (x == 1)
                         {
                             rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
@@ -842,7 +890,7 @@ int main()
                     //printf ("x:%d y:%d\n", x, y);
                     if (y <= 36)
                     {
-                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, R_atual[m][0]);
                         if (x == 1)
                         {
                             rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
