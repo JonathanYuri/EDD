@@ -21,14 +21,6 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
 {
     // Preencher tudo com rr
     char a;
-    for (int i = 0; i < 28; i++)
-    {
-        for (int j = 0; j < 37; j++)
-        {
-            IClandia[i][j].r[0] = 'r';
-            IClandia[i][j].r[1] = 'r';
-        }
-    }
     
     // fazer as quadras
     for (int i = 1; i < 28; i+=3)
@@ -613,7 +605,7 @@ int main()
     ICLandia (IClandia, rua, coordenadas, R_atual, semaforo, coord_semaforos);
     int mudanca; 
     
-    for (int m = 0; m < 100; m++)
+    for (int m = 0; m < 10; m++)
     {
         for (int i = 0; i < 2; i++) // Printando limite Superior da IClandia
         {
@@ -757,8 +749,8 @@ int main()
             }
         }
         
-        sleep(1);
-        system("clear");
+        //sleep(1);
+        //system("clear");
         
         // carro[x][1] == '1'
         for (int m = 1; m < 101; m++)
