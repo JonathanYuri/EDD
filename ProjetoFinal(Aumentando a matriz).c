@@ -1001,15 +1001,6 @@ int main()
         }
         
         // isso é visual pois, o carro olha o semaforo para ver o tempo, não na IClandia
-        for (int i = 0; i < 96; i++)
-        {
-            if (isalpha (IClandia[coord_semaforos[i][0]][coord_semaforos[i][1]].r[0])) // se tem um carro la eu nao sobrescrevo
-            {
-                // IClandia nas coords do semaforo vai pegar o valor que eu atribui
-                IClandia[coord_semaforos[i][0]][coord_semaforos[i][1]].r[0] = semaforo[i][0];
-                IClandia[coord_semaforos[i][0]][coord_semaforos[i][1]].r[1] = semaforo[i][1];
-            }
-        }
     }
     
     printf("\n");
