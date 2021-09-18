@@ -19,7 +19,7 @@ typedef struct{
 
 void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua_atual[][2], char semaforo[][6], int coord_semaforos[][2])
 {
-    // IClandia
+    // Preencher tudo com rr
     char a;
     for (int i = 0; i < 28; i++)
     {
@@ -30,7 +30,7 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
         }
     }
     
-    // IClandia
+    // fazer as quadras
     for (int i = 1; i < 28; i+=3)
     {
         for (int j = 1; j < 37; j+=4)
@@ -146,6 +146,7 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
             IClandia[i][j].r[0] = IClandia[i-1][j].r[0];
         }
     }
+    
     // Cruzamentos (BORDAS)
     for (int i = 0; i < 25; i+=3)
     {
@@ -155,8 +156,8 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
     
     for (int j = 0; j < 36; j+=4)
     {
-        IClandia[0][j].r[1] = IClandia[1][j].r[1];
-        IClandia[27][j].r[1] = IClandia[26][j].r[1];
+        IClandia[0][j].r[0] = IClandia[1][j].r[1];
+        IClandia[27][j].r[0] = IClandia[26][j].r[1];
     }
     
     //Coordenadas dos carros 11 - 98
@@ -252,22 +253,12 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
     coordenadas[9][1] = 36;
     
     // ERROS
+    
     IClandia[0][0].r[0] = 'd';
     IClandia[0][0].r[1] = 'd';
     IClandia[0][36].r[1] = 'b';
     IClandia[27][36].r[0] = 'e';
     IClandia[27][36].r[1] = 'e';
-    
-    for (int j = 4; j < 37 ;j+=4)
-    {
-        a = IClandia[0][j].r[0];
-        IClandia[0][j].r[0] = IClandia[0][j].r[1];
-        IClandia[0][j].r[1] = a;
-        
-        a = IClandia[27][j].r[0];
-        IClandia[27][j].r[0] = IClandia[27][j].r[1];
-        IClandia[27][j].r[1] = a;
-    }
     
     /*
     for (int i = 0; i < 28; i++)
