@@ -20,6 +20,7 @@ typedef struct{
 void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua_atual[][2], char semaforo[][6], int coord_semaforos[][2])
 {
     // IClandia
+    char a;
     for (int i = 0; i < 28; i++)
     {
         for (int j = 0; j < 37; j++)
@@ -257,6 +258,28 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
     IClandia[27][36].r[0] = 'e';
     IClandia[27][36].r[1] = 'e';
     
+    for (int j = 4; j < 37 ;j+=4)
+    {
+        a = IClandia[0][j].r[0];
+        IClandia[0][j].r[0] = IClandia[0][j].r[1];
+        IClandia[0][j].r[1] = a;
+        
+        a = IClandia[27][j].r[0];
+        IClandia[27][j].r[0] = IClandia[27][j].r[1];
+        IClandia[27][j].r[1] = a;
+    }
+    
+    /*
+    for (int i = 0; i < 28; i++)
+    {
+        for (int j = 0; j < 37; j++)
+        {
+            printf("%c", IClandia[i][j].r[0]);
+            printf("%c ", IClandia[i][j].r[1]);
+        }
+        printf("\n");
+    }*/
+    
     //Semaforos
     k = 0;
     for (int i = 0; i < 28; i++)
@@ -283,17 +306,18 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
     }
     
     //Print Semaforo
-    /*for (int i = 0; i < 96; i++)
+    for (int i = 0; i < 96; i++)
     {
         for (int j = 0; j < 6; j++)
         {
             printf("%c ", semaforo[i][j]);
         }
         printf("\n");
-    }*/
+    }
     
     //Print Coord_semaforo
-    /*for (int i = 0; i < 96; i++)
+    /*
+    for (int i = 0; i < 96; i++)
     {
         for (int j = 0; j < 2; j++)
         {
@@ -461,6 +485,7 @@ int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo
             {
                 //printf("É o semaforo da pos i:%i j:%i\n", x, y);
                 x = i;
+                break;
             }
         }
         if (semaforo[x][cond] != 'a' && semaforo[x][cond] != 'r') // Verifica se ta verde
@@ -545,11 +570,17 @@ int contar_carros (char verif, int x, int y, locura IClandia[][37])
 
 int Fluxo (int coord_semaforos[][2], char semaforo[][6], locura IClandia[][37], int diferenca[], int p)
 {
-    // 57
     int x = coord_semaforos[p][0];
     int y = coord_semaforos[p][1];
     char verX = semaforo[p][2];
     char verY = semaforo[p][5];
+    
+    /*
+    if (p == 0)
+    {
+        printf("%i %i %c %c\n", x, y, verX, verY);
+    }
+    */
     //printf ("%c %c", verX, verY);
     
     if (verX == 'c')    verX = 'b';
@@ -627,7 +658,7 @@ int main()
     ICLandia (IClandia, rua, coordenadas, R_atual, semaforo, coord_semaforos);
     int mudanca; 
     
-    for (int m = 0; m < 1000; m++)
+    for (int m = 0; m < 100; m++)
     {
         for (int i = 0; i < 2; i++) // Printando limite Superior da IClandia
         {
@@ -762,6 +793,12 @@ int main()
                 // se a diferenca[1] == 1, tenho que mudar o sinal do horizontal para verde
                 
                 // v 2 r 3 -- mudar 1,  v 1 r 2
+                /*
+                if (p == 0)
+                {
+                    printf("%i %i %i\n", mudanca, diferenca[0], diferenca[1]);
+                }
+                */
                 if (diferenca[0] == 1)
                 {
                     if (semaforo[p][3] == 'v') // horizontal verde  vertical vermelho
