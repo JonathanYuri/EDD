@@ -3,21 +3,18 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-// transformar o y, z, a e b numa IClandia e o rodou num array
-// o 11 nao e o comeco (mudar isso)
+// GRUPO:
 
-//cima = 1, baixo = 2, esq = 3, dir = 4
+// Welson Deivid
+// Jonathan Yuri
+
+// Linguagem: C
+
 typedef struct{
     char r[2];
-}locura;
+}Cidade;
 
-// eu vou andando conforme o sentido da rua, só quando IClandia[i][j].r[0] != IClandia[i][j].r[1]
-// eu vou usar minha decisao
-
-// os que tem letras diferentes sao um semaforo
-// O Tempo do vermelho é o tempo do verde + tempo do amarelo
-
-void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua_atual[][2], char semaforo[][6], int coord_semaforos[][2])
+void ICLandia (Cidade IClandia[][37], char rua[], int coordenadas[][2], char Rua_atual[][2], char semaforo[][6], int coord_semaforos[][2])
 {
     // Preencher tudo com rr
     char a;
@@ -334,7 +331,7 @@ void ICLandia (locura IClandia[][37], char rua[], int coordenadas[][2], char Rua
     }*/
 }
 
-int Cima (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR, int coordenadas[][2])
+int Cima (Cidade IClandia[][37], char carro[][2], char Rua_atual[][2], int numeroR, int coordenadas[][2])
 {
     int x = coordenadas[numeroR][0];
     int y = coordenadas[numeroR][1];
@@ -344,11 +341,11 @@ int Cima (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR
         if (IClandia[x-1][y].r[0] != 'x' && isalpha(IClandia[x-1][y].r[0])) // uma letra diferente de x
         {
             // vou andar, a que eu estava vai pegar o valor
-            IClandia[x][y].r[0] = R_atual[numeroR][0];
-            IClandia[x][y].r[1] = R_atual[numeroR][1];
+            IClandia[x][y].r[0] = Rua_atual[numeroR][0];
+            IClandia[x][y].r[1] = Rua_atual[numeroR][1];
             // vou guardar o valor da q vai estar o carro
-            R_atual[numeroR][0] = IClandia[x-1][y].r[0];
-            R_atual[numeroR][1] = IClandia[x-1][y].r[1];
+            Rua_atual[numeroR][0] = IClandia[x-1][y].r[0];
+            Rua_atual[numeroR][1] = IClandia[x-1][y].r[1];
             // carro vai andar
             IClandia[x-1][y].r[0] = carro[numeroR][0];
             IClandia[x-1][y].r[1] = carro[numeroR][1];
@@ -360,7 +357,7 @@ int Cima (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR
     return 0;
 }
 
-int Esq (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR, int coordenadas[][2])
+int Esq (Cidade IClandia[][37], char carro[][2], char Rua_atual[][2], int numeroR, int coordenadas[][2])
 {
     int x = coordenadas[numeroR][0];
     int y = coordenadas[numeroR][1];
@@ -371,11 +368,11 @@ int Esq (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR,
         {
             
             // vou andar, a que eu estava vai pegar o valor
-            IClandia[x][y].r[0] = R_atual[numeroR][0];
-            IClandia[x][y].r[1] = R_atual[numeroR][1];
+            IClandia[x][y].r[0] = Rua_atual[numeroR][0];
+            IClandia[x][y].r[1] = Rua_atual[numeroR][1];
             // vou guardar o valor da q vai estar o carro
-            R_atual[numeroR][0] = IClandia[x][y-1].r[0];
-            R_atual[numeroR][1] = IClandia[x][y-1].r[1];
+            Rua_atual[numeroR][0] = IClandia[x][y-1].r[0];
+            Rua_atual[numeroR][1] = IClandia[x][y-1].r[1];
             // carro vai andar
             IClandia[x][y-1].r[0] = carro[numeroR][0];
             IClandia[x][y-1].r[1] = carro[numeroR][1];
@@ -387,7 +384,7 @@ int Esq (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR,
     return 0;
 }
 
-int Baixo (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR, int coordenadas[][2], int limite)
+int Baixo (Cidade IClandia[][37], char carro[][2], char Rua_atual[][2], int numeroR, int coordenadas[][2], int limite)
 {
     int x = coordenadas[numeroR][0];
     int y = coordenadas[numeroR][1];
@@ -397,11 +394,11 @@ int Baixo (locura IClandia[][37], char carro[][2], char R_atual[][2], int numero
         if (IClandia[x+1][y].r[0] != 'x' && isalpha(IClandia[x+1][y].r[0]))
         {
             // vou andar, a que eu estava vai pegar o valor
-            IClandia[x][y].r[0] = R_atual[numeroR][0];
-            IClandia[x][y].r[1] = R_atual[numeroR][1];
+            IClandia[x][y].r[0] = Rua_atual[numeroR][0];
+            IClandia[x][y].r[1] = Rua_atual[numeroR][1];
             // vou guardar o valor da q vai estar o carro
-            R_atual[numeroR][0] = IClandia[x+1][y].r[0];
-            R_atual[numeroR][1] = IClandia[x+1][y].r[1];
+            Rua_atual[numeroR][0] = IClandia[x+1][y].r[0];
+            Rua_atual[numeroR][1] = IClandia[x+1][y].r[1];
             // carro vai andar
             IClandia[x+1][y].r[0] = carro[numeroR][0];
             IClandia[x+1][y].r[1] = carro[numeroR][1];
@@ -413,7 +410,7 @@ int Baixo (locura IClandia[][37], char carro[][2], char R_atual[][2], int numero
     return 0;
 }
 
-int Dir (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR, int coordenadas[][2], int limite)
+int Dir (Cidade IClandia[][37], char carro[][2], char Rua_atual[][2], int numeroR, int coordenadas[][2], int limite)
 {
     int x = coordenadas[numeroR][0];
     int y = coordenadas[numeroR][1];
@@ -424,11 +421,11 @@ int Dir (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR,
         {
             
             // vou andar, a que eu estava vai pegar o valor
-            IClandia[x][y].r[0] = R_atual[numeroR][0];
-            IClandia[x][y].r[1] = R_atual[numeroR][1];
+            IClandia[x][y].r[0] = Rua_atual[numeroR][0];
+            IClandia[x][y].r[1] = Rua_atual[numeroR][1];
             // vou guardar o valor da q vai estar o carro
-            R_atual[numeroR][0] = IClandia[x][y+1].r[0];
-            R_atual[numeroR][1] = IClandia[x][y+1].r[1];
+            Rua_atual[numeroR][0] = IClandia[x][y+1].r[0];
+            Rua_atual[numeroR][1] = IClandia[x][y+1].r[1];
             // carro vai andar
             IClandia[x][y+1].r[0] = carro[numeroR][0];
             IClandia[x][y+1].r[1] = carro[numeroR][1];
@@ -440,7 +437,7 @@ int Dir (locura IClandia[][37], char carro[][2], char R_atual[][2], int numeroR,
     return 0;
 }
 
-int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo_atual[][2], char semaforo[][6], int x, int y, int m, char condicao)
+int prox_semaforo(Cidade IClandia[][37], int coord_semaforos[][2], char semaforo_atual[][2], char semaforo[][6], int x, int y, int m, char condicao)
 {
     //printf ("Entrou: x:%d y:%d\n", x, y);
     char proximo[2];
@@ -481,7 +478,7 @@ int prox_semaforo(locura IClandia[][37], int coord_semaforos[][2], char semaforo
     return 1;
 }
 
-int contar_carros (char verif, int x, int y, locura IClandia[][37])
+int contar_carros (char verif, int x, int y, Cidade IClandia[][37])
 {
     int cont_carros = 0;
     
@@ -525,7 +522,7 @@ int contar_carros (char verif, int x, int y, locura IClandia[][37])
     return cont_carros;
 }
 
-int Fluxo (int coord_semaforos[][2], char semaforo[][6], locura IClandia[][37], int diferenca[], int p)
+int Fluxo (int coord_semaforos[][2], char semaforo[][6], Cidade IClandia[][37], int diferenca[], int p)
 {
     int x = coord_semaforos[p][0];
     int y = coord_semaforos[p][1];
@@ -563,11 +560,11 @@ int main()
 {
     int k = 0, x, y, quant_linhas = 28, quant_colunas = 37;
     
-    locura IClandia[28][37];
+    Cidade IClandia[28][37];
     char rua[4] = {'c', 'd', 'e', 'b'};
     
     // Carro
-    char carro[101][2], semaforo_atual[101][2], R_atual[101][2];
+    char carro[101][2], semaforo_atual[101][2], Rua_atual[101][2];
     int coordenadas[101][2], rodou[101];
     
     
@@ -602,7 +599,7 @@ int main()
         printf ("\n");
     }*/
     
-    ICLandia (IClandia, rua, coordenadas, R_atual, semaforo, coord_semaforos);
+    ICLandia (IClandia, rua, coordenadas, Rua_atual, semaforo, coord_semaforos);
     int mudanca; 
     
     for (int m = 0; m < 1000; m++)
@@ -761,7 +758,7 @@ int main()
             // se IClandia[i][j].r[0] != IClandia[i][j].r[1] ele decide pra onde vai (entra no if VV)
             // se nao continuamos no sentido da pista
             
-            if (R_atual[m][0] != R_atual[m][1])
+            if (Rua_atual[m][0] != Rua_atual[m][1])
             {
                 if (carro[m][1] == '1' || carro[m][1] == '9')
                 {
@@ -769,19 +766,19 @@ int main()
                     
                     if ((seqMov[0][0] == semaforo_atual[m][0] || seqMov[0][0] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
-                        rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Cima (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[0][1] == semaforo_atual[m][0] || seqMov[0][1] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
-                        rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Esq (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[0][2] == semaforo_atual[m][0] || seqMov[0][2] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
-                        rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        rodou[m] = Baixo (IClandia, carro, Rua_atual, m, coordenadas, quant_linhas);
                     }
                     if ((seqMov[0][3] == semaforo_atual[m][0] || seqMov[0][3] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
-                        rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        rodou[m] = Dir (IClandia, carro, Rua_atual, m, coordenadas, quant_colunas);
                     }
                 }
                 else if (carro[m][1] == '2' || carro[m][1] == '0')
@@ -792,26 +789,26 @@ int main()
                     {
                         // cima
                         //printf ("%c %c subiu\n", carro[m][0], carro[m][1]);
-                        rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Cima (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[1][1] == semaforo_atual[m][0] || seqMov[1][1] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // Dir
                         //printf ("%c %c dir\n", carro[m][0], carro[m][1]);
-                        rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        rodou[m] = Dir (IClandia, carro, Rua_atual, m, coordenadas, quant_colunas);
                     }
                     if ((seqMov[1][2] == semaforo_atual[m][0] || seqMov[1][2] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // baixo
                         //printf ("%c %c desceu\n", carro[m][0], carro[m][1]);
                         //printf ("%c %c\n", semaforo_atual[m][0], semaforo_atual[m][1]);
-                        rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        rodou[m] = Baixo (IClandia, carro, Rua_atual, m, coordenadas, quant_linhas);
                     }
                     if ((seqMov[1][3] == semaforo_atual[m][0] || seqMov[1][3] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // esq
                         //printf ("%c %c esq\n", carro[m][0], carro[m][1]);
-                        rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Esq (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                 }
                 else if (carro[m][1] == '3')
@@ -821,22 +818,22 @@ int main()
                     if ((seqMov[2][0] == semaforo_atual[m][0] || seqMov[2][0] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // baixo
-                        rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        rodou[m] = Baixo (IClandia, carro, Rua_atual, m, coordenadas, quant_linhas);
                     }
                     if ((seqMov[2][1] == semaforo_atual[m][0] || seqMov[2][1] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // esq
-                        rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Esq (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[2][2] == semaforo_atual[m][0] || seqMov[2][2] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // cima
-                        rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Cima (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[2][3] == semaforo_atual[m][0] || seqMov[2][3] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // Dir
-                        rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        rodou[m] = Dir (IClandia, carro, Rua_atual, m, coordenadas, quant_colunas);
                     }
                 }
                 else if (carro[m][1] == '4')
@@ -846,22 +843,22 @@ int main()
                     if ((seqMov[3][0] == semaforo_atual[m][0] || seqMov[3][0] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // baixo
-                        rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        rodou[m] = Baixo (IClandia, carro, Rua_atual, m, coordenadas, quant_linhas);
                     }
                     if ((seqMov[3][1] == semaforo_atual[m][0] || seqMov[3][1] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // Dir
-                        rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        rodou[m] = Dir (IClandia, carro, Rua_atual, m, coordenadas, quant_colunas);
                     }
                     if ((seqMov[3][2] == semaforo_atual[m][0] || seqMov[3][2] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // cima
-                        rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Cima (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[3][3] == semaforo_atual[m][0] || seqMov[3][3] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // esq
-                        rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Esq (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                 }
                 else if (carro[m][1] == '5')
@@ -871,22 +868,22 @@ int main()
                     if ((seqMov[4][0] == semaforo_atual[m][0] || seqMov[4][0] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // esq
-                        rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Esq (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[4][1] == semaforo_atual[m][0] || seqMov[4][1] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // baixo
-                        rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        rodou[m] = Baixo (IClandia, carro, Rua_atual, m, coordenadas, quant_linhas);
                     }
                     if ((seqMov[4][2] == semaforo_atual[m][0] || seqMov[4][2] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // Dir
-                        rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        rodou[m] = Dir (IClandia, carro, Rua_atual, m, coordenadas, quant_colunas);
                     }
                     if ((seqMov[4][3] == semaforo_atual[m][0] || seqMov[4][3] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // cima
-                        rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Cima (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                 }
                 else if (carro[m][1] == '6' || carro[m][1] == '8')
@@ -896,22 +893,22 @@ int main()
                     if ((seqMov[5][0] == semaforo_atual[m][0] || seqMov[5][0] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // Dir
-                        rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        rodou[m] = Dir (IClandia, carro, Rua_atual, m, coordenadas, quant_colunas);
                     }
                     if ((seqMov[5][1] == semaforo_atual[m][0] || seqMov[5][1] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // baixo
-                        rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        rodou[m] = Baixo (IClandia, carro, Rua_atual, m, coordenadas, quant_linhas);
                     }
                     if ((seqMov[5][2] == semaforo_atual[m][0] || seqMov[5][2] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // esq
-                        rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Esq (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[5][3] == semaforo_atual[m][0] || seqMov[5][3] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // cima
-                        rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Cima (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                 }
                 else if (carro[m][1] == '7')
@@ -921,29 +918,29 @@ int main()
                     if ((seqMov[6][0] == semaforo_atual[m][0] || seqMov[6][0] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // esq
-                        rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Esq (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[6][1] == semaforo_atual[m][0] || seqMov[6][1] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // cima
-                        rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        rodou[m] = Cima (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                     if ((seqMov[6][2] == semaforo_atual[m][0] || seqMov[6][2] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // Dir
-                        rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        rodou[m] = Dir (IClandia, carro, Rua_atual, m, coordenadas, quant_colunas);
                     }
                     if ((seqMov[6][3] == semaforo_atual[m][0] || seqMov[6][3] == semaforo_atual[m][1]) && rodou[m] == 0)
                     {
                         // baixo
-                        rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        rodou[m] = Baixo (IClandia, carro, Rua_atual, m, coordenadas, quant_linhas);
                     }
                 }
             }
             else
             {
                 // ele esta numa rua normal e vai seguir o sentido da pista
-                if (R_atual[m][0] == 'c')
+                if (Rua_atual[m][0] == 'c')
                 {
                     x = coordenadas[m][0] - 1;   // x e y sao as coordenadas do semaforo se ele existir
                     y = coordenadas[m][1];
@@ -953,12 +950,12 @@ int main()
                     {
                         // vai verificar se naquela posicao que ele quer ir tem um semaforo, se tiver ele escreve na IClandia
                         // so vai escrever na IClandia e andar se ele for verde, se não, não anda
-                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, R_atual[m][0]);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, Rua_atual[m][0]);
                         
-                        if (x == 1) rodou[m] = Cima (IClandia, carro, R_atual, m, coordenadas);
+                        if (x == 1) rodou[m] = Cima (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                 }
-                else if (R_atual[m][0] == 'e')
+                else if (Rua_atual[m][0] == 'e')
                 {
                     x = coordenadas[m][0];
                     y = coordenadas[m][1] - 1;
@@ -966,12 +963,12 @@ int main()
                     //printf ("x:%d y:%d\n", x, y);
                     if (y >= 0)
                     {
-                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, R_atual[m][0]);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, Rua_atual[m][0]);
                         
-                        if (x == 1) rodou[m] = Esq (IClandia, carro, R_atual, m, coordenadas);
+                        if (x == 1) rodou[m] = Esq (IClandia, carro, Rua_atual, m, coordenadas);
                     }
                 }
-                else if (R_atual[m][0] == 'b')
+                else if (Rua_atual[m][0] == 'b')
                 {
                     x = coordenadas[m][0] + 1;
                     y = coordenadas[m][1];
@@ -979,12 +976,12 @@ int main()
                     //printf ("x:%d y:%d\n", x, y);
                     if (x <= 27)
                     {
-                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, R_atual[m][0]);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, Rua_atual[m][0]);
                         
-                        if (x == 1) rodou[m] = Baixo (IClandia, carro, R_atual, m, coordenadas, quant_linhas);
+                        if (x == 1) rodou[m] = Baixo (IClandia, carro, Rua_atual, m, coordenadas, quant_linhas);
                     }
                 }
-                else if (R_atual[m][0] == 'd')
+                else if (Rua_atual[m][0] == 'd')
                 {
                     x = coordenadas[m][0];
                     y = coordenadas[m][1] + 1;
@@ -992,9 +989,9 @@ int main()
                     //printf ("x:%d y:%d\n", x, y);
                     if (y <= 36)
                     {
-                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, R_atual[m][0]);
+                        x = prox_semaforo(IClandia, coord_semaforos, semaforo_atual, semaforo, x, y, m, Rua_atual[m][0]);
                         
-                        if (x == 1) rodou[m] = Dir (IClandia, carro, R_atual, m, coordenadas, quant_colunas);
+                        if (x == 1) rodou[m] = Dir (IClandia, carro, Rua_atual, m, coordenadas, quant_colunas);
                     }
                 }
             }
