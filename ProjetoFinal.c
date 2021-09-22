@@ -605,7 +605,7 @@ int main()
     ICLandia (IClandia, rua, coordenadas, R_atual, semaforo, coord_semaforos);
     int mudanca; 
     
-    for (int m = 0; m < 10; m++)
+    for (int m = 0; m < 1000; m++)
     {
         for (int i = 0; i < 2; i++) // Printando limite Superior da IClandia
         {
@@ -749,8 +749,8 @@ int main()
             }
         }
         
-        //sleep(1);
-        //system("clear");
+        sleep(1);
+        system("clear");
         
         // carro[x][1] == '1'
         for (int m = 1; m < 101; m++)
