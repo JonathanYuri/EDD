@@ -75,22 +75,23 @@ int verificarLetra()
 }
 
 // diz todos os elementos que estão na borda da arvore vvvv
-void profundidade(No *raiz, int contador, int *guardado)
+void profundidade(No *raiz, int contador, int *guardado, int *numero)
 {
     if (raiz != NULL)
     {
         //printf("\n+++++%i %i +++++\n", raiz->valor, contador);
         if (raiz->esq == NULL && raiz->dir == NULL)
         {
-            //printf("(%i", raiz->valor);
-            //printf("(%i))", contador);
+            printf("(%i", raiz->valor);
+            printf("(%i))", contador);
             *guardado = contador;
+            *numero = raiz->valor;
         }
         //printf("%i", raiz->valor);
         //printf("ESQUERDA\n");
-        profundidade(raiz->esq, contador+1, guardado);
+        profundidade(raiz->esq, contador+1, guardado, numero);
         //printf("DIREITA\n");
-        profundidade(raiz->dir, contador+1, guardado);
+        profundidade(raiz->dir, contador+1, guardado, numero);
     }
 }
 
@@ -143,39 +144,40 @@ No *inserir(No *raiz, int num)
     return raiz;
 }
 
-No *removerFolha(No *raiz, int camadaNo, int camadaAtual, int *valorRetirado)
+No *removerFolha(No *raiz, int valorRetirar, int *valorRetirado)
 {
     if (raiz != NULL)
     {
-        //printf("\n%i %i %i\n", raiz->valor, camadaNo, camadaAtual);
-        if (camadaNo == camadaAtual)
+        //printf("\nfunção removerFolha\n%i %i %i\n", raiz->valor, valor, camadaAtual);
+        if (valorRetirar == raiz->valor)
         {
             *valorRetirado = raiz->valor;
+            printf ("valor: %d\n", *valorRetirado);
             free(raiz);
             return NULL;
         }
         else
         {
-            raiz->esq = removerFolha(raiz->esq, camadaNo, camadaAtual + 1 ,valorRetirado);
-            raiz->dir = removerFolha(raiz->dir, camadaNo ,camadaAtual + 1, valorRetirado);
+            raiz->esq = removerFolha(raiz->esq, valorRetirar, valorRetirado);
+            raiz->dir = removerFolha(raiz->dir, valorRetirar, valorRetirado);
         }
     }
 }
 
-int balancear(No *raiz, int profEsq, int profDir)
+int balancear(No *raiz, int profEsq, int profDir, int aux, int aux2)
 {
     int valorRetirado = -1;
     if (profEsq - profDir > 1)  // tenho que retirar do esquerdo para colocar no direito
     {
-        //printf("ENTROU ESQ\n");
-        removerFolha(raiz->esq, profEsq, 1, &valorRetirado);
-        //printf("---%i---", valorRetirado);
+        printf("ENTROU ESQ\n");
+        removerFolha(raiz->esq, aux, &valorRetirado);
+        printf("---%i---", valorRetirado);
     }
     else if (profDir - profEsq > 1)  // tirar do direito e colocar no esquerdo
     {
-        //printf("ENTROU DIR\n");
-        removerFolha(raiz->dir, profDir, 1, &valorRetirado);
-        //printf("---%i---", valorRetirado);
+        printf("ENTROU DIR\n");
+        removerFolha(raiz->dir, aux2, &valorRetirado);
+        printf("---%i---", valorRetirado);
     }
     else
     {
@@ -191,6 +193,7 @@ int main()
     inicializar(raiz);
     int num, elementoSaiu = 0, existe;
     int profEsq = 0, profDir = 0, quant_leituras;
+    int aux, aux2;
 
     printf("Digite a quantidade de nos que deseja inserir:\n");
     printf("OBS: a insercao sera ordenada\n");
@@ -221,17 +224,17 @@ int main()
     
     while(elementoSaiu != -1)
     {
-        profundidade(raiz->esq, 1, &profEsq);
+        profundidade(raiz->esq, 1, &profEsq, &aux);
         //printf("\n");
         
-        profundidade(raiz->dir, 1, &profDir);
-        //printf("\n%i %i\n", profEsq, profDir);
+        profundidade(raiz->dir, 1, &profDir, &aux2);
+        printf("\n%i %i\n", profEsq, profDir);
         
         //printf("\n\n");
         //imprimir(raiz);
         //printf("\n\n");
     
-        elementoSaiu = balancear(raiz, profEsq, profDir);
+        elementoSaiu = balancear(raiz, profEsq, profDir, aux, aux2);
         if (elementoSaiu == -1)
         {
             break;
@@ -248,6 +251,7 @@ int main()
             printf("para a esquerda\n");
             raiz->esq = inserir(raiz->esq, elementoSaiu);
         }
+        imprimir(raiz);
     }
     
     //raiz = raiz->dir;
