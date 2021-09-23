@@ -82,8 +82,8 @@ void profundidade(No *raiz, int contador, int *guardado, int *numero)
         //printf("\n+++++%i %i +++++\n", raiz->valor, contador);
         if (raiz->esq == NULL && raiz->dir == NULL)
         {
-            printf("(%i", raiz->valor);
-            printf("(%i))", contador);
+            //printf("(%i", raiz->valor);
+            //printf("(%i))", contador);
             *guardado = contador;
             *numero = raiz->valor;
         }
@@ -152,7 +152,7 @@ No *removerFolha(No *raiz, int valorRetirar, int *valorRetirado)
         if (valorRetirar == raiz->valor)
         {
             *valorRetirado = raiz->valor;
-            printf ("valor: %d\n", *valorRetirado);
+            //printf ("valor: %d\n", *valorRetirado);
             free(raiz);
             return NULL;
         }
@@ -169,15 +169,15 @@ int balancear(No *raiz, int profEsq, int profDir, int aux, int aux2)
     int valorRetirado = -1;
     if (profEsq - profDir > 1)  // tenho que retirar do esquerdo para colocar no direito
     {
-        printf("ENTROU ESQ\n");
+        //printf("ENTROU ESQ\n");
         removerFolha(raiz->esq, aux, &valorRetirado);
-        printf("---%i---", valorRetirado);
+        //printf("---%i---", valorRetirado);
     }
     else if (profDir - profEsq > 1)  // tirar do direito e colocar no esquerdo
     {
-        printf("ENTROU DIR\n");
+        //printf("ENTROU DIR\n");
         removerFolha(raiz->dir, aux2, &valorRetirado);
-        printf("---%i---", valorRetirado);
+        //printf("---%i---", valorRetirado);
     }
     else
     {
@@ -228,7 +228,7 @@ int main()
         //printf("\n");
         
         profundidade(raiz->dir, 1, &profDir, &aux2);
-        printf("\n%i %i\n", profEsq, profDir);
+        //printf("\n%i %i\n", profEsq, profDir);
         
         //printf("\n\n");
         //imprimir(raiz);
