@@ -77,8 +77,8 @@ void ICLandia (Cidade IClandia[][37], char rua[], int coordenadas[][2], char Rua
     for (int j = 0; j < 37; j++)
     {
         // Rua 1: e
-        IClandia[3][j].r[0] = rua[2];
-        IClandia[3][j].r[1] = rua[2];
+        IClandia[3][j].r[0] = rua[1];
+        IClandia[3][j].r[1] = rua[1];
         
         // Rua 2: e
         IClandia[6][j].r[0] = rua[2];
@@ -619,7 +619,7 @@ int main()
     ICLandia (IClandia, rua, coordenadas, Rua_atual, semaforo, coord_semaforos);
     int mudanca;
     
-    for (int m = 0; m < 15; m++)
+    for (int m = 0; m < 1000; m++)
     {
         for (int i = 0; i < 2; i++) // Printando limite Superior da IClandia
         {
@@ -727,25 +727,40 @@ int main()
             //printf("%i %i\n", quant_carros[p][0], quant_carros[p][1]);
             if (quant_carros[p][0] != 0 && quant_carros[p][1] != 0)
             {
-                printf("ENTROU %d\n", p);
+                //printf("ENTROU %d\n", p);
                 if ((mudancas[p][0] - mudancas[p][1]) % 3 == 0 && mudancas[p][0] > mudancas[p][1]) //(1, 4) (4, 1)
                 {
-                    printf("%i %i %d carros: %d %d mudar o semaforo na direcao horizontal\n", mudancas[p][0], mudancas[p][1], p, quant_carros[p][0], quant_carros[p][1]);
-                    mudancas[p][0] = 0;
-                    mudancas[p][1] = 0;
-                    
                     //mudar o semaforo na direção horizontal
-                    //zera contH e contV
+                    //printf("%i %i %d carros: %d %d mudar o semaforo na direcao horizontal\n", mudancas[p][0], mudancas[p][1], p, quant_carros[p][0], quant_carros[p][1]);
                     
+                    if (semaforo[p][0] == 'v')
+                    {
+                        semaforo[p][0] = 'a';
+                        semaforo[p][1] = '1';
+                        
+                        semaforo[p][3] = 'r';
+                        semaforo[p][4] = '1';
+                        
+                        mudancas[p][0] = 0;
+                        mudancas[p][1] = 0;
+                    }
                 }
                 else if ((mudancas[p][1] - mudancas[p][0]) % 3 == 0 && mudancas[p][1] > mudancas[p][0])
                 {
-                    printf("%i %i %d carros: %d %d mudar o semaforo na direcao vertical\n", mudancas[p][0], mudancas[p][1], p, quant_carros[p][0], quant_carros[p][1]);
-                    mudancas[p][0] = 0;
-                    mudancas[p][1] = 0;
                     //mudar o semaforo na direção vertical
-                    //zera contH e contV
+                    //printf("%i %i %d carros: %d %d mudar o semaforo na direcao vertical\n", mudancas[p][0], mudancas[p][1], p, quant_carros[p][0], quant_carros[p][1]);
                     
+                    if (semaforo[p][3] == 'v')
+                    {
+                        semaforo[p][3] = 'a';
+                        semaforo[p][4] = '1';
+                        
+                        semaforo[p][0] = 'r';
+                        semaforo[p][1] = '1';
+                        
+                        mudancas[p][0] = 0;
+                        mudancas[p][1] = 0;
+                    }
                 }
             }
             else if (mudanca != 0)
@@ -799,8 +814,8 @@ int main()
             //printf("%i %i\n", quant_carros[p][0], quant_carros[p][1]);
         }
         
-        //sleep(1);
-        //system("clear");
+        sleep(1);
+        system("clear");
         
         // carro[x][1] == '1'
         for (int m = 1; m < 101; m++)
