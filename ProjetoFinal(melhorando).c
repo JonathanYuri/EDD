@@ -724,21 +724,28 @@ int main()
         for (int p = 0; p < 96; p++)
         {
             mudanca = Fluxo (coord_semaforos, semaforo, IClandia, diferenca, p, quant_carros);
-            //printf("%i %i\n", quant_carros[0], quant_carros[1]);
+            //printf("%i %i\n", quant_carros[p][0], quant_carros[p][1]);
             if (quant_carros[p][0] != 0 && quant_carros[p][1] != 0)
             {
-                printf("ENTROU\n");
+                printf("ENTROU %d\n", p);
                 if ((mudancas[p][0] - mudancas[p][1]) % 3 == 0 && mudancas[p][0] > mudancas[p][1]) //(1, 4) (4, 1)
                 {
+                    printf("%i %i %d carros: %d %d mudar o semaforo na direcao horizontal\n", mudancas[p][0], mudancas[p][1], p, quant_carros[p][0], quant_carros[p][1]);
+                    mudancas[p][0] = 0;
+                    mudancas[p][1] = 0;
+                    
                     //mudar o semaforo na direção horizontal
                     //zera contH e contV
-                    printf("%i %i mudar o semaforo na direcao horizontal\n", mudancas[p][0], mudancas[p][1]);
+                    
                 }
                 else if ((mudancas[p][1] - mudancas[p][0]) % 3 == 0 && mudancas[p][1] > mudancas[p][0])
                 {
+                    printf("%i %i %d carros: %d %d mudar o semaforo na direcao vertical\n", mudancas[p][0], mudancas[p][1], p, quant_carros[p][0], quant_carros[p][1]);
+                    mudancas[p][0] = 0;
+                    mudancas[p][1] = 0;
                     //mudar o semaforo na direção vertical
                     //zera contH e contV
-                    printf("%i %i mudar o semaforo na direcao vertical\n", mudancas[p][0], mudancas[p][1]);
+                    
                 }
             }
             else if (mudanca != 0)
@@ -787,7 +794,7 @@ int main()
                 //printf("ENTROU\n");
             }
             
-            printf("(%i %i)\n", mudancas[p][0], mudancas[p][1]);
+            //printf("(%i %i)\n", mudancas[p][0], mudancas[p][1]);
             
             //printf("%i %i\n", quant_carros[p][0], quant_carros[p][1]);
         }
