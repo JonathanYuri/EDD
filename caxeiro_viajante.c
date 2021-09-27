@@ -68,6 +68,27 @@ No *inserir(No *raiz, int num)
     }
 }
 
+int pesquisa_adj(No *raiz, int num)
+{
+    if (raiz != NULL)
+    {
+        for (int c = 0; c < 4; c++)
+        {
+            if (raiz->adjacencia[c].num_adj == num)
+            {
+                printf("(%i %i)", raiz->valor, c);
+                return 1;
+            }
+        }
+        
+        pesquisa_adj(raiz->prox[0], num);
+        pesquisa_adj(raiz->prox[1], num);
+        pesquisa_adj(raiz->prox[2], num);
+        pesquisa_adj(raiz->prox[3], num);
+    }
+    return 0;
+}
+
 int main()
 {
     No *raiz;
@@ -80,12 +101,21 @@ int main()
     raiz = inserir(raiz, num);
     
     //INSERIU
-    //printf("%i ", raiz->valor);
+    printf("\n%i\n", raiz->valor);
+    for (int c = 0; c < 4; c++)
+    {
+        printf("%i %i\n", raiz->adjacencia[c].num_adj, raiz->adjacencia[c].custo);
+    }
+    pesquisa_adj(raiz, 2);
     /*
     for (int c = 0; c < 5; c++)
     {
         
     }*/
+    
+    /*na inserir eu antes de colocar ele em algum lugar, eu preciso saber se ele ja existe nas listas de adjacencia
+    se ele nao existe e a raiz tiver nao nula eu nao posso adicionar, se ele ja existe, eu tenho que colocar ele 
+    na mesma posicao adjacencia[c] em relacao ao proximo (pra deixar mais facil pra mim)*/
     
     return 0;
 }
