@@ -11,7 +11,7 @@ typedef struct{
 typedef struct no{
     int valor;  // valor atual
     vet adjacencia[4];  // os que ligam com ele
-    struct no *prox[4];  
+    struct no *prox[4]; 
 }No;
 
 void inicializar(No *raiz)
@@ -33,12 +33,25 @@ int verificar_num()
     }
 }
 
-No *inserir(No *raiz, int num)
+void imprimir(No *raiz)
 {
+    if (raiz != NULL)
+    {
+        printf("%i\n", raiz->valor);
+        imprimir(raiz->prox[0]);
+        imprimir(raiz->prox[1]);
+        imprimir(raiz->prox[2]);
+        imprimir(raiz->prox[3]);
+    }
+}
+
+No *inserir(No *raiz, int num, int existe)
+{
+    int ir = -1;
     if (raiz == NULL)
     {
         // INSERIR
-        //printf("ENTROU\n");
+        printf("ENTROU\n");
         No *aux = (No*) malloc(sizeof(No));
         int qnt, valor_adj, custo;
         
@@ -60,12 +73,41 @@ No *inserir(No *raiz, int num)
             aux->prox[c] = NULL;
         }
         
+        //printf("--%i--", aux->valor);
+        
         return aux;
     }
     else
     {
         // percorrer
+        //printf("ACHEI o %i com as ligacoes\n", raiz->valor);
+        for (int c = 0; c < 4; c++)
+        {
+            //printf("%i %i\n", raiz->adjacencia[c].num_adj, raiz->adjacencia[c].custo);
+            if (num == raiz->adjacencia[c].num_adj)
+            {
+                ir = c;
+                break;
+            }
+        }
+        if (ir != -1)  // entrou no if
+        {
+            //printf("(%i)", raiz->valor);
+            //printf("*%i*", ir);
+            raiz->prox[ir] = inserir(raiz->prox[ir], num, existe);
+            //printf("(%i)", raiz->prox[ir]->valor);
+        }
+        else
+        {
+            //printf("AINDA N");
+            
+            raiz->prox[0] = inserir(raiz->prox[0], num, existe);
+            raiz->prox[1] = inserir(raiz->prox[1], num, existe);
+            raiz->prox[2] = inserir(raiz->prox[2], num, existe);
+            raiz->prox[3] = inserir(raiz->prox[3], num, existe);
+        }
     }
+    return raiz;
 }
 
 int pesquisa_adj(No *raiz, int num)
@@ -96,17 +138,33 @@ int main()
     
     inicializar(raiz);
     
+    // inserir o primeiro elemento
     printf("Digite o numero a ser inserido: ");
     num = verificar_num();
-    raiz = inserir(raiz, num);
+    raiz = inserir(raiz, num, 0);
     
     //INSERIU
-    printf("\n%i\n", raiz->valor);
+    //imprimir(raiz);
+    //printf("\n%i\n", raiz->valor);
     for (int c = 0; c < 4; c++)
     {
-        printf("%i %i\n", raiz->adjacencia[c].num_adj, raiz->adjacencia[c].custo);
+        //printf("%i %i\n", raiz->adjacencia[c].num_adj, raiz->adjacencia[c].custo);
     }
-    pesquisa_adj(raiz, 2);
+    //pesquisa_adj(raiz, 2);
+    
+    printf("Digite o numero a ser inserido: ");
+    num = verificar_num();
+    int existe = pesquisa_adj(raiz, num);
+    raiz = inserir(raiz, num, existe);
+    
+    //printf("Digite o numero a ser inserido: ");
+    //num = verificar_num();
+    //existe = pesquisa_adj(raiz, num);
+    //raiz = inserir(raiz, num, existe);
+    
+    printf("\n");
+    pesquisa_adj(raiz, 3);
+    imprimir(raiz);
     /*
     for (int c = 0; c < 5; c++)
     {
