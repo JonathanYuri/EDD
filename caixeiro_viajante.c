@@ -47,7 +47,7 @@ void imprimir(No *raiz)
 
 No *inserir(No *raiz, int num, int existe)
 {
-    int ir = -1;
+    int ir = -1, c = 0;
     if (raiz == NULL)
     {
         // INSERIR
@@ -101,10 +101,25 @@ No *inserir(No *raiz, int num, int existe)
         {
             //printf("AINDA N");
             
+            raiz->prox[c] = inserir(raiz->prox[c], num, existe);
+            while(raiz->prox[c] == NULL)
+            {
+                raiz->prox[c] = inserir(raiz->prox[c], num, existe);
+            }
+            /*
             raiz->prox[0] = inserir(raiz->prox[0], num, existe);
-            raiz->prox[1] = inserir(raiz->prox[1], num, existe);
-            raiz->prox[2] = inserir(raiz->prox[2], num, existe);
-            raiz->prox[3] = inserir(raiz->prox[3], num, existe);
+            if (raiz->prox[0] == NULL)
+            {
+                raiz->prox[1] = inserir(raiz->prox[1], num, existe);
+                if (raiz->prox[1] == NULL)
+                {
+                    raiz->prox[2] = inserir(raiz->prox[2], num, existe);
+                    if (raiz->prox[2] == NULL)
+                    {
+                        raiz->prox[3] = inserir(raiz->prox[3], num, existe);
+                    }
+                }
+            }*/
         }
     }
     return raiz;
@@ -112,21 +127,26 @@ No *inserir(No *raiz, int num, int existe)
 
 int pesquisa_adj(No *raiz, int num)
 {
+    int e;
     if (raiz != NULL)
     {
         for (int c = 0; c < 4; c++)
         {
             if (raiz->adjacencia[c].num_adj == num)
             {
-                printf("(%i %i)", raiz->valor, c);
+                printf("pesquisa pelo num: %i(raiz: %i adjacencia: %i)\n", num, raiz->valor, c);
                 return 1;
             }
         }
         
-        pesquisa_adj(raiz->prox[0], num);
-        pesquisa_adj(raiz->prox[1], num);
-        pesquisa_adj(raiz->prox[2], num);
-        pesquisa_adj(raiz->prox[3], num);
+        e = pesquisa_adj(raiz->prox[0], num);
+        if (e == 1) return 1;
+        e = pesquisa_adj(raiz->prox[1], num);
+        if (e == 1) return 1;
+        e = pesquisa_adj(raiz->prox[2], num);
+        if (e == 1) return 1;
+        e = pesquisa_adj(raiz->prox[3], num);
+        if (e == 1) return 1;
     }
     return 0;
 }
@@ -134,7 +154,7 @@ int pesquisa_adj(No *raiz, int num)
 int main()
 {
     No *raiz;
-    int num;
+    int num, existe;
     
     inicializar(raiz);
     
@@ -154,16 +174,17 @@ int main()
     
     printf("Digite o numero a ser inserido: ");
     num = verificar_num();
-    int existe = pesquisa_adj(raiz, num);
+    existe = pesquisa_adj(raiz, num);
     raiz = inserir(raiz, num, existe);
     
-    //printf("Digite o numero a ser inserido: ");
-    //num = verificar_num();
-    //existe = pesquisa_adj(raiz, num);
-    //raiz = inserir(raiz, num, existe);
+    printf("Digite o numero a ser inserido: ");
+    num = verificar_num();
+    existe = pesquisa_adj(raiz, num);
+    raiz = inserir(raiz, num, existe);
     
     printf("\n");
-    pesquisa_adj(raiz, 3);
+    //existe = pesquisa_adj(raiz, 3);
+    //printf("EXISTE %i\n", existe);
     imprimir(raiz);
     /*
     for (int c = 0; c < 5; c++)
