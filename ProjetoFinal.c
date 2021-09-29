@@ -77,8 +77,8 @@ void ICLandia (Cidade IClandia[][37], char rua[], int coordenadas[][2], char Rua
     for (int j = 0; j < 37; j++)
     {
         // Rua 1: e
-        IClandia[3][j].r[0] = rua[2];
-        IClandia[3][j].r[1] = rua[2];
+        IClandia[3][j].r[0] = rua[1];
+        IClandia[3][j].r[1] = rua[1];
         
         // Rua 2: e
         IClandia[6][j].r[0] = rua[2];
@@ -538,13 +538,13 @@ int Fluxo (int coord_semaforos[][2], char semaforo[][6], Cidade IClandia[][37], 
     int quantV = contar_carros (verX, x, y, IClandia);
     int quantH = contar_carros (verY, x, y, IClandia);
     
-    if (quantV > quantH) // Escrever no vetor, baixar o tempo vermelho do Vertical
+    if (quantV > (quantH - 1)) // Escrever no vetor, baixar o tempo vermelho do Vertical
     {
         diferenca[0] = 1;
         diferenca[1] = 0;
         return quantV - quantH;
     }
-    else if (quantH > quantV) // Escrever no vetor, baixar o tempo vermelho do Horizontal
+    else if ((quantH - 1) > quantV) // Escrever no vetor, baixar o tempo vermelho do Horizontal
     {
         diferenca[0] = 0;
         diferenca[1] = 1;
