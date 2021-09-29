@@ -11,7 +11,7 @@ typedef struct{
 typedef struct no{
     int valor;  // valor atual
     vet adjacencia[4];  // os que ligam com ele
-    struct no *prox[4]; 
+    struct no *prox[4];
 }No;
 
 void inicializar(No *raiz)
@@ -23,6 +23,7 @@ int verificar_num()
 {
     int num, a;
     a = scanf("%i", &num);
+    printf("FSDS");
     getchar();
     
     if (a == 1) return num;
@@ -50,7 +51,7 @@ void imprimir(No *raiz)
     }
 }
 
-No *inserir(No *raiz, int num, int existe)
+No *inserir(No *raiz, int num)
 {
     int ir = -1, c = 0;
     if (raiz == NULL)
@@ -99,17 +100,17 @@ No *inserir(No *raiz, int num, int existe)
         {
             //printf("(%i)", raiz->valor);
             //printf("*%i*", ir);
-            raiz->prox[ir] = inserir(raiz->prox[ir], num, existe);
+            raiz->prox[ir] = inserir(raiz->prox[ir], num);
             //printf("(%i)", raiz->prox[ir]->valor);
         }
         else
         {
             //printf("AINDA N");
             
-            raiz->prox[c] = inserir(raiz->prox[c], num, existe);
+            raiz->prox[c] = inserir(raiz->prox[c], num);
             while(raiz->prox[c] == NULL)
             {
-                raiz->prox[c] = inserir(raiz->prox[c], num, existe);
+                raiz->prox[c] = inserir(raiz->prox[c], num);
             }
             /*
             raiz->prox[0] = inserir(raiz->prox[0], num, existe);
@@ -159,26 +160,27 @@ int pesquisa_adj(No *raiz, int num)
 int main()
 {
     No *raiz;
-    int num, existe;
+    int num, vetor[4];
     
     inicializar(raiz);
     
     // inserir o primeiro elemento
     printf("Digite o numero a ser inserido: ");
     num = verificar_num();
-    raiz = inserir(raiz, num, 0);
+    raiz = inserir(raiz, num);
     
     //INSERIU
     //imprimir(raiz);
     //printf("\n%i\n", raiz->valor);
+    /*
     for (int c = 0; c < 4; c++)
     {
         printf("\nDigite o numero a ser inserido: ");
         num = verificar_num();
-        existe = pesquisa_adj(raiz, num);
-        raiz = inserir(raiz, num, existe);
+        //pesquisa_adj(raiz, num);
+        raiz = inserir(raiz, num);
         //printf("%i %i\n", raiz->adjacencia[c].num_adj, raiz->adjacencia[c].custo);
-    }
+    }*/
     //pesquisa_adj(raiz, 2);
     
     //printf("Digite o numero a ser inserido: ");
