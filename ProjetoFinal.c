@@ -484,7 +484,8 @@ int contar_carros (char verif, int x, int y, Cidade IClandia[][37])
     
     if (verif == 'c')
     {
-        for (int i = x-1; i >= x-3; i--)
+        // se eu estiver num canto perto da borda eu verifico se tem carro lá?  Não to afim
+        for (int i = x-1; i >= x-2; i--)
         {
             if (i < 0)  break;
             
@@ -493,7 +494,7 @@ int contar_carros (char verif, int x, int y, Cidade IClandia[][37])
     }
     else if (verif == 'b')
     {
-        for (int i = x+1; i <= x+3; i++)
+        for (int i = x+1; i <= x+2; i++)
         {
             if (i > 27) break;
             
@@ -502,7 +503,7 @@ int contar_carros (char verif, int x, int y, Cidade IClandia[][37])
     }
     else if (verif == 'd')
     {
-        for (int i = y+1; i <= y+4; i++)
+        for (int i = y+1; i <= y+3; i++)
         {
             if (i > 36) break;
             
@@ -511,7 +512,7 @@ int contar_carros (char verif, int x, int y, Cidade IClandia[][37])
     }
     else if (verif == 'e')
     {
-        for (int i = y-1; i >= y-4; i--)
+        for (int i = y-1; i >= y-3; i--)
         {
             if (i < 0)  break;
             
