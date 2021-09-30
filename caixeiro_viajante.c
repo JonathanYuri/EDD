@@ -272,3 +272,5 @@ int main()
     
     return 0;
 }
+
+// ta dando problema para andar ainda
