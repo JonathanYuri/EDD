@@ -190,7 +190,7 @@ int pesquisa_adj(No *raiz, int num)
 
 void percorrer(No *raiz, int percorridos[], int posicao_atual, int posicao_inicial, int cont, int custo_total)
 {
-    int passou, p;
+    int passou, p, c = 0;
     
     if (cont != 0 && (posicao_atual == posicao_inicial))
     {
@@ -207,17 +207,21 @@ void percorrer(No *raiz, int percorridos[], int posicao_atual, int posicao_inici
             printf("(%i %i) ", raiz->adjacencia[i].num_adj, raiz->adjacencia[i].custo);
         }
         
-        passou = verificar_igual(percorridos, raiz->adjacencia[0].num_adj, 0);
-        //printf("((%i))", passou);
+        passou = verificar_igual(percorridos, raiz->adjacencia[c].num_adj, 0);
         
-        if (passou == 0) // nao passou nele AINDA
+        p = quant_percorrida(percorridos, 0, 0);
+        while (passou == 1 && c < 3)
         {
-            custo_total += raiz->adjacencia[0].custo;
-            
-            p = quant_percorrida(percorridos, 0, 0);
-            percorridos[p] = raiz->adjacencia[0].num_adj;   // percorridos[n] vou ter que achar quantos foram escritos
-            percorrer(raiz->prox[0], percorridos, percorridos[p], posicao_inicial, cont + 1, custo_total);
+            c++;
+            passou = verificar_igual(percorridos, raiz->adjacencia[c].num_adj, 0);
         }
+        
+        custo_total += raiz->adjacencia[c].custo;
+        percorridos[p] = raiz->adjacencia[c].num_adj;   // percorridos[n] vou ter que achar quantos foram escritos
+        printf("%i %i %i %i %i\n", percorridos[0], percorridos[1], percorridos[2], percorridos[3], percorridos[4]);
+        
+        printf("%i", raiz->prox[c]->valor);
+        //percorrer(raiz, percorridos, percorridos[p], posicao_inicial, cont + 1, custo_total);
         printf("\n");
     }
     else
