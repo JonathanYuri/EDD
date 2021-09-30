@@ -23,7 +23,6 @@ int verificar_num()
 {
     int num, a;
     a = scanf("%i", &num);
-    printf("FSDS");
     getchar();
     
     if (a == 1) return num;
@@ -39,19 +38,18 @@ void imprimir(No *raiz)
     if (raiz != NULL)
     {
         printf("%i\n", raiz->valor);
-        //printf("((0)) ");
+        printf("((0)) ");
         imprimir(raiz->prox[0]);
-        //printf("((1)) ");
+        printf("((1)) ");
         imprimir(raiz->prox[1]);
-        //printf("((2)) ");
+        printf("((2)) ");
         imprimir(raiz->prox[2]);
-        //printf("((3)) ");
+        printf("((3)) ");
         imprimir(raiz->prox[3]);
-        //printf("SAIU\n");
+        printf("SAIU\n");
     }
 }
 
-/*
 No *inserir(No *raiz, int num)
 {
     int ir = -1, c = 0;
@@ -126,33 +124,8 @@ No *inserir(No *raiz, int num)
                         raiz->prox[3] = inserir(raiz->prox[3], num, existe);
                     }
                 }
-            }
+            }*/
         }
-    }
-    return raiz;
-}*/
-
-No *inserirSimples(No *raiz, int num)
-{
-    if (raiz == NULL)
-    {
-        No *aux = (No*)malloc(sizeof(No));
-        
-        aux->valor = num;
-        for (int c = 0; c < 4; c++)
-        {
-            aux->adjacencia[c].num_adj = c+1;
-            aux->adjacencia[c].custo = c+2;
-            aux->prox[c] = NULL;
-        }
-        return aux;
-    }
-    else
-    {
-        raiz->prox[0] = inserirSimples(raiz->prox[0], num);
-        raiz->prox[1] = inserirSimples(raiz->prox[1], num);
-        raiz->prox[2] = inserirSimples(raiz->prox[2], num);
-        raiz->prox[3] = inserirSimples(raiz->prox[3], num);
     }
     return raiz;
 }
@@ -186,30 +159,20 @@ int pesquisa_adj(No *raiz, int num)
 int main()
 {
     No *raiz;
-    int num;
+    int num, vetor[4];
     
-    inicializar(raiz);
+    raiz = NULL;
+    //inicializar(raiz);
     
     // inserir o primeiro elemento
     printf("Digite o numero a ser inserido: ");
     num = verificar_num();
     
-    raiz = inserirSimples(raiz, num);
-    
-    /*
-    raiz->valor = 1;
-    for (int i = 0; i < 4; i++)
-    {
-        raiz->adjacencia[i].num_adj = (i + 1) * 2;
-        raiz->adjacencia[i].custo = (i + 1);
-        raiz->prox[i] = NULL;
-    }*/
-    //raiz = inserir(raiz, num);
+    raiz = inserir(raiz, num);
     
     //INSERIU
     //imprimir(raiz);
     //printf("\n%i\n", raiz->valor);
-    /*
     for (int c = 0; c < 4; c++)
     {
         printf("\nDigite o numero a ser inserido: ");
@@ -217,18 +180,7 @@ int main()
         //pesquisa_adj(raiz, num);
         raiz = inserir(raiz, num);
         //printf("%i %i\n", raiz->adjacencia[c].num_adj, raiz->adjacencia[c].custo);
-    }*/
-    //pesquisa_adj(raiz, 2);
-    
-    //printf("Digite o numero a ser inserido: ");
-    //num = verificar_num();
-    //existe = pesquisa_adj(raiz, num);
-    //raiz = inserir(raiz, num, existe);
-    
-    //printf("Digite o numero a ser inserido: ");
-    //num = verificar_num();
-    //existe = pesquisa_adj(raiz, num);
-    //raiz = inserir(raiz, num, existe);
+    }
     
     printf("\n");
     //existe = pesquisa_adj(raiz, 3);
