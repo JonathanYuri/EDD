@@ -52,8 +52,9 @@ int verificar_igual(int vetor[], int num, int cont)
 int quant_percorrida(int vetor[], int cont, int qnt)
 {
     //printf("cont %i valor %i\n", cont, vetor[cont]);
-    if (cont == 4)
+    if (cont == 5)
     {
+        printf("%i\n", qnt);
         return qnt;
     }
     if (vetor[cont] != 0)
@@ -252,32 +253,25 @@ No *pesquisa(No *raiz, int procurar)
             c++;
         }*/
     }
-    return raiz;
+    return NULL;
 }
 
-void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int posicao_inicial, int cont, int custo_total)
+void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int posicao_inicial, int custo_total)
 {
     int passou, p, c = 0;
     
     p = quant_percorrida(percorridos, 0, 0);
     printf("---------%i-------", p);
     
-    /*
-    if (cont == 3)
-    {
-        printf("%i %i -- %i (%i)", posicao_atual, posicao_inicial, passou, c);
-        return;
-    }
-    */
-    if (p == 4)
+    
+    if (p == 5)
     {
         // so falta retornar pro inicio
         // em alguns casos eu nao conseguiria voltar para o inicio, por exemplo comecando no 1 e terminando no 3 (ja que o 3 nao tem ligacao com o 1)
         // outro exemplo seria comecando no 3 ou no 2 ou no 5
         // so nao aconteceria no 4 pq o 4 tem ligacao com todos
         
-        
-        printf("ADSASDADAS");
+        printf("custo %i\n", custo_total);
         return;
     }
     /*
@@ -287,12 +281,6 @@ void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int p
         printf("%i\n", raiz->valor);
         return;
     }*/
-    if (cont != 0 && (posicao_atual == posicao_inicial))
-    {
-        printf("ACABOU\n");
-        printf("===%i===", custo_total);
-        return;
-    }
     if (raiz->valor == posicao_atual)
     {
         printf("NA POSICAO CERTA\n");
@@ -302,6 +290,8 @@ void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int p
         {
             printf("(%i %i) ", raiz->adjacencia[i].num_adj, raiz->adjacencia[i].custo);
         }
+        
+        //looping(raiz, percorridos, 0);
         
         passou = verificar_igual(percorridos, raiz->adjacencia[c].num_adj, 0);
         
@@ -314,7 +304,6 @@ void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int p
         custo_total += raiz->adjacencia[c].custo;
         percorridos[p] = raiz->adjacencia[c].num_adj;   // percorridos[n] vou ter que achar quantos foram escritos
         
-        
         printf("%i %i %i %i %i\n", percorridos[0], percorridos[1], percorridos[2], percorridos[3], percorridos[4]);
         
         if (raiz->prox[c] == NULL)
@@ -322,13 +311,20 @@ void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int p
             printf("====%i====", percorridos[p]);
             raiz = pesquisa(inicio, percorridos[p]);
             
-            percorrer(inicio, raiz, percorridos, percorridos[p], posicao_inicial, cont + 1, custo_total);
+            /*
+            if (cont == 3)
+            {
+                printf("%i %i -- %i (%i)", posicao_atual, posicao_inicial, passou, c);
+                return;
+            }*/
+            
+            percorrer(inicio, raiz, percorridos, percorridos[p], posicao_inicial, custo_total);
         }
         else
         {
             printf("%i", raiz->prox[c]->valor);
             
-            percorrer(inicio, raiz->prox[c], percorridos, percorridos[p], posicao_inicial, cont + 1, custo_total);
+            percorrer(inicio, raiz->prox[c], percorridos, percorridos[p], posicao_inicial, custo_total);
             
             printf("\n");
         }
@@ -349,6 +345,10 @@ void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int p
             //
             return;
         }*/
+    }
+    else
+    {
+        
     }
 }
 
@@ -386,7 +386,7 @@ int main()
     imprimir(raiz);
     
     percorridos[0] = 1;
-    percorrer(raiz, raiz, percorridos, 1, 1, 0, 0);
+    percorrer(raiz, raiz, percorridos, 1, 1, 0);
     
     /*na inserir eu antes de colocar ele em algum lugar, eu preciso saber se ele ja existe nas listas de adjacencia
     se ele nao existe e a raiz tiver nao nula eu nao posso adicionar, se ele ja existe, eu tenho que colocar ele 
