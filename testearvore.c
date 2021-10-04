@@ -8,11 +8,6 @@ typedef struct no{
     struct no *right;
 }No;
 
-void inicializar(No *raiz)
-{
-    raiz = NULL;
-}
-
 void liberar(No *raiz)
 {
     if (raiz != NULL)
@@ -88,7 +83,7 @@ int main()
 {
     No *raiz;
 
-    inicializar(raiz);
+    raiz = NULL;
     int num;
     
     //for (int c = 0; c < 3 ; c++)
