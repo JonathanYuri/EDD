@@ -193,20 +193,16 @@ No *pesquisa(No *raiz, int procurar)
     int c = 0;
     No *aux = (No*) malloc (sizeof(No));
     aux = NULL;
-    printf("%i ", procurar);
+    //printf("%i ", procurar);
     
-    if (raiz == NULL)
-    {
-        printf("GGGGG");
-    }
     if (raiz->valor == procurar)
     {
-        printf("ACHOU");
+        //printf("ACHOU");
         return raiz;
     }
     else
     {
-        printf("11111 ");
+        //printf("11111 ");
         
         if (procurar == 2 || procurar == 3)
         {
@@ -256,6 +252,22 @@ No *pesquisa(No *raiz, int procurar)
     return NULL;
 }
 
+int looping(No *raiz, int percorridos[], int cont)
+{
+    int passou, c = 0;
+    
+    for (int c = 0; c < 4; c++)
+    {
+        passou = verificar_igual(percorridos, raiz->adjacencia[c].num_adj, 0);
+        printf("\n((%i %i %i %i %i))\n", percorridos[0], percorridos[1], percorridos[2], percorridos[3], percorridos[4]);
+        printf("c : %i passou : %i\n", c, passou);
+        if (passou == 0)
+        {
+            printf(">> a adjacencia %i da raiz->valor (%i) pode ir\n", c, raiz->valor);
+        }
+    }
+}
+
 void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int posicao_inicial, int custo_total)
 {
     int passou, p, c = 0;
@@ -291,7 +303,7 @@ void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int p
             printf("(%i %i) ", raiz->adjacencia[i].num_adj, raiz->adjacencia[i].custo);
         }
         
-        //looping(raiz, percorridos, 0);
+        looping(raiz, percorridos, 0);
         
         passou = verificar_igual(percorridos, raiz->adjacencia[c].num_adj, 0);
         
@@ -308,7 +320,7 @@ void percorrer(No *inicio, No *raiz, int percorridos[], int posicao_atual, int p
         
         if (raiz->prox[c] == NULL)
         {
-            printf("====%i====", percorridos[p]);
+            //printf("====%i====", percorridos[p]);
             raiz = pesquisa(inicio, percorridos[p]);
             
             /*
